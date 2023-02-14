@@ -1,0 +1,34 @@
+{
+  "name": "rete-kit",
+  "version": "1.0.0-beta.1",
+  "main": "bin/module.js",
+  "module": "bin/module.js",
+  "types": "bin/module.d.ts",
+  "bin": {
+    "rete": "./bin/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint src"
+  },
+  "author": "Vitaliy Stoliarov",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/retejs/rete-kit.git"
+  },
+  "dependencies": {
+    "case": "^1.6.3",
+    "chalk": "^4.1.2",
+    "commander": "^10.0.0",
+    "concurrently": "^7.6.0",
+    "inquirer": "^8.2.5",
+    "recursive-copy": "^2.0.14",
+    "replace-in-file": "^6.3.5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.13.0",
+    "rete-cli": "^1.0.0-beta.20"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "{{packageName}}",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "build": "rete build -c rete.config.ts",
+    "build:dev": "rete build -c rete.config.ts --watch",
+    "lint": "rete lint"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "peerDependencies": {
+    "rete": "^2.0.0"
+  },
+  "devDependencies": {
+    "rete": "^2.0.0",
+    "rete-cli": "{{cliVersion}}",
+    "typescript": "4.8.4"
+  }
+}
