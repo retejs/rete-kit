@@ -65,7 +65,16 @@ function getSortedPackages(packages: Package[]): Package[] {
   }))
 }
 
-export default async function (cwd: string) {
+export async function getReteDependenciesFor(cwd: string, folder: string): Promise<Package[]> {
+  const config = await getPackageConfig(folder)
+  const dependencies = Object.keys({ ...config.dependencies, ...config.devDependencies })
+  const packages = await scan(cwd)
+  const matchedPackages = packages.filter(pkg => dependencies.includes(pkg.name))
+
+  return matchedPackages
+}
+
+export default async function scan(cwd: string) {
   const packages = await findRetePackages(cwd)
 
   return getSortedPackages(packages)
