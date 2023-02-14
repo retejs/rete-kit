@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "lint": "eslint src"
+    "lint": "rete lint",
+    "test": "rete test"
   },
   "author": "Vitaliy Stoliarov",
   "license": "MIT",
@@ -25,10 +26,13 @@
     "concurrently": "^7.6.0",
     "inquirer": "^8.2.5",
     "recursive-copy": "^2.0.14",
-    "replace-in-file": "^6.3.5"
+    "replace-in-file": "^6.3.5",
+    "toposort": "^2.0.2"
   },
   "devDependencies": {
+    "@types/inquirer": "^9.0.3",
     "@types/node": "^18.13.0",
-    "rete-cli": "^1.0.0-beta.20"
+    "@types/toposort": "^2.0.3",
+    "rete-cli": "file:../rete-cli/rete-cli-1.0.0-beta.20.tgz"
   }
 }
