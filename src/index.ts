@@ -4,6 +4,7 @@ import { createCommand, Option } from 'commander'
 
 import build from './build'
 import plugin from './plugin'
+import updateCli from './update-cli'
 
 const program = createCommand()
 
@@ -27,6 +28,13 @@ program
   .requiredOption('-n --name <name>')
   .action((options: { name: string }) => {
     plugin(options.name)
+  })
+
+program
+  .command('update-cli')
+  .description('Update Rete CLI in several packages')
+  .action(async () => {
+    updateCli(process.cwd())
   })
 
 program.parse(process.argv)
