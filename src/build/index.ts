@@ -26,9 +26,13 @@ export default async function (folders: string[]) {
 
   const targetPackages = dependencyTopology.filter(({ dependent }) => dependent.length)
 
+  process.stdout.write('\u001b[3J\u001b[1J')
+  console.clear()
+  console.log(chalk.bgGreen(' INFO '), chalk.green('The following packages will be built in watch mode:'))
   console.log(targetPackages.map(({ config, folder }) => {
     return `\t- ${config.name} ${chalk.grey(`(./${folder})`)}`
   }).join('\n'), '\n')
+  console.log(chalk.bgGreen(' PREPARE '), chalk.green('Building...'))
 
   const commands = targetPackages.map(({ config, folder, dependent }) => {
     const dependentPackages = dependent.map(name => dependencyTopology.filter(n => n.config.name === name)).flat()
@@ -52,4 +56,11 @@ export default async function (folders: string[]) {
       line => /Build (\w+) completed/.test(line)
     )
   }
+  console.log(chalk.bgGreen(' READY '), chalk.green('Ready for development'))
+  console.log(chalk.grey([
+    '\t*',
+    'make sure your application bundler doesn\'t cache',
+    'these packages inside node_modules',
+    '(important for HMR mode)'
+  ].join(' ')))
 }
