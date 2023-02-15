@@ -10,7 +10,7 @@ async function isRetePackage(folder: string) {
       const { name, scripts = {}, peerDependencies = {} } = config
 
       if (name === 'rete') return true
-      if (scripts['build:dev'] && Object.keys(peerDependencies).includes('rete')) {
+      if (scripts['build'] && Object.keys(peerDependencies).includes('rete')) {
         return true
       }
     }
