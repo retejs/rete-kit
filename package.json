@@ -23,7 +23,6 @@
     "case": "^1.6.3",
     "chalk": "^4.1.2",
     "commander": "^10.0.0",
-    "concurrently": "^7.6.0",
     "inquirer": "^8.2.5",
     "recursive-copy": "^2.0.14",
     "replace-in-file": "^6.3.5",

@@ -1,9 +1,11 @@
-import concurrently from 'concurrently'
+import chalk from 'chalk'
 import { join } from 'path'
 
-import { getDependencyTopo } from '../shared/dependency-topo'
+import { getDependencyTopo, PackageFile } from '../shared/dependency-topo'
 import { throwError } from '../shared/throw'
+import { awaitedExec } from './exec'
 
+// eslint-disable-next-line max-statements
 export default async function (folders: string[]) {
   if (folders.length === 0) throwError('no folders provided')
 
@@ -12,7 +14,7 @@ export default async function (folders: string[]) {
     try {
       return {
         folder,
-        config: require(join(currentDirectory, folder, 'package.json'))
+        config: require(join(currentDirectory, folder, 'package.json')) as PackageFile
       }
     } catch (e) {
       throwError(`Cannot find package in ./${folder}`)
@@ -22,24 +24,32 @@ export default async function (folders: string[]) {
 
   if (dependencyTopology.length === 0) throwError('no dependent packages found')
 
-  const commands = dependencyTopology.map(({ config, folder }) => {
-    const usedIn = dependencyTopology.filter(item => item.dependencies.includes(config.name))
-    const outputs = usedIn.map(dep => join('..', dep.folder, 'node_modules', config.name))
-    const command = `npm --prefix ${folder} run build:dev -- --output ${outputs.join(',')}`
+  const targetPackages = dependencyTopology.filter(({ dependent }) => dependent.length)
 
-    return outputs.length ? {
-      folder,
-      command
-    } : null
-  }).filter((command): command is Exclude<typeof command, null> => command !== null)
+  console.log(targetPackages.map(({ config, folder }) => {
+    return `\t- ${config.name} ${chalk.grey(`(./${folder})`)}`
+  }).join('\n'), '\n')
 
-  const { result } = concurrently(commands.map(({ command, folder }) => {
+  const commands = targetPackages.map(({ config, folder, dependent }) => {
+    const dependentPackages = dependent.map(name => dependencyTopology.filter(n => n.config.name === name)).flat()
+    const outputs = dependentPackages.map(dep => join('..', dep.folder, 'node_modules', config.name))
+
+    if (!outputs.length) throwError(`outputs for ${config.name} is empty`)
+
     return {
-      command,
-      name: folder,
-      cwd: currentDirectory
+      config,
+      folder,
+      command: 'npm',
+      args: ['--prefix', folder, '--silent', 'run', 'build', '--', '--watch', '--output', outputs.join(',')]
     }
-  }))
+  })
 
-  await result
+  for (const { config, command, args } of commands) {
+    await awaitedExec(
+      command,
+      args,
+      line => console.log(` [${config.name}] ${line}`),
+      line => /Build (\w+) completed/.test(line)
+    )
+  }
 }

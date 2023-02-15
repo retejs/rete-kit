@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import execa from 'execa'
-import { resolve } from 'path'
+import { join } from 'path'
 
 import scan from '../scan'
 import { choosePackages, input } from '../shared/inquirer'
@@ -14,7 +14,7 @@ export default async function (cwd: string) {
     const reference = `rete-cli@${version}`
 
     console.log(`Installing ${reference} for ${chalk.green(name)} in ${folder} folder`)
-    await execa('npm', ['i', '-D' ], { cwd: resolve(cwd, folder), stdio: 'inherit' })
+    await execa('npm', ['i', '-D', reference], { cwd: join(cwd, folder), stdio: 'inherit' })
     console.log(chalk.green(`${reference} has been installed for ${name}`))
   }
 }
