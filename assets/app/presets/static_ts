@@ -1,0 +1,57 @@
+import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
+import { AreaExtensions, AreaPlugin } from 'rete-area-plugin'
+import { ConnectionPlugin } from 'rete-connection-plugin'
+import { Presets, ReactArea2D, ReactRenderPlugin } from 'rete-react-render-plugin'
+
+type Schemes = GetSchemes<Classic.Node, Classic.Connection<Classic.Node, Classic.Node>>
+type AreaExtra = ReactArea2D<Schemes>
+
+export async function createEditor(container: HTMLElement) {
+  const editor = new NodeEditor<Schemes>()
+  const area = new AreaPlugin<Schemes, AreaExtra>(container)
+  const connection = new ConnectionPlugin<Schemes, AreaExtra>()
+  const render = new ReactRenderPlugin<Schemes, AreaExtra>({})
+
+  render.addPreset(Presets.classic.setup({ area }))
+
+  editor.use(area)
+  area.use(render)
+  area.use(connection)
+
+  const socket = new Classic.Socket('socket')
+
+  const a = new Classic.Node('Number')
+  const aControl = new Classic.InputControl('number', false)
+
+  aControl.setValue(1)
+  a.addOutput('value', new Classic.Output(socket, 'Number'))
+  a.addControl('value', aControl)
+
+  const b = new Classic.Node('Number')
+  const bControl = new Classic.InputControl('number', false)
+
+  bControl.setValue(1)
+
+  b.addOutput('value', new Classic.Output(socket, 'Number'))
+  b.addControl('value', bControl)
+
+  const add = new Classic.Node('Add')
+
+  add.addInput('a', new Classic.Input(socket, 'A'))
+  add.addInput('b', new Classic.Input(socket, 'B'))
+  add.addOutput('value', new Classic.Output(socket, 'Number'))
+
+  await editor.addNode(a)
+  await editor.addNode(b)
+  await editor.addNode(add)
+
+  await editor.addConnection(new Classic.Connection(a, 'value', add, 'a'))
+  await editor.addConnection(new Classic.Connection(b, 'value', add, 'b'))
+
+  await area.nodeViews.get(a.id)?.translate(100, 100)
+  await area.nodeViews.get(b.id)?.translate(100, 300)
+  await area.nodeViews.get(add.id)?.translate(400, 150)
+
+  AreaExtensions.zoomAt(area, editor.getNodes())
+}
+

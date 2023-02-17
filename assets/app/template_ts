@@ -1,0 +1,171 @@
+import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
+import { /* [zoom-at] AreaExtensions, [/zoom-at] */ AreaPlugin } from 'rete-area-plugin'
+/* [!readonly] import { ConnectionPlugin } from 'rete-connection-plugin' [/!readonly] */
+/* [react-render] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/react-render] */
+/* [vue-render] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin' [/vue-render] */
+/* [angular-render] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin' [/angular-render] */
+/* [dataflow] import { DataflowEngine, DataflowNode } from 'rete-engine' [/dataflow] */
+/* [arrange] import { AutoArrangePlugin } from 'rete-auto-arrange-plugin' [/arrange] */
+/* [readonly] import { ReadonlyPlugin } from 'rete-readonly-plugin' [/readonly] */
+
+type Node =
+  | NumberNode
+  | AddNode
+type Conn =
+  | Connection<NumberNode, AddNode>
+  | Connection<AddNode, AddNode>
+  | Connection<AddNode, NumberNode>
+type Schemes = GetSchemes<Node, Conn>
+
+class Connection<A extends Node, B extends Node> extends Classic.Connection<A, B> {}
+
+class InputControl extends Classic.InputControl<'number'> {
+  constructor(initial: number, private change?: (value: number) => void, readonly?: boolean) {
+    super('number', readonly)
+
+    super.setValue(initial)
+  }
+
+  setValue(value: number): void {
+    super.setValue(value)
+    if (this.change) this.change(value)
+  }
+}
+
+class NumberNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */{
+  /* [arrange]
+  width = 180
+  height = 120
+  [/arrange] */
+
+  constructor(initial: number, change?: (value: number) => void) {
+    super('Number')
+
+    this.addOutput('value', new Classic.Output(socket, 'Number'))
+    this.addControl('value', new InputControl(initial, change, false))
+  }
+  /* [dataflow]
+  data() {
+    const value = (this.controls['value'] as Classic.InputControl<'number'>).value
+
+    return {
+      value
+    }
+  }
+  [/dataflow] */
+}
+
+class AddNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */ {
+  /* [arrange]
+  width = 180
+  height = 195
+  [/arrange] */
+
+  constructor() {
+    super('Add')
+
+    this.addInput('a', new Classic.Input(socket, 'A'))
+    this.addInput('b', new Classic.Input(socket, 'B'))
+    this.addOutput('value', new Classic.Output(socket, 'Number'))
+    this.addControl('result', new InputControl(0, undefined, false))
+  }
+  /* [dataflow]
+  data(inputs: { a?: number[], b?: number[] }) {
+    const { a = [], b = [] } = inputs
+    const sum = (a[0] || 0) + (b[0] || 0)
+
+    ;(this.controls['result'] as Classic.InputControl<'number'>).setValue(sum)
+
+    return {
+      value: sum
+    }
+  }
+  [/dataflow] */
+}
+
+type AreaExtra =
+/* [react-render] | ReactArea2D<Schemes> [/react-render] */
+/* [vue-render] | VueArea2D<Schemes> [/vue-render] */
+/* [angular-render] | AngularArea2D<Schemes> [/angular-render] */
+
+const socket = new Classic.Socket('socket')
+
+export async function createEditor(container: HTMLElement) {
+  const editor = new NodeEditor<Schemes>()
+  const area = new AreaPlugin<Schemes, AreaExtra>(container)
+  /* [!readonly] const connection = new ConnectionPlugin<Schemes, AreaExtra>() [/!readonly] */
+  /* [react-render] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>() [/react-render] */
+  /* [vue-render] const vueRender = new VueRenderPlugin<Schemes, AreaExtra>() [/vue-render] */
+  /* [angular-render] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>() [/angular-render] */
+  /* [readonly] const readonly = new ReadonlyPlugin<Schemes>() [/readonly] */
+
+  /* [readonly] editor.use(readonly.root) [/readonly] */
+  editor.use(area)
+  /* [readonly] area.use(readonly.area) [/readonly] */
+  /* [react-render] area.use(reactRender) [/react-render] */
+  /* [vue-render] area.use(vueRender) [/vue-render] */
+  /* [angular-render] area.use(angularRender) [/angular-render] */
+  /* [!readonly] area.use(connection) [/!readonly] */
+
+  /* [react-render] reactRender.addPreset(ReactPresets.classic.setup({ area })) [/react-render] */
+  /* [vue-render] vueRender.addPreset(VuePresets.classic.setup({ area })) [/vue-render] */
+  /* [angular-render] angularRender.addPreset(AngularPresets.classic.setup({ area })) [/angular-render] */
+
+  /* [dataflow] const dataflow = new DataflowEngine<Schemes>()
+
+  editor.use(dataflow)
+  [/dataflow] */
+
+  const a = new NumberNode(1/* [dataflow] , process [/dataflow] */)
+  const b = new NumberNode(1/* [dataflow] , process [/dataflow] */)
+  const add = new AddNode()
+
+  await editor.addNode(a)
+  await editor.addNode(b)
+  await editor.addNode(add)
+
+  await editor.addConnection(new Connection(a, 'value', add, 'a'))
+  await editor.addConnection(new Connection(b, 'value', add, 'b'))
+
+  /* [!arrange]
+  await area.nodeViews.get(a.id)?.translate(100, 100)
+  await area.nodeViews.get(b.id)?.translate(100, 300)
+  await area.nodeViews.get(add.id)?.translate(400, 150)
+  [/!arrange] */
+
+  /* [arrange]
+  const arrange = new AutoArrangePlugin<Schemes>()
+
+  area.use(arrange)
+
+  await arrange.layout()
+  [/arrange] */
+
+  /* [zoom-at] AreaExtensions.zoomAt(area, editor.getNodes()) [/zoom-at] */
+
+  /* [order-nodes] AreaExtensions.simpleNodesOrder(area) [/order-nodes] */
+
+  /* [selectable] AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
+    accumulating: AreaExtensions.accumulateOnCtrl()
+  }) [/selectable] */
+
+  /* [dataflow] async function process() {
+    dataflow.reset()
+
+    const sum = await dataflow.fetch(add.id)
+
+    console.log(add.id, 'produces', sum)
+
+    area.renderNode(add)
+  }
+  await process()
+
+  editor.addPipe(context => {
+    if (context.type === 'connectioncreated' || context.type === 'connectionremoved') {
+      process()
+    }
+    return context
+  }) [/dataflow] */
+
+  /* [readonly] readonly.enable() [/readonly] */
+}

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-import { createCommand } from 'commander'
+import { createCommand, Option } from 'commander'
 
+import app, { AppStack, appStacks } from './app'
 import build from './build'
 import plugin from './plugin'
 import { getReteDependenciesFor } from './scan'
@@ -34,6 +35,16 @@ program
   .requiredOption('-n --name <name>')
   .action((options: { name: string }) => {
     plugin(options.name)
+  })
+
+program
+  .command('app')
+  .alias('application')
+  .description('Create editor application')
+  .option('-n --name <name>')
+  .addOption(new Option('-s --stack <name>').choices(appStacks))
+  .action((options: { name?: string, stack?: AppStack }) => {
+    app(options.name, options.stack)
   })
 
 program

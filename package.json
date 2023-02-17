@@ -24,6 +24,7 @@
     "chalk": "^4.1.2",
     "commander": "^10.0.0",
     "inquirer": "^8.2.5",
+    "prettier": "^2.8.4",
     "recursive-copy": "^2.0.14",
     "replace-in-file": "^6.3.5",
     "toposort": "^2.0.2"
@@ -32,6 +33,6 @@
     "@types/inquirer": "^9.0.3",
     "@types/node": "^18.13.0",
     "@types/toposort": "^2.0.3",
-    "rete-cli": "file:../rete-cli/rete-cli-1.0.0-beta.20.tgz"
+    "rete-cli": "file:../rete-cli/rete-cli-1.0.0-beta.24.tgz"
   }
 }

@@ -28,3 +28,19 @@ export async function input(message: string): Promise<string> {
   return text
 }
 
+export type Option<T> = { name: string, value: T }
+
+export async function select<T>(message: string, choices: Option<T>[]): Promise<T>
+export async function select<T>(message: string, choices: Option<T>[], multi: true): Promise<T[]>
+export async function select<T>(message: string, choices: Option<T>[], multi?: boolean): Promise<T | T[]> {
+  const { option } = await inquirer.prompt<{ option: T | T[] }>([
+    {
+      type: multi ? 'checkbox' : 'list',
+      message,
+      name: 'option',
+      choices: choices
+    }
+  ])
+
+  return option
+}
