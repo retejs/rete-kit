@@ -47,6 +47,10 @@ export class Vue implements Feature {
     join(cwd, '../render-utils/dist/package.tgz'),
     join(cwd, '../vue-render-plugin/dist/package.tgz')
   ]
+
+  constructor(version: 2 | 3) {
+    if (version === 2) this.templateKeys.push('vue2')
+  }
 }
 
 export class OrderNodes implements Feature {

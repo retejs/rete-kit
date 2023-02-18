@@ -1,5 +1,8 @@
 import execa from 'execa'
+import fs from 'fs'
+import { join } from 'path'
 
+import { assets as assetsRoot } from '../../consts'
 import { select } from '../../shared/inquirer'
 import { AppBuilder } from '../app-builder'
 
@@ -8,6 +11,9 @@ export class VueBuilder implements AppBuilder {
   public versions = [2, 3]
 
   public async create(name: string, version: number) {
+    const assets = join(assetsRoot, 'app', 'vue')
+    const src = join(name, 'src')
+
     const bundler = await select('Bundler', [
       {
         name: 'Vite',
@@ -20,16 +26,21 @@ export class VueBuilder implements AppBuilder {
     ])
 
     if (bundler === 'vite') {
-      await execa('npm', ['create', `vue@${version}`, name], { stdio: 'inherit' })
+      await execa('npm', ['create', `vue@${version}`, name, '--ts'], { stdio: 'inherit' })
+      await execa('npm', ['--prefix', name, 'i'], { stdio: 'inherit' })
+      await fs.promises.copyFile(join(assets, 'tsconfig_json'), join(name, 'tsconfig.json'))
+      await fs.promises.copyFile(join(assets, 'App_vite_vue'), join(src, 'App.vue'))
     } else {
-      const preset = version === 2 ? 'Default (Vue 2)' : 'Default (Vue 3)'
+      const presetFolder = join(assets, version === 2 ? 'vue2' : 'vue3')
 
-      await execa('npx', ['--package', `@vue/cli@`, 'vue', 'create', name, '--preset', preset], { stdio: 'inherit' })
+      await execa('npx', ['--package', `@vue/cli@`, 'vue', 'create', name, '--preset', presetFolder], { stdio: 'inherit' })
+      await fs.promises.copyFile(join(assets, 'App_vue'), join(src, 'App.vue'))
     }
   }
 
   async putScript(name: string, code: string): Promise<void> {
-    name
-    code
+    const reteScriptPath = join(name, 'src', 'rete.ts')
+
+    await fs.promises.writeFile(reteScriptPath, code)
   }
 }
