@@ -57,7 +57,7 @@ export default async function (name?: string, stack?: AppStack) {
 
   const defaultTemplate = await template.loadDefault()
   const code = await template.build<DefaultTemplateKey>(defaultTemplate, key => {
-    return selectedFeatures.some(feature => feature.templateKey && feature.templateKey === key)
+    return selectedFeatures.some(feature => feature.templateKeys && feature.templateKeys.includes(key))
   })
 
   await builder.create(appName, version)

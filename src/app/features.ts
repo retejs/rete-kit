@@ -5,7 +5,7 @@ import { DefaultTemplateKey } from './template-builder'
 export interface Feature {
   name: string
   mandatory?: boolean
-  templateKey?: DefaultTemplateKey
+  templateKeys?: DefaultTemplateKey[]
   requiredDependencies?: string[]
 }
 
@@ -23,7 +23,7 @@ export class Default implements Feature {
 
 export class Angular implements Feature {
   name = 'Angular render'
-  templateKey: DefaultTemplateKey = 'angular-render'
+  templateKeys: DefaultTemplateKey[] = ['angular-render']
   requiredDependencies = [
     join(cwd, '../render-utils/dist/package.tgz'),
     join(cwd, '../angular-render-plugin/dist/package.tgz')
@@ -32,7 +32,7 @@ export class Angular implements Feature {
 
 export class React implements Feature {
   name = 'React render'
-  templateKey: DefaultTemplateKey = 'react-render'
+  templateKeys: DefaultTemplateKey[] = ['react-render']
   requiredDependencies = [
     join(cwd, '../render-utils/dist/package.tgz'),
     join(cwd, '../react-render-plugin/dist/package.tgz'),
@@ -42,7 +42,7 @@ export class React implements Feature {
 
 export class Vue implements Feature {
   name = 'Vue render'
-  templateKey: DefaultTemplateKey = 'vue-render'
+  templateKeys: DefaultTemplateKey[] = ['vue-render']
   requiredDependencies = [
     join(cwd, '../render-utils/dist/package.tgz'),
     join(cwd, '../vue-render-plugin/dist/package.tgz')
@@ -51,17 +51,17 @@ export class Vue implements Feature {
 
 export class OrderNodes implements Feature {
   name = 'Order nodes'
-  templateKey: DefaultTemplateKey = 'order-nodes'
+  templateKeys: DefaultTemplateKey[] = ['order-nodes']
 }
 
 export class ZoomAt implements Feature {
   name = 'Zoom at'
-  templateKey: DefaultTemplateKey = 'zoom-at'
+  templateKeys: DefaultTemplateKey[] = ['zoom-at']
 }
 
 export class Arrange implements Feature {
   name = 'Auto arrange'
-  templateKey: DefaultTemplateKey = 'arrange'
+  templateKeys: DefaultTemplateKey[] = ['arrange']
   requiredDependencies = [
     'elkjs',
     'web-worker',
@@ -71,7 +71,7 @@ export class Arrange implements Feature {
 
 export class Dataflow implements Feature {
   name = 'Dataflow engine'
-  templateKey: DefaultTemplateKey = 'dataflow'
+  templateKeys: DefaultTemplateKey[] = ['dataflow']
   requiredDependencies = [
     join(cwd, '../engine/dist/package.tgz')
   ]
@@ -79,7 +79,7 @@ export class Dataflow implements Feature {
 
 export class Readonly implements Feature {
   name = 'Readonly'
-  templateKey: DefaultTemplateKey = 'readonly'
+  templateKeys: DefaultTemplateKey[] = ['readonly']
   requiredDependencies = [
     join(cwd, '../readonly-plugin/dist/package.tgz')
   ]
@@ -87,7 +87,7 @@ export class Readonly implements Feature {
 
 export class Selectable implements Feature {
   name = 'Selectable nodes'
-  templateKey: DefaultTemplateKey = 'selectable'
+  templateKeys: DefaultTemplateKey[] = ['selectable']
 }
 
 export function validateFeatures(features: Feature[]) {
