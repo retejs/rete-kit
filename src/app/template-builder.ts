@@ -22,13 +22,15 @@ export class TemplateBuilder {
     return this.load(defaultTemplatePath)
   }
 
-  async build<Keys extends string>(code: string, keep: (key: Keys) => boolean) {
-    const processedCode = code.replace(this.blockCommentRegex, (_substring, key, content) => {
-      if (keep(key)) return content
-      if (key.startsWith('!') && !keep(key.split('!')[1])) return content
+  private replace<Keys extends string>(code: string, keep: (key: Keys) => boolean) {
+    return code.replace(this.blockCommentRegex, (_substring, key, content) => {
+      if (keep(key)) return this.replace(content, keep)
+      if (key.startsWith('!') && !keep(key.split('!')[1])) return this.replace(content, keep)
       return ''
     })
+  }
 
-    return prettier.format(processedCode, { singleQuote: true, parser: 'typescript' })
+  async build<Keys extends string>(code: string, keep: (key: Keys) => boolean) {
+    return prettier.format(this.replace(code, keep), { singleQuote: true, parser: 'typescript' })
   }
 }
