@@ -3,4 +3,5 @@ export interface AppBuilder {
   versions: number[]
 
   create(name: string, version: number): Promise<void>
+  putScript(name: string, code: string): Promise<void>
 }

@@ -9,4 +9,9 @@ export class AngularBuilder implements AppBuilder {
   public async create(name: string, version: number) {
     await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name], { stdio: 'inherit' })
   }
+
+  async putScript(name: string, code: string): Promise<void> {
+    name
+    code
+  }
 }

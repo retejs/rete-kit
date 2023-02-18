@@ -27,4 +27,9 @@ export class VueBuilder implements AppBuilder {
       await execa('npx', ['--package', `@vue/cli@`, 'vue', 'create', name, '--preset', preset], { stdio: 'inherit' })
     }
   }
+
+  async putScript(name: string, code: string): Promise<void> {
+    name
+    code
+  }
 }
