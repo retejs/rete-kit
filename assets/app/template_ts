@@ -20,19 +20,6 @@ type Schemes = GetSchemes<Node, Conn>
 
 class Connection<A extends Node, B extends Node> extends Classic.Connection<A, B> {}
 
-class InputControl extends Classic.InputControl<'number'> {
-  constructor(initial: number, private change?: (value: number) => void, readonly?: boolean) {
-    super('number', readonly)
-
-    super.setValue(initial)
-  }
-
-  setValue(value: number): void {
-    super.setValue(value)
-    if (this.change) this.change(value)
-  }
-}
-
 class NumberNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */{
   /* [arrange]
   width = 180
@@ -43,7 +30,7 @@ class NumberNode extends Classic.Node /* [dataflow] implements DataflowNode [/da
     super('Number')
 
     this.addOutput('value', new Classic.Output(socket, 'Number'))
-    this.addControl('value', new InputControl(initial, change, false))
+    this.addControl('value', new Classic.InputControl('number', { initial, change }))
   }
   /* [dataflow]
   data() {
@@ -68,7 +55,7 @@ class AddNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataf
     this.addInput('a', new Classic.Input(socket, 'A'))
     this.addInput('b', new Classic.Input(socket, 'B'))
     this.addOutput('value', new Classic.Output(socket, 'Number'))
-    this.addControl('result', new InputControl(0, undefined, false))
+    this.addControl('result', new Classic.InputControl('number', { initial: 0 }))
   }
   /* [dataflow]
   data(inputs: { a?: number[], b?: number[] }) {
