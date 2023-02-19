@@ -25,6 +25,7 @@ export class Angular implements Feature {
   name = 'Angular render'
   templateKeys: DefaultTemplateKey[] = ['angular-render']
   requiredDependencies = [
+    '@angular/elements',
     join(cwd, '../render-utils/dist/package.tgz'),
     join(cwd, '../angular-render-plugin/dist/package.tgz')
   ]

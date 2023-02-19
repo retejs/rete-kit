@@ -1,4 +1,5 @@
 import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
+/* [angular-render] import { Injector } from '@angular/core' [/angular-render] */
 import { /* [zoom-at] AreaExtensions, [/zoom-at] */ AreaPlugin } from 'rete-area-plugin'
 /* [!readonly] import { ConnectionPlugin } from 'rete-connection-plugin' [/!readonly] */
 /* [react-render] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/react-render] */
@@ -90,13 +91,13 @@ type AreaExtra =
 
 const socket = new Classic.Socket('socket')
 
-export async function createEditor(container: HTMLElement) {
+export async function createEditor(container: HTMLElement/* [angular-render] , injector: Injector [/angular-render] */) {
   const editor = new NodeEditor<Schemes>()
   const area = new AreaPlugin<Schemes, AreaExtra>(container)
   /* [!readonly] const connection = new ConnectionPlugin<Schemes, AreaExtra>() [/!readonly] */
   /* [react-render] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>() [/react-render] */
   /* [vue-render] const vueRender = new VueRenderPlugin<Schemes, AreaExtra>() [/vue-render] */
-  /* [angular-render] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>() [/angular-render] */
+  /* [angular-render] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
   /* [readonly] const readonly = new ReadonlyPlugin<Schemes>() [/readonly] */
 
   /* [readonly] editor.use(readonly.root) [/readonly] */
