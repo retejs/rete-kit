@@ -144,7 +144,7 @@ export async function createEditor(container: HTMLElement/* [angular-render] , i
 
     console.log(add.id, 'produces', sum)
 
-    area.renderNode(add)
+    area.update('node', add.id)
   }
   await process()
 
