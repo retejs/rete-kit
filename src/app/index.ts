@@ -6,12 +6,13 @@ import { install } from './dependencies-installer'
 import * as Features from './features'
 import { ReactBuilder } from './react'
 import { DefaultTemplateKey, TemplateBuilder } from './template-builder'
-import { VueBuilder } from './vue'
+import { VueBuilder, VueViteBuilder } from './vue'
 
 const builders = {
-  angular: new AngularBuilder(),
-  vue:  new VueBuilder(),
-  react: new ReactBuilder()
+  'angular': new AngularBuilder(),
+  'vue':  new VueBuilder(),
+  'vue-vite':  new VueViteBuilder(),
+  'react': new ReactBuilder()
 }
 
 export type AppStack = keyof typeof builders
