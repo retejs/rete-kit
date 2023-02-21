@@ -18,24 +18,30 @@ export type AppStack = keyof typeof builders
 export const appStacks = Object.keys(builders) as AppStack[]
 
 // eslint-disable-next-line max-statements
-export default async function (name?: string, stack?: AppStack) {
+export default async function (name?: string, stack?: AppStack, version?: number, features?: string[]) {
   const appName = name || await input('Name')
   const selectedStack = stack || await select('Stack (framework)', appStacks.map(key => ({
     name: builders[key].name,
     value: key
   })))
+
+  if (!appStacks.includes(selectedStack)) throwError('unknown stack')
+
   const builder = builders[selectedStack]
-  const version = await select('Version', builder.versions.map(value => ({
+  const selectedVersion = version || await select('Version', builder.versions.map(value => ({
     name: String(value),
     value: value
   })))
+
+  if (!builder.versions.includes(selectedVersion)) throwError('specified version is not available for selected stack')
+
   const template = new TemplateBuilder()
 
-  const features: Features.Feature[] = [
+  const featuresList: Features.Feature[] = [
     new Features.Default(),
     new Features.Angular(),
-    new Features.React(builder instanceof ReactBuilder ? version : 18),
-    new Features.Vue(builder instanceof VueBuilder ? version as 2 : 3),
+    new Features.React(builder instanceof ReactBuilder ? selectedVersion : 18),
+    new Features.Vue(builder instanceof VueBuilder ? selectedVersion as 2 : 3),
     new Features.OrderNodes(),
     new Features.ZoomAt(),
     new Features.Arrange(),
@@ -43,12 +49,20 @@ export default async function (name?: string, stack?: AppStack) {
     new Features.Readonly(),
     new Features.Selectable()
   ]
-  const mandatoryFeatures = features.filter(feature => feature.mandatory)
-  const optionalFeatures = features.filter(feature => !feature.mandatory)
-  const selectedFeatures = await select('Select features', optionalFeatures.map(feature => ({
-    name: feature.name,
-    value: feature
-  })), true)
+  const mandatoryFeatures = featuresList.filter(feature => feature.mandatory)
+  const optionalFeatures = featuresList.filter(feature => !feature.mandatory)
+  const selectedFeatures = features?.length
+    ? features.map(featureName => {
+      const feature = optionalFeatures.find(f => f.name.toLocaleLowerCase() === featureName.toLocaleLowerCase())
+
+      if (!feature) throw throwError(`feature ${featureName} not found`)
+
+      return feature
+    })
+    : await select('Select features', optionalFeatures.map(feature => ({
+      name: feature.name,
+      value: feature
+    })), true)
   const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
 
   const { issue } = Features.validateFeatures(selectedFeatures)
@@ -60,7 +74,7 @@ export default async function (name?: string, stack?: AppStack) {
     return selectedFeatures.some(feature => feature.templateKeys && feature.templateKeys.includes(key))
   })
 
-  await builder.create(appName, version)
+  await builder.create(appName, selectedVersion)
   await builder.putScript(appName, code)
   await install(appName, Features.getDependencies(activeFeatures))
 }
