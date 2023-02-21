@@ -10,6 +10,7 @@ export class VueBuilder implements AppBuilder {
   public name = 'Vue.js'
   public versions = [2, 3]
 
+  // eslint-disable-next-line max-statements
   public async create(name: string, version: number) {
     const assets = join(assetsRoot, 'app', 'vue')
     const src = join(name, 'src')
@@ -30,6 +31,12 @@ export class VueBuilder implements AppBuilder {
       await execa('npm', ['--prefix', name, 'i'], { stdio: 'inherit' })
       await fs.promises.copyFile(join(assets, 'tsconfig_json'), join(name, 'tsconfig.json'))
       await fs.promises.copyFile(join(assets, 'App_vite_vue'), join(src, 'App.vue'))
+
+      if (version === 2) {
+        const appFile = await fs.promises.readFile(join(src, 'App.vue'), { encoding: 'utf-8' })
+
+        await fs.promises.writeFile(join(src, 'App.vue'), appFile.replace(/<!--(.*)-->/g, '$1'))
+      }
     } else {
       const presetFolder = join(assets, version === 2 ? 'vue2' : 'vue3')
 

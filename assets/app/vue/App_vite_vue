@@ -14,6 +14,7 @@
   </script>
 
   <template>
+  <!-- <div id="app"> -->
     <header>
       <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
@@ -23,6 +24,7 @@
     </header>
 
     <main class="rete" ref="rete"></main>
+  <!-- </div> -->
   </template>
 
   <style scoped>
