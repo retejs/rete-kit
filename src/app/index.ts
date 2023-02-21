@@ -34,7 +34,7 @@ export default async function (name?: string, stack?: AppStack) {
   const features: Features.Feature[] = [
     new Features.Default(),
     new Features.Angular(),
-    new Features.React(),
+    new Features.React(builder instanceof ReactBuilder ? version : 18),
     new Features.Vue(builder instanceof VueBuilder ? version as 2 : 3),
     new Features.OrderNodes(),
     new Features.ZoomAt(),

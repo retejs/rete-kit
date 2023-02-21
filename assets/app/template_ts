@@ -3,6 +3,7 @@ import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
 import { /* [zoom-at] AreaExtensions, [/zoom-at] */ AreaPlugin } from 'rete-area-plugin'
 /* [!readonly] import { ConnectionPlugin } from 'rete-connection-plugin' [/!readonly] */
 /* [react-render] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/react-render] */
+/* [react18] import { createRoot } from 'react-dom/client' [/react18] */
 /* [vue-render] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
 /* [angular-render] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin' [/angular-render] */
 /* [dataflow] import { DataflowEngine, DataflowNode } from 'rete-engine' [/dataflow] */
@@ -55,7 +56,7 @@ class AddNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataf
     this.addInput('a', new Classic.Input(socket, 'A'))
     this.addInput('b', new Classic.Input(socket, 'B'))
     this.addOutput('value', new Classic.Output(socket, 'Number'))
-    this.addControl('result', new Classic.InputControl('number', { initial: 0 }))
+    this.addControl('result', new Classic.InputControl('number', { initial: 0, readonly: true }))
   }
   /* [dataflow]
   data(inputs: { a?: number[], b?: number[] }) {
@@ -82,7 +83,7 @@ export async function createEditor(container: HTMLElement/* [angular-render] , i
   const editor = new NodeEditor<Schemes>()
   const area = new AreaPlugin<Schemes, AreaExtra>(container)
   /* [!readonly] const connection = new ConnectionPlugin<Schemes, AreaExtra>() [/!readonly] */
-  /* [react-render] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>() [/react-render] */
+  /* [react-render] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */) [/react-render] */
   /* [vue-render] const vueRender = new VueRenderPlugin<Schemes, AreaExtra>() [/vue-render] */
   /* [angular-render] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
   /* [readonly] const readonly = new ReadonlyPlugin<Schemes>() [/readonly] */
@@ -144,7 +145,7 @@ export async function createEditor(container: HTMLElement/* [angular-render] , i
 
     console.log(add.id, 'produces', sum)
 
-    area.update('node', add.id)
+    area.update('control', (add.controls['result'] as Classic.InputControl<'number'>).id)
   }
   await process()
 

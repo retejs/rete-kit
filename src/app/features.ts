@@ -39,6 +39,10 @@ export class React implements Feature {
     join(cwd, '../react-render-plugin/dist/package.tgz'),
     'styled-components'
   ]
+
+  constructor(version: number) {
+    if (version === 18) this.templateKeys.push('react18')
+  }
 }
 
 export class Vue implements Feature {
