@@ -45,8 +45,9 @@ program
   .addOption(new Option('-s --stack <name>').choices(appStacks))
   .addOption(new Option('-v --version <version>').argParser(parseInt))
   .addOption(new Option('-f --features <features>').argParser(arg => arg.split(',')))
-  .action((options: { name?: string, stack?: AppStack, version?: number, features?: string[] }) => {
-    app(options.name, options.stack, options.version, options.features)
+  .addOption(new Option('-d --deps-alias <deps-alias>'))
+  .action(async (options: { name?: string, stack?: AppStack, stackVersion?: number, features?: string[], depsAlias?: string }) => {
+    app(options.name, options.stack, options.stackVersion, options.features, options.depsAlias)
   })
 
 program

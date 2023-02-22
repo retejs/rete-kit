@@ -1,5 +1,3 @@
-import { join } from 'path'
-
 import { DefaultTemplateKey } from './template-builder'
 
 export interface Feature {
@@ -9,15 +7,13 @@ export interface Feature {
   requiredDependencies?: string[]
 }
 
-const cwd = process.cwd()
-
 export class Default implements Feature {
   name = 'Default'
   mandatory = true
   requiredDependencies = [
-    join(cwd, '../rete/dist/package.tgz'),
-    join(cwd, '../area-plugin/dist/package.tgz'),
-    join(cwd, '../connection-plugin/dist/package.tgz')
+    'rete',
+    'rete-area-plugin',
+    'rete-connection-plugin'
   ]
 }
 
@@ -26,8 +22,8 @@ export class Angular implements Feature {
   templateKeys: DefaultTemplateKey[] = ['angular-render']
   requiredDependencies = [
     '@angular/elements',
-    join(cwd, '../render-utils/dist/package.tgz'),
-    join(cwd, '../angular-render-plugin/dist/package.tgz')
+    'rete-render-utils',
+    'rete-angular-render-plugin'
   ]
 }
 
@@ -35,8 +31,8 @@ export class React implements Feature {
   name = 'React render'
   templateKeys: DefaultTemplateKey[] = ['react-render']
   requiredDependencies = [
-    join(cwd, '../render-utils/dist/package.tgz'),
-    join(cwd, '../react-render-plugin/dist/package.tgz'),
+    'rete-render-utils',
+    'rete-react-render-plugin',
     'styled-components'
   ]
 
@@ -49,8 +45,8 @@ export class Vue implements Feature {
   name = 'Vue render'
   templateKeys: DefaultTemplateKey[] = ['vue-render']
   requiredDependencies = [
-    join(cwd, '../render-utils/dist/package.tgz'),
-    join(cwd, '../vue-render-plugin/dist/package.tgz')
+    'rete-render-utils',
+    'rete-vue-render-plugin'
   ]
 
   constructor(version: 2 | 3) {
@@ -74,7 +70,7 @@ export class Arrange implements Feature {
   requiredDependencies = [
     'elkjs',
     'web-worker',
-    join(cwd, '../auto-arrange-plugin/dist/package.tgz')
+    'rete-auto-arrange-plugin'
   ]
 }
 
@@ -82,7 +78,7 @@ export class Dataflow implements Feature {
   name = 'Dataflow engine'
   templateKeys: DefaultTemplateKey[] = ['dataflow']
   requiredDependencies = [
-    join(cwd, '../engine/dist/package.tgz')
+    'rete-engine'
   ]
 }
 
@@ -90,7 +86,7 @@ export class Readonly implements Feature {
   name = 'Readonly'
   templateKeys: DefaultTemplateKey[] = ['readonly']
   requiredDependencies = [
-    join(cwd, '../readonly-plugin/dist/package.tgz')
+    'rete-readonly-plugin'
   ]
 }
 

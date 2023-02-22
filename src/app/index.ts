@@ -17,9 +17,10 @@ const builders = {
 
 export type AppStack = keyof typeof builders
 export const appStacks = Object.keys(builders) as AppStack[]
+export { Features }
 
 // eslint-disable-next-line max-statements
-export default async function (name?: string, stack?: AppStack, version?: number, features?: string[]) {
+export default async function (name?: string, stack?: AppStack, version?: number, features?: string[], depsAlias?: string) {
   const appName = name || await input('Name')
   const selectedStack = stack || await select('Stack (framework)', appStacks.map(key => ({
     name: builders[key].name,
@@ -77,5 +78,5 @@ export default async function (name?: string, stack?: AppStack, version?: number
 
   await builder.create(appName, selectedVersion)
   await builder.putScript(appName, code)
-  await install(appName, Features.getDependencies(activeFeatures))
+  await install(appName, Features.getDependencies(activeFeatures), depsAlias)
 }
