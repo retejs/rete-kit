@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo" style={{animation: 'none'}}/>
         <a
           className="App-link"
           href="https://rete.js.org"
