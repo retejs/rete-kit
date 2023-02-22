@@ -43,7 +43,7 @@ program
   .description('Create editor application')
   .option('-n --name <name>')
   .addOption(new Option('-s --stack <name>').choices(appStacks))
-  .addOption(new Option('-v --version <version>').argParser(parseInt))
+  .addOption(new Option('-v --stack-version <version>').argParser(parseInt))
   .addOption(new Option('-f --features <features>').argParser(arg => arg.split(',')))
   .addOption(new Option('-d --deps-alias <deps-alias>'))
   .action(async (options: { name?: string, stack?: AppStack, stackVersion?: number, features?: string[], depsAlias?: string }) => {
