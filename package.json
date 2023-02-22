@@ -5,7 +5,7 @@
   "module": "bin/module.js",
   "types": "bin/module.d.ts",
   "bin": {
-    "rete": "./bin/index.js"
+    "rete-kit": "./bin/index.js"
   },
   "scripts": {
     "build": "tsc",
