@@ -4,4 +4,5 @@ export interface AppBuilder {
 
   create(name: string, version: number): Promise<void>
   putScript(name: string, code: string): Promise<void>
+  getStaticPath(name: string): string
 }

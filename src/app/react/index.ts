@@ -27,4 +27,8 @@ export class ReactBuilder implements AppBuilder {
 
     await fs.promises.writeFile(reteScriptPath, code)
   }
+
+  getStaticPath() {
+    return 'build'
+  }
 }

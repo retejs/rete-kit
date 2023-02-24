@@ -23,4 +23,8 @@ export class VueViteBuilder extends VueBuilder {
       await fs.promises.writeFile(join(src, 'App.vue'), appFile.replace(/<!--(.*)-->/g, '$1'))
     }
   }
+
+  getStaticPath() {
+    return 'dist'
+  }
 }

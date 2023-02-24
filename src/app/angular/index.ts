@@ -24,4 +24,8 @@ export class AngularBuilder implements AppBuilder {
 
     await fs.promises.writeFile(reteScriptPath, code)
   }
+
+  getStaticPath(name: string) {
+    return join('dist', name)
+  }
 }

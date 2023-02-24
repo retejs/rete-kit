@@ -23,4 +23,8 @@ export class VueBuilder implements AppBuilder {
 
     await fs.promises.writeFile(reteScriptPath, code)
   }
+
+  getStaticPath() {
+    return 'dist'
+  }
 }
