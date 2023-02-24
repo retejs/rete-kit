@@ -8,7 +8,7 @@ import { ReactBuilder } from './react'
 import { DefaultTemplateKey, TemplateBuilder } from './template-builder'
 import { VueBuilder, VueViteBuilder } from './vue'
 
-const builders = {
+export const builders = {
   'angular': new AngularBuilder(),
   'vue':  new VueBuilder(),
   'vue-vite':  new VueViteBuilder(),
