@@ -20,7 +20,7 @@ export const appStacks = Object.keys(builders) as AppStack[]
 export { Features }
 
 // eslint-disable-next-line max-statements
-export default async function (name?: string, stack?: AppStack, version?: number, features?: string[], depsAlias?: string) {
+export async function createApp(name?: string, stack?: AppStack, version?: number, features?: string[], depsAlias?: string) {
   const appName = name || await input('Name')
   const selectedStack = stack || await select('Stack (framework)', appStacks.map(key => ({
     name: builders[key].name,

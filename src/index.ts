@@ -2,12 +2,12 @@
 
 import { createCommand, Option } from 'commander'
 
-import app, { AppStack, appStacks } from './app'
-import build from './build'
-import plugin from './plugin'
+import { AppStack, appStacks, createApp } from './app'
+import { build } from './build'
+import { createPlugin } from './plugin'
 import { getReteDependenciesFor } from './scan'
 import { throwError } from './shared/throw'
-import updateCli from './update-cli'
+import { updateCli } from './update-cli'
 
 const program = createCommand()
 
@@ -34,7 +34,7 @@ program
   .description('Create plugin boilerplate')
   .requiredOption('-n --name <name>')
   .action((options: { name: string }) => {
-    plugin(options.name)
+    createPlugin(options.name)
   })
 
 program
@@ -47,7 +47,7 @@ program
   .addOption(new Option('-f --features <features>').argParser(arg => arg.split(',')))
   .addOption(new Option('-d --deps-alias <deps-alias>'))
   .action(async (options: { name?: string, stack?: AppStack, stackVersion?: number, features?: string[], depsAlias?: string }) => {
-    app(options.name, options.stack, options.stackVersion, options.features, options.depsAlias)
+    createApp(options.name, options.stack, options.stackVersion, options.features, options.depsAlias)
   })
 
 program

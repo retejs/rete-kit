@@ -5,7 +5,7 @@ import { join } from 'path'
 import scan from '../scan'
 import { choosePackages, input } from '../shared/inquirer'
 
-export default async function (cwd: string) {
+export async function updateCli(cwd: string) {
   const packages = await scan(cwd)
   const selected = await choosePackages(packages)
   const version = await input('CLI version or label (latest, next, etc.)')

@@ -6,7 +6,7 @@ import { throwError } from '../shared/throw'
 import { awaitedExec } from './exec'
 
 // eslint-disable-next-line max-statements
-export default async function (folders: string[]) {
+export async function build(folders: string[]) {
   if (folders.length === 0) throwError('no folders provided')
 
   const currentDirectory = process.cwd()
