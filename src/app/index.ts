@@ -19,7 +19,7 @@ export type AppStack = keyof typeof builders
 export const appStacks = Object.keys(builders) as AppStack[]
 export { Features }
 
-// eslint-disable-next-line max-statements
+// eslint-disable-next-line max-statements, complexity
 export async function createApp(name?: string, stack?: AppStack, version?: number, features?: string[], depsAlias?: string) {
   const appName = name || await input('Name')
   const selectedStack = stack || await select('Stack (framework)', appStacks.map(key => ({
@@ -41,7 +41,7 @@ export async function createApp(name?: string, stack?: AppStack, version?: numbe
 
   const featuresList: Features.Feature[] = [
     new Features.Default(),
-    new Features.Angular(),
+    new Features.Angular(builder instanceof AngularBuilder ? selectedVersion as 12 | 13 | 14 | 15 : null),
     new Features.React(builder instanceof ReactBuilder ? selectedVersion : 18),
     new Features.Vue(builder instanceof VueBuilder ? selectedVersion as 2 : 3),
     new Features.OrderNodes(),

@@ -34,6 +34,6 @@
     "@types/inquirer": "^9.0.3",
     "@types/node": "^18.13.0",
     "@types/toposort": "^2.0.3",
-    "rete-cli": "file:../rete-cli/rete-cli-1.0.0-beta.24.tgz"
+    "rete-cli": "^1.0.0-beta.1"
   }
 }

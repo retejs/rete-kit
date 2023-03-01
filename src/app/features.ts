@@ -25,6 +25,10 @@ export class Angular implements Feature {
     'rete-render-utils',
     'rete-angular-render-plugin'
   ]
+
+  constructor(version: 12 | 13 | 14 | 15 | null) {
+    if (version !== null) this.templateKeys.push(`angular${version}`)
+  }
 }
 
 export class React implements Feature {

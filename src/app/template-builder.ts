@@ -6,6 +6,7 @@ import prettier from 'prettier'
 export const defaultTemplatePath = join(__dirname, '..', '..', 'assets', 'app', 'template_ts')
 export const defaultTemplateKeys = [
   'zoom-at', 'react-render', 'react18', 'vue-render', 'vue2', 'angular-render',
+  'angular12', 'angular13', 'angular14', 'angular15',
   'dataflow', 'arrange', 'readonly', 'order-nodes', 'selectable'
 ] as const
 
