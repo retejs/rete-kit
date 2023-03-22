@@ -1,11 +1,18 @@
 import execa from 'execa'
 import fs from 'fs'
-import { dirname, resolve } from 'path'
+import { dirname, parse, resolve } from 'path'
 
 export type DependenciesAlias = Record<string, string>
 
 function resolvePaths(alias: DependenciesAlias, aliasDirectory: string): DependenciesAlias {
-  return Object.fromEntries(Object.entries(alias).map(([name, path]) => ([name, resolve(aliasDirectory, path)])))
+  const entries = Object.entries(alias)
+    .map(([name, source]) => {
+      if (parse(source).dir !== '') return [name, resolve(aliasDirectory, source)]
+
+      return [name, source]
+    })
+
+  return Object.fromEntries(entries)
 }
 
 export async function install(cwd: string, dependencies: string[], aliases?: DependenciesAlias | string) {
