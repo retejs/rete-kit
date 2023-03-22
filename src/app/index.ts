@@ -19,8 +19,17 @@ export type AppStack = keyof typeof builders
 export const appStacks = Object.keys(builders) as AppStack[]
 export { Features }
 
+type Options = {
+  name?: string
+  stack?: AppStack
+  version?: number
+  features?: string[]
+  depsAlias?: string
+  depsLabel?: string
+}
+
 // eslint-disable-next-line max-statements, complexity
-export async function createApp(name?: string, stack?: AppStack, version?: number, features?: string[], depsAlias?: string) {
+export async function createApp({ name, stack, version, features, depsAlias }: Options) {
   const appName = name || await input('Name')
   const selectedStack = stack || await select('Stack (framework)', appStacks.map(key => ({
     name: builders[key].name,
