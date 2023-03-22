@@ -1,7 +1,7 @@
 import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
 /* [angular-render] import { Injector } from '@angular/core' [/angular-render] */
 import { /* [zoom-at] AreaExtensions, [/zoom-at] */ AreaPlugin } from 'rete-area-plugin'
-/* [!readonly] import { ConnectionPlugin } from 'rete-connection-plugin' [/!readonly] */
+/* [!readonly] import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin' [/!readonly] */
 /* [react-render] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/react-render] */
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
 /* [vue-render] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
@@ -96,6 +96,7 @@ export async function createEditor(container: HTMLElement/* [angular-render] , i
   /* [angular-render] area.use(angularRender) [/angular-render] */
   /* [!readonly] area.use(connection) [/!readonly] */
 
+  /* [!readonly] connection.addPreset(ConnectionPresets.classic.setup()) [/!readonly] */
   /* [react-render] reactRender.addPreset(ReactPresets.classic.setup({ area })) [/react-render] */
   /* [vue-render] vueRender.addPreset(VuePresets.classic.setup({ area })) [/vue-render] */
   /* [angular-render] angularRender.addPreset(AngularPresets.classic.setup({ area })) [/angular-render] */
