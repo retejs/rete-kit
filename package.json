@@ -15,9 +15,18 @@
   },
   "author": "Vitaliy Stoliarov",
   "license": "MIT",
+  "keywords": [
+    "tool",
+    "rete",
+    "Rete.js"
+  ],
+  "homepage": "https://retejs.org",
   "repository": {
     "type": "git",
     "url": "https://github.com/retejs/rete-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/retejs/rete-kit/issues"
   },
   "dependencies": {
     "case": "^1.6.3",
