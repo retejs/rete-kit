@@ -1,5 +1,7 @@
+import chalk from 'chalk'
 import execa from 'execa'
 import fs from 'fs'
+import npa from 'npm-package-arg'
 import { dirname, parse, resolve } from 'path'
 
 export type DependenciesAlias = Record<string, string>
@@ -20,9 +22,13 @@ export async function install(cwd: string, dependencies: string[], aliases?: Dep
     ? resolvePaths(JSON.parse(await fs.promises.readFile(aliases, { encoding: 'utf-8' })), dirname(aliases))
     : aliases
 
-  const deps = aliasesMap ? dependencies.map(dep => {
-    return aliasesMap[dep] || dep
+  const deps = aliasesMap ? dependencies.map(packageSpec => {
+    const name = npa(packageSpec).name
+
+    return (name ? aliasesMap[name] : null) || packageSpec
   }) : dependencies
+
+  console.log('Installing dependencies:', deps.map(dep => chalk.green(dep)).join(', '))
 
   await execa('npm', ['--prefix', cwd, 'i', ...deps], { stdio: 'inherit' })
 }

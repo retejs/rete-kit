@@ -46,19 +46,24 @@ program
   .addOption(new Option('-v --stack-version <version>').argParser(parseInt))
   .addOption(new Option('-f --features <features>').argParser(arg => arg.split(',')))
   .addOption(new Option('-d --deps-alias <deps-alias>'))
+  .addOption(new Option('-n --next'))
   .action(async (options: {
     name?: string
     stack?: AppStack
     stackVersion?: number
     features?: string[]
     depsAlias?: string
+    next?: boolean
   }) => {
+    if (!options.next) throwError('--next option is required since v2 is still in Beta')
+
     createApp({
       name: options.name,
       stack: options.stack,
       version: options.stackVersion,
       features: options.features,
-      depsAlias: options.depsAlias
+      depsAlias: options.depsAlias,
+      next: options.next
     })
   })
 

@@ -26,10 +26,11 @@ type Options = {
   features?: string[]
   depsAlias?: string
   depsLabel?: string
+  next?: boolean
 }
 
 // eslint-disable-next-line max-statements, complexity
-export async function createApp({ name, stack, version, features, depsAlias }: Options) {
+export async function createApp({ name, stack, version, features, depsAlias, next = false }: Options) {
   const appName = name || await input('Name')
   const selectedStack = stack || await select('Stack (framework)', appStacks.map(key => ({
     name: builders[key].name,
@@ -49,15 +50,15 @@ export async function createApp({ name, stack, version, features, depsAlias }: O
   const template = new TemplateBuilder()
 
   const featuresList: Features.Feature[] = [
-    new Features.Default(),
-    new Features.Angular(builder instanceof AngularBuilder ? selectedVersion as 12 | 13 | 14 | 15 : null),
-    new Features.React(builder instanceof ReactBuilder ? selectedVersion : 18),
-    new Features.Vue(builder instanceof VueBuilder ? selectedVersion as 2 : 3),
+    new Features.Default(next),
+    new Features.Angular(builder instanceof AngularBuilder ? selectedVersion as 12 | 13 | 14 | 15 : null, next),
+    new Features.React(builder instanceof ReactBuilder ? selectedVersion : 18, next),
+    new Features.Vue(builder instanceof VueBuilder ? selectedVersion as 2 : 3, next),
     new Features.OrderNodes(),
     new Features.ZoomAt(),
-    new Features.Arrange(),
-    new Features.Dataflow(),
-    new Features.Readonly(),
+    new Features.Arrange(next),
+    new Features.Dataflow(next),
+    new Features.Readonly(next),
     new Features.Selectable()
   ]
   const mandatoryFeatures = featuresList.filter(feature => feature.mandatory)

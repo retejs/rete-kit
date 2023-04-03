@@ -34,6 +34,7 @@
     "commander": "^10.0.0",
     "execa": "^5.1.1",
     "inquirer": "^8.2.5",
+    "npm-package-arg": "^10.1.0",
     "prettier": "^2.8.4",
     "recursive-copy": "^2.0.14",
     "replace-in-file": "^6.3.5",
@@ -42,6 +43,7 @@
   "devDependencies": {
     "@types/inquirer": "^9.0.3",
     "@types/node": "^18.13.0",
+    "@types/npm-package-arg": "^6.1.1",
     "@types/toposort": "^2.0.3",
     "rete-cli": "^1.0.0-beta.27"
   }
