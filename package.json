@@ -1,6 +1,6 @@
 {
   "name": "rete-kit",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0-beta.9",
   "main": "bin/module.js",
   "module": "bin/module.js",
   "types": "bin/module.d.ts",
@@ -43,6 +43,6 @@
     "@types/inquirer": "^9.0.3",
     "@types/node": "^18.13.0",
     "@types/toposort": "^2.0.3",
-    "rete-cli": "^1.0.0-beta.1"
+    "rete-cli": "^1.0.0-beta.26"
   }
 }
