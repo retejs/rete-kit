@@ -7,7 +7,7 @@ import { /* [zoom-at] AreaExtensions, [/zoom-at] */ AreaPlugin } from 'rete-area
 /* [vue-render] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
 /* [angular-render] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] */' [/angular-render] */
 /* [dataflow] import { DataflowEngine, DataflowNode } from 'rete-engine' [/dataflow] */
-/* [arrange] import { AutoArrangePlugin } from 'rete-auto-arrange-plugin' [/arrange] */
+/* [arrange] import { AutoArrangePlugin, Presets as ArrangePresets } from 'rete-auto-arrange-plugin' [/arrange] */
 /* [readonly] import { ReadonlyPlugin } from 'rete-readonly-plugin' [/readonly] */
 
 type Node =
@@ -125,6 +125,8 @@ export async function createEditor(container: HTMLElement/* [angular-render] , i
 
   /* [arrange]
   const arrange = new AutoArrangePlugin<Schemes>()
+
+  arrange.addPreset(ArrangePresets.classic.setup());
 
   area.use(arrange)
 
