@@ -15,7 +15,12 @@ export class ReactBuilder implements AppBuilder {
     const src = join(name, 'src')
 
     await execa('npx', ['create-react-app', '--template', 'typescript', name], { stdio: 'inherit' })
-    await execa('npm', ['--prefix', name, 'i', `react@${version}`, `react-dom@${version}`], { stdio: 'inherit' })
+    await execa('npm', [
+      '--prefix', name, 'i',
+      `react@${version}`,
+      `react-dom@${version}`,
+      version < 18 ? `@testing-library/react@12` : `@testing-library/react@13`
+    ], { stdio: 'inherit' })
 
     if (version < 18) await fs.promises.copyFile(join(assets, 'index_tsx'), join(src, 'index.tsx'))
     await fs.promises.copyFile(join(assets, 'rete_css'), join(src, 'rete.css'))
