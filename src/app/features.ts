@@ -28,14 +28,13 @@ export class Default implements Feature {
 export class Angular implements Feature {
   name = 'Angular render'
   templateKeys: DefaultTemplateKey[] = ['angular-render']
-  requiredDependencies = [
-    '@angular/elements'
-  ]
+  requiredDependencies: string[] = []
 
   constructor(version: 12 | 13 | 14 | 15 | null, next: boolean) {
     if (version !== null) this.templateKeys.push(`angular${version}`)
 
     this.requiredDependencies.push(
+      `@angular/elements@${version}`,
       ver('rete-render-utils', next),
       ver('rete-angular-render-plugin', next)
     )
