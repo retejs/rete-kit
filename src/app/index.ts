@@ -59,7 +59,8 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
     new Features.Arrange(next),
     new Features.Dataflow(next),
     new Features.Readonly(next),
-    new Features.Selectable()
+    new Features.Selectable(),
+    new Features.ContextMenu(next)
   ]
   const mandatoryFeatures = featuresList.filter(feature => feature.mandatory)
   const optionalFeatures = featuresList.filter(feature => !feature.mandatory)
@@ -75,12 +76,14 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
       name: feature.name,
       value: feature
     })), true)
-  const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
 
   const { issue } = Features.validateFeatures(selectedFeatures, { stack: selectedStack })
 
   if (issue) throwError(issue)
 
+  Features.ensureFeatures(selectedFeatures, featuresList)
+
+  const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
   const defaultTemplate = await template.loadDefault()
   const code = await template.build<DefaultTemplateKey>(defaultTemplate, key => {
     return selectedFeatures.some(feature => feature.templateKeys && feature.templateKeys.includes(key))

@@ -1,3 +1,5 @@
+import chalk from 'chalk'
+
 import { AppStack } from '.'
 import { DefaultTemplateKey } from './template-builder'
 
@@ -129,6 +131,18 @@ export class Readonly implements Feature {
   }
 }
 
+export class ContextMenu implements Feature {
+  name = 'Context menu'
+  templateKeys: DefaultTemplateKey[] = ['context-menu']
+  requiredDependencies: string[] = []
+
+  constructor(next: boolean) {
+    this.requiredDependencies.push(
+      ver('rete-context-menu-plugin', next)
+    )
+  }
+}
+
 export class Selectable implements Feature {
   name = 'Selectable nodes'
   templateKeys: DefaultTemplateKey[] = ['selectable']
@@ -148,6 +162,20 @@ export function validateFeatures(features: Feature[], options: { stack: AppStack
 
   return {
     issue: null
+  }
+}
+
+export function ensureFeatures(features: Feature[], all: Feature[]) {
+  const enabledContextMenu = features.some(feature => feature instanceof ContextMenu)
+  const enabledReact = features.some(feature => feature instanceof React)
+
+  if (enabledContextMenu && !enabledReact) {
+    const reactRender = all.find(feature => feature instanceof React)
+
+    if (!reactRender) throw new Error('cannot find React feature')
+
+    console.log(chalk.yellow('Enabling React render plugin since it is required for Context menu..'))
+    features.push(reactRender)
   }
 }
 
