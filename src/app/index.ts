@@ -77,7 +77,7 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
     })), true)
   const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
 
-  const { issue } = Features.validateFeatures(selectedFeatures)
+  const { issue } = Features.validateFeatures(selectedFeatures, { stack: selectedStack })
 
   if (issue) throwError(issue)
 

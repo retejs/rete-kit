@@ -1,3 +1,4 @@
+import { AppStack } from '.'
 import { DefaultTemplateKey } from './template-builder'
 
 function ver(name: string, next: boolean) {
@@ -127,10 +128,15 @@ export class Selectable implements Feature {
   templateKeys: DefaultTemplateKey[] = ['selectable']
 }
 
-export function validateFeatures(features: Feature[]) {
+export function validateFeatures(features: Feature[], options: { stack: AppStack }) {
   if (!features.some(feature => feature instanceof Angular || feature instanceof React || feature instanceof Vue)) {
     return {
       issue: 'At least one render plugin should be selected'
+    }
+  }
+  if (options.stack !== 'angular' && features.some(feature => feature instanceof Angular)) {
+    return {
+      issue: 'Angular render plugin is only allowed in Angular app stack'
     }
   }
 
