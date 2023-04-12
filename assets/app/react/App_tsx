@@ -1,23 +1,17 @@
 import React from 'react';
+import { useRete } from 'rete-react-render-plugin';
 import logo from './logo.svg';
 import './App.css';
-import './rete.css'
+import './rete.css';
 import { createEditor } from './rete';
 
 function App() {
-  const ref = React.createRef<HTMLDivElement>()
-
-  React.useEffect(() => {
-    if (ref.current) {
-      ref.current.innerHTML = ''
-      createEditor(ref.current)
-    }
-  }, [ref.current])
+  const [ref] = useRete(createEditor)
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" style={{animation: 'none'}}/>
+        <img src={logo} className="App-logo" alt="logo" style={{ animation: 'none' }} />
         <a
           className="App-link"
           href="https://rete.js.org"
@@ -32,4 +26,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

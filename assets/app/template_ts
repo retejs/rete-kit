@@ -160,4 +160,8 @@ export async function createEditor(container: HTMLElement/* [angular-render] , i
   }) [/dataflow] */
 
   /* [readonly] readonly.enable() [/readonly] */
+
+  return {
+    destroy: () => area.destroy()
+  }
 }
