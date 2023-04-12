@@ -91,7 +91,7 @@ export async function createEditor(container: HTMLElement/* [angular-render] , i
   /* [readonly] const readonly = new ReadonlyPlugin<Schemes>() [/readonly] */
   /* [context-menu] const contextMenu = new ContextMenuPlugin<Schemes, AreaExtra>({
     items: ContextMenuPresets.classic.setup([
-      ['Number', () => new NumberNode(1, process)],
+      ['Number', () => new NumberNode(1/* [dataflow] , process [/dataflow] */)],
       ['Add', () => new AddNode()]
     ])
   }) [/context-menu] */
