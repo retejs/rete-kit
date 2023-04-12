@@ -49,13 +49,19 @@ export class React implements Feature {
     'styled-components'
   ]
 
-  constructor(version: number, next: boolean) {
+  constructor(version: number, stack: AppStack, next: boolean) {
     if (version === 18) this.templateKeys.push('react18')
 
     this.requiredDependencies.push(
       ver('rete-render-utils', next),
       ver('rete-react-render-plugin', next)
     )
+    if (stack !== 'react') {
+      this.requiredDependencies.push(
+        `react@${version}`,
+        `react-dom@${version}`
+      )
+    }
   }
 }
 
