@@ -144,13 +144,14 @@ export async function createEditor(container: HTMLElement/* [angular-render] , i
   /* [dataflow] async function process() {
     dataflow.reset()
 
-    const sum = await dataflow.fetch(add.id)
+    editor.getNodes().filter(node => node instanceof AddNode).forEach(async node => {
+      const sum = await dataflow.fetch(node.id)
 
-    console.log(add.id, 'produces', sum)
+      console.log(node.id, 'produces', sum)
 
-    area.update('control', (add.controls['result'] as Classic.InputControl<'number'>).id)
+      area.update('control', (node.controls['result'] as Classic.InputControl<'number'>).id)
+    });
   }
-  await process()
 
   editor.addPipe(context => {
     if (context.type === 'connectioncreated' || context.type === 'connectionremoved') {
