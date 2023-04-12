@@ -61,7 +61,8 @@ export class React implements Feature {
     if (stack !== 'react') {
       this.requiredDependencies.push(
         `react@${version}`,
-        `react-dom@${version}`
+        `react-dom@${version}`,
+        `@types/react-dom@${version}`
       )
     }
   }
