@@ -8,7 +8,7 @@ export const defaultTemplateKeys = [
   'zoom-at', 'react-render', 'react18', 'vue-render', 'vue2', 'angular-render',
   'angular12', 'angular13', 'angular14', 'angular15',
   'dataflow', 'arrange', 'readonly', 'order-nodes', 'selectable',
-  'context-menu'
+  'context-menu', 'import-area-extensions'
 ] as const
 
 export type DefaultTemplateKey = (typeof defaultTemplateKeys)[number]

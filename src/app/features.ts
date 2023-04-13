@@ -85,12 +85,12 @@ export class Vue implements Feature {
 
 export class OrderNodes implements Feature {
   name = 'Order nodes'
-  templateKeys: DefaultTemplateKey[] = ['order-nodes']
+  templateKeys: DefaultTemplateKey[] = ['import-area-extensions', 'order-nodes']
 }
 
 export class ZoomAt implements Feature {
   name = 'Zoom at'
-  templateKeys: DefaultTemplateKey[] = ['zoom-at']
+  templateKeys: DefaultTemplateKey[] = ['import-area-extensions', 'zoom-at']
 }
 
 export class Arrange implements Feature {
@@ -146,7 +146,7 @@ export class ContextMenu implements Feature {
 
 export class Selectable implements Feature {
   name = 'Selectable nodes'
-  templateKeys: DefaultTemplateKey[] = ['selectable']
+  templateKeys: DefaultTemplateKey[] = ['import-area-extensions', 'selectable']
 }
 
 export function validateFeatures(features: Feature[], options: { stack: AppStack }) {
