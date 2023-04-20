@@ -1,0 +1,78 @@
+import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
+import { /* [import-area-extensions] AreaExtensions, [/import-area-extensions] */ AreaPlugin } from 'rete-area-plugin'
+/* [angular-render] import { Injector } from '@angular/core' [/angular-render] */
+/* [react-render] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/react-render] */
+/* [react18] import { createRoot } from 'react-dom/client' [/react18] */
+/* [vue-render] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
+/* [angular-render] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] */' [/angular-render] */
+
+
+class Node extends Classic.Node {
+  constructor() {
+    super('Perf')
+
+    this.addInput('port', new Classic.Input(socket, 'Input'))
+    this.addOutput('port', new Classic.Output(socket, 'Output'))
+  }
+}
+
+class Connection<A extends Node, B extends Node> extends Classic.Connection<A, B> {}
+
+type Schemes = GetSchemes<Node, Connection<Node, Node>>
+
+type AreaExtra =
+/* [react-render] | ReactArea2D<Schemes> [/react-render] */
+/* [vue-render] | VueArea2D<Schemes> [/vue-render] */
+/* [angular-render] | AngularArea2D<Schemes> [/angular-render] */
+
+const socket = new Classic.Socket('socket')
+
+export async function createEditor(container: HTMLElement/* [angular-render] , injector: Injector [/angular-render] */) {
+  const editor = new NodeEditor<Schemes>()
+  const area = new AreaPlugin<Schemes, AreaExtra>(container)
+  /* [react-render] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */) [/react-render] */
+  /* [vue-render] const vueRender = new VueRenderPlugin<Schemes, AreaExtra>() [/vue-render] */
+  /* [angular-render] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
+
+  editor.use(area)
+
+  /* [react-render] area.use(reactRender) [/react-render] */
+  /* [vue-render] area.use(vueRender) [/vue-render] */
+  /* [angular-render] area.use(angularRender) [/angular-render] */
+
+  /* [react-render] reactRender.addPreset(ReactPresets.classic.setup({ area })) [/react-render] */
+  /* [vue-render] vueRender.addPreset(VuePresets.classic.setup({ area })) [/vue-render] */
+  /* [angular-render] angularRender.addPreset(AngularPresets.classic.setup({ area })) [/angular-render] */
+
+  // eslint-disable-next-line no-restricted-globals
+  const query = new URLSearchParams(location.search)
+  const rows = Number(query.get('rows') || 0) || 12
+  const cols = Number(query.get('cols') || 0) || 12
+
+  let prev: null | Node = null
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const a = new Node()
+
+      await editor.addNode(a)
+      await area.translate(a.id, { x: col * 310, y: row * 190 })
+
+      if (prev) {
+        await editor.addConnection(new Connection(prev, 'port', a, 'port'))
+      }
+      prev = a
+    }
+  }
+
+  /* [zoom-at] AreaExtensions.zoomAt(area, editor.getNodes()) [/zoom-at] */
+
+  /* [order-nodes] AreaExtensions.simpleNodesOrder(area) [/order-nodes] */
+
+  /* [selectable] AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
+    accumulating: AreaExtensions.accumulateOnCtrl()
+  }) [/selectable] */
+
+  return {
+    destroy: () => area.destroy()
+  }
+}
