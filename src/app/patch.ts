@@ -5,10 +5,14 @@ import { join } from 'path'
 import { throwError } from '../shared/throw'
 
 const patchDescriptor = '.rete-patch'
+const kitVersion = require('../../package.json').version
+
+if (!kitVersion) throwError('Kit version not found')
 
 type Descriptor = {
   stack: string
   version: number
+  kitVersion: string
 }
 
 async function exists(name: string) {
@@ -39,6 +43,14 @@ async function validateDescriptor(path: string, expected: Descriptor): Promise<{
       `
     }
   }
+  if (descriptor.kitVersion !== expected.kitVersion) {
+    return {
+      issue: `\
+        The application was created with a different version of Rete Kit\
+        (the app was created using v${descriptor.kitVersion}, but the current version is v${expected.kitVersion})\
+      `
+    }
+  }
 
   return { issue: null }
 }
@@ -62,7 +74,7 @@ export async function ensure(name: string, stack: string, version: number): Prom
     `)
   }
 
-  const { issue } = await validateDescriptor(descriptorPath, { stack, version })
+  const { issue } = await validateDescriptor(descriptorPath, { stack, version, kitVersion })
 
   if (issue) throwError(issue)
 
@@ -70,7 +82,8 @@ export async function ensure(name: string, stack: string, version: number): Prom
 }
 
 export async function commit(name: string, stack: string, version: number) {
-  const content = JSON.stringify(<Descriptor>{ stack, version }, null, '\t')
+  const descriptor: Descriptor = { stack, version, kitVersion }
+  const content = JSON.stringify(descriptor, null, '\t')
 
   await fs.promises.writeFile(join(name, patchDescriptor), content)
   console.log('\n', chalk.bgGreen(' PATCH '), chalk.green('Ready'))
