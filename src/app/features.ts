@@ -17,9 +17,11 @@ export interface Feature {
 export class Default implements Feature {
   name = 'Default'
   mandatory = true
+  templateKeys: DefaultTemplateKey[] = []
   requiredDependencies: string[] = []
 
-  constructor(next: boolean) {
+  constructor(stack: string, next: boolean) {
+    this.templateKeys.push(`stack-${stack}`)
     this.requiredDependencies.push(
       ver('rete', next),
       ver('rete-area-plugin', next),
@@ -48,7 +50,8 @@ export class React implements Feature {
   name = 'React render'
   templateKeys: DefaultTemplateKey[] = ['react-render']
   requiredDependencies = [
-    'styled-components'
+    'styled-components',
+    '@types/styled-components'
   ]
 
   constructor(version: number, stack: AppStack, next: boolean) {

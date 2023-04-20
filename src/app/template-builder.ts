@@ -7,14 +7,10 @@ import { assets as assetsRoot } from '../consts'
 
 export const templatesPath = join(assetsRoot, 'app', 'templates')
 export const entryScriptPath = join(assetsRoot, 'app', 'entry_ts')
-export const defaultTemplateKeys = [
-  'zoom-at', 'react-render', 'react18', 'vue-render', 'vue2', 'angular-render',
-  'angular12', 'angular13', 'angular14', 'angular15',
-  'dataflow', 'arrange', 'readonly', 'order-nodes', 'selectable',
-  'context-menu', 'import-area-extensions'
-] as const
-
-export type DefaultTemplateKey = (typeof defaultTemplateKeys)[number]
+export type DefaultTemplateKey = 'zoom-at' | 'react-render' | 'react18' | 'vue-render'
+  | 'vue2' | 'angular-render' | 'angular12' | 'angular13' | 'angular14' | 'angular15'
+  | 'dataflow' | 'arrange' | 'readonly' | 'order-nodes' | 'selectable'
+  | 'context-menu' | 'import-area-extensions' | `stack-${string}`
 
 export class TemplateBuilder {
   blockCommentRegex = /\/\* \[(!?[\w-]+)\][\n ]+(.*?)?[\n ]?\[\/\1\] \*\//gs

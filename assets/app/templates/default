@@ -1,5 +1,5 @@
 import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
-/* [angular-render] import { Injector } from '@angular/core' [/angular-render] */
+/* [stack-angular] import { Injector } from '@angular/core' [/stack-angular] */
 import { /* [import-area-extensions] AreaExtensions, [/import-area-extensions] */ AreaPlugin } from 'rete-area-plugin'
 /* [!readonly] import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin' [/!readonly] */
 /* [react-render] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/react-render] */
@@ -81,7 +81,7 @@ type AreaExtra =
 
 const socket = new Classic.Socket('socket')
 
-export async function createEditor(container: HTMLElement/* [angular-render] , injector: Injector [/angular-render] */) {
+export async function createEditor(container: HTMLElement/* [stack-angular] , injector: Injector [/stack-angular] */) {
   const editor = new NodeEditor<Schemes>()
   const area = new AreaPlugin<Schemes, AreaExtra>(container)
   /* [!readonly] const connection = new ConnectionPlugin<Schemes, AreaExtra>() [/!readonly] */

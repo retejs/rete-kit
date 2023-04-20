@@ -47,7 +47,7 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
   if (!builder.versions.includes(selectedVersion)) throwError('specified version is not available for selected stack')
 
   const featuresList: Features.Feature[] = [
-    new Features.Default(next),
+    new Features.Default(selectedStack, next),
     new Features.Angular(builder instanceof AngularBuilder ? selectedVersion as 12 | 13 | 14 | 15 : null, next),
     new Features.React(builder instanceof ReactBuilder ? selectedVersion : 18, selectedStack, next),
     new Features.Vue(builder instanceof VueBuilder ? selectedVersion as 2 : 3, next),
@@ -85,11 +85,12 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
   if (!exists) await builder.create(appName, selectedVersion)
   await Patch.commit(appName, selectedStack, selectedVersion)
 
+  const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
   const templateBuilder = new TemplateBuilder()
 
   for (const templateName of await templateBuilder.getTemplates()) {
     const template = await templateBuilder.load(templateName)
-    const keys = selectedFeatures.map(({ templateKeys }) => templateKeys || []).flat()
+    const keys = activeFeatures.map(({ templateKeys }) => templateKeys || []).flat()
     const code = await templateBuilder.build<DefaultTemplateKey>(template, key => {
       return keys.includes(key)
     })
@@ -97,8 +98,6 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
     await builder.putScript(appName, `${templateName}.ts`, code)
   }
   await builder.putScript(appName, `index.ts`, await templateBuilder.getEntryScript())
-
-  const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
 
   await install(appName, Features.getDependencies(activeFeatures), depsAlias)
 }
