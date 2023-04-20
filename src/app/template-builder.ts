@@ -3,7 +3,9 @@ import fs from 'fs'
 import { join } from 'path'
 import prettier from 'prettier'
 
-export const defaultTemplatePath = join(__dirname, '..', '..', 'assets', 'app', 'template_ts')
+import { assets as assetsRoot } from '../consts'
+
+export const defaultTemplatePath = join(assetsRoot, 'app', 'templates', 'default_ts')
 export const defaultTemplateKeys = [
   'zoom-at', 'react-render', 'react18', 'vue-render', 'vue2', 'angular-render',
   'angular12', 'angular13', 'angular14', 'angular15',

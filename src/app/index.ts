@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { input, select } from '../shared/inquirer'
 import { throwError } from '../shared/throw'
-import { AngularBuilder } from './angular'
 import { install } from './dependencies-installer'
 import * as Features from './features'
 import * as Patch from './patch'
-import { ReactBuilder } from './react'
+import { AngularBuilder, ReactBuilder, VueBuilder, VueViteBuilder } from './stack'
 import { DefaultTemplateKey, TemplateBuilder } from './template-builder'
-import { VueBuilder, VueViteBuilder } from './vue'
 
 export const builders = {
   'angular': new AngularBuilder(),
@@ -48,7 +46,7 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
 
   if (!builder.versions.includes(selectedVersion)) throwError('specified version is not available for selected stack')
 
-  const template = new TemplateBuilder()
+  const templateBuilder = new TemplateBuilder()
 
   const featuresList: Features.Feature[] = [
     new Features.Default(next),
@@ -85,8 +83,8 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
   Features.ensureFeatures(selectedFeatures, featuresList)
 
   const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
-  const defaultTemplate = await template.loadDefault()
-  const code = await template.build<DefaultTemplateKey>(defaultTemplate, key => {
+  const template = await templateBuilder.loadDefault()
+  const code = await templateBuilder.build<DefaultTemplateKey>(template, key => {
     return selectedFeatures.some(feature => feature.templateKeys && feature.templateKeys.includes(key))
   })
 

@@ -3,15 +3,15 @@ import execa from 'execa'
 import fs from 'fs'
 import { join } from 'path'
 
-import { assets as assetsRoot } from '../../consts'
-import { AppBuilder } from '../app-builder'
+import { AppBuilder } from '../../app-builder'
+import { assetsStack } from '../../consts'
 
 export class ReactBuilder implements AppBuilder {
   public name = 'React.js'
   public versions = [16, 17, 18]
 
   public async create(name: string, version: number) {
-    const assets = join(assetsRoot, 'app', 'react')
+    const assets = join(assetsStack, 'react')
     const src = join(name, 'src')
 
     await execa('npx', ['create-react-app', '--template', 'typescript', name], { stdio: 'inherit' })

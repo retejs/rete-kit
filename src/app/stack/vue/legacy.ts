@@ -2,15 +2,15 @@ import execa from 'execa'
 import fs from 'fs'
 import { join } from 'path'
 
-import { assets as assetsRoot } from '../../consts'
-import { AppBuilder } from '../app-builder'
+import { AppBuilder } from '../../app-builder'
+import { assetsStack } from '../../consts'
 
 export class VueBuilder implements AppBuilder {
   public name = 'Vue.js'
   public versions = [2, 3]
 
   public async create(name: string, version: number) {
-    const assets = join(assetsRoot, 'app', 'vue')
+    const assets = join(assetsStack, 'vue')
     const src = join(name, 'src')
     const presetFolder = join(assets, version === 2 ? 'vue2' : 'vue3')
 

@@ -2,15 +2,15 @@ import execa from 'execa'
 import fs from 'fs'
 import { join } from 'path'
 
-import { assets as assetsRoot } from '../../consts'
-import { AppBuilder } from '../app-builder'
+import { AppBuilder } from '../../app-builder'
+import { assetsStack } from '../../consts'
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
   public versions = [12, 13, 14, 15]
 
   public async create(name: string, version: number) {
-    const assets = join(assetsRoot, 'app', 'angular')
+    const assets = join(assetsStack, 'angular')
     const src = join(name, 'src')
 
     await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, '--defaults'], { stdio: 'inherit' })

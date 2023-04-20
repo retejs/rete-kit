@@ -2,14 +2,14 @@ import execa from 'execa'
 import fs from 'fs'
 import { join } from 'path'
 
-import { assets as assetsRoot } from '../../consts'
+import { assetsStack } from '../../consts'
 import { VueBuilder } from './legacy'
 
 export class VueViteBuilder extends VueBuilder {
   public name = 'Vue.js Vite'
 
   public async create(name: string, version: number) {
-    const assets = join(assetsRoot, 'app', 'vue')
+    const assets = join(assetsStack, 'vue')
     const src = join(name, 'src')
 
     await execa('npm', ['create', `vue@${version}`, name, '--ts'], { stdio: 'inherit' })
