@@ -5,7 +5,8 @@ import prettier from 'prettier'
 
 import { assets as assetsRoot } from '../consts'
 
-export const defaultTemplatePath = join(assetsRoot, 'app', 'templates', 'default_ts')
+export const templatesPath = join(assetsRoot, 'app', 'templates')
+export const entryScriptPath = join(assetsRoot, 'app', 'entry_ts')
 export const defaultTemplateKeys = [
   'zoom-at', 'react-render', 'react18', 'vue-render', 'vue2', 'angular-render',
   'angular12', 'angular13', 'angular14', 'angular15',
@@ -18,12 +19,12 @@ export type DefaultTemplateKey = (typeof defaultTemplateKeys)[number]
 export class TemplateBuilder {
   blockCommentRegex = /\/\* \[(!?[\w-]+)\][\n ]+(.*?)?[\n ]?\[\/\1\] \*\//gs
 
-  async load(path: string) {
-    return fs.promises.readFile(path, { encoding: 'utf-8' })
+  async load(name: string) {
+    return fs.promises.readFile(join(templatesPath, name), { encoding: 'utf-8' })
   }
 
-  async loadDefault() {
-    return this.load(defaultTemplatePath)
+  async getTemplates() {
+    return fs.promises.readdir(templatesPath)
   }
 
   private replace<Keys extends string>(code: string, keep: (key: Keys) => boolean) {
@@ -36,5 +37,9 @@ export class TemplateBuilder {
 
   async build<Keys extends string>(code: string, keep: (key: Keys) => boolean) {
     return prettier.format(this.replace(code, keep), { singleQuote: true, parser: 'typescript' })
+  }
+
+  async getEntryScript() {
+    return fs.promises.readFile(entryScriptPath, { encoding: 'utf-8' })
   }
 }

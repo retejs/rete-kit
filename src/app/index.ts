@@ -46,8 +46,6 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
 
   if (!builder.versions.includes(selectedVersion)) throwError('specified version is not available for selected stack')
 
-  const templateBuilder = new TemplateBuilder()
-
   const featuresList: Features.Feature[] = [
     new Features.Default(next),
     new Features.Angular(builder instanceof AngularBuilder ? selectedVersion as 12 | 13 | 14 | 15 : null, next),
@@ -82,16 +80,25 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
 
   Features.ensureFeatures(selectedFeatures, featuresList)
 
-  const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
-  const template = await templateBuilder.loadDefault()
-  const code = await templateBuilder.build<DefaultTemplateKey>(template, key => {
-    return selectedFeatures.some(feature => feature.templateKeys && feature.templateKeys.includes(key))
-  })
-
   const { exists } = await Patch.ensure(appName, selectedStack, selectedVersion)
 
   if (!exists) await builder.create(appName, selectedVersion)
   await Patch.commit(appName, selectedStack, selectedVersion)
-  await builder.putScript(appName, code)
+
+  const templateBuilder = new TemplateBuilder()
+
+  for (const templateName of await templateBuilder.getTemplates()) {
+    const template = await templateBuilder.load(templateName)
+    const keys = selectedFeatures.map(({ templateKeys }) => templateKeys || []).flat()
+    const code = await templateBuilder.build<DefaultTemplateKey>(template, key => {
+      return keys.includes(key)
+    })
+
+    await builder.putScript(appName, `${templateName}.ts`, code)
+  }
+  await builder.putScript(appName, `index.ts`, await templateBuilder.getEntryScript())
+
+  const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
+
   await install(appName, Features.getDependencies(activeFeatures), depsAlias)
 }

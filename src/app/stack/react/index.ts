@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import execa from 'execa'
 import fs from 'fs'
-import { join } from 'path'
+import { dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
@@ -27,10 +27,11 @@ export class ReactBuilder implements AppBuilder {
     await fs.promises.copyFile(join(assets, 'App_tsx'), join(src, 'App.tsx'))
   }
 
-  async putScript(name: string, code: string) {
-    const reteScriptPath = join(name, 'src', 'rete.ts')
+  async putScript(name: string, path: string, code: string) {
+    const scriptPath = join(name, 'src', 'rete', path)
 
-    await fs.promises.writeFile(reteScriptPath, code)
+    await fs.promises.mkdir(dirname(scriptPath), { recursive: true })
+    await fs.promises.writeFile(scriptPath, code)
   }
 
   getStaticPath() {

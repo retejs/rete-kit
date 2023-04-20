@@ -1,6 +1,6 @@
 import execa from 'execa'
 import fs from 'fs'
-import { join } from 'path'
+import { dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
@@ -19,10 +19,11 @@ export class AngularBuilder implements AppBuilder {
     await fs.promises.copyFile(join(assets, 'app.component_ts'), join(src, 'app', 'app.component.ts'))
   }
 
-  async putScript(name: string, code: string): Promise<void> {
-    const reteScriptPath = join(name, 'src', 'app', 'rete.ts')
+  async putScript(name: string, path: string, code: string): Promise<void> {
+    const scriptPath = join(name, 'src', 'app', 'rete', path)
 
-    await fs.promises.writeFile(reteScriptPath, code)
+    await fs.promises.mkdir(dirname(scriptPath), { recursive: true })
+    await fs.promises.writeFile(scriptPath, code)
   }
 
   getStaticPath(name: string) {
