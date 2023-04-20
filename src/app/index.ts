@@ -4,6 +4,7 @@ import { throwError } from '../shared/throw'
 import { AngularBuilder } from './angular'
 import { install } from './dependencies-installer'
 import * as Features from './features'
+import * as Patch from './patch'
 import { ReactBuilder } from './react'
 import { DefaultTemplateKey, TemplateBuilder } from './template-builder'
 import { VueBuilder, VueViteBuilder } from './vue'
@@ -89,7 +90,10 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
     return selectedFeatures.some(feature => feature.templateKeys && feature.templateKeys.includes(key))
   })
 
-  await builder.create(appName, selectedVersion)
+  const { exists } = await Patch.ensure(appName, selectedStack, selectedVersion)
+
+  if (!exists) await builder.create(appName, selectedVersion)
+  await Patch.commit(appName, selectedStack, selectedVersion)
   await builder.putScript(appName, code)
   await install(appName, Features.getDependencies(activeFeatures), depsAlias)
 }
