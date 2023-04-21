@@ -1,22 +1,34 @@
 import execa from 'execa'
 import fs from 'fs'
+import fse from 'fs-extra'
 import { dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
+import { TemplateBuilder } from '../../template-builder'
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
   public versions = [12, 13, 14, 15]
 
   public async create(name: string, version: number) {
-    const assets = join(assetsStack, 'angular')
+    await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, '--defaults'], { stdio: 'inherit' })
+  }
+
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  async putAssets<K extends string>(name: string, _: number, template: TemplateBuilder<K>): Promise<void> {
+    const assets = join(assetsStack, 'angular', 'modules')
     const src = join(name, 'src')
 
-    await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, '--defaults'], { stdio: 'inherit' })
+    await fse.copy(assets, src, {
+      recursive: true,
+      overwrite: true
+    })
 
-    await fs.promises.copyFile(join(assets, 'app.component_html'), join(src, 'app', 'app.component.html'))
-    await fs.promises.copyFile(join(assets, 'app.component_ts'), join(src, 'app', 'app.component.ts'))
+    const appModulePath = join(src, 'app', 'app.module.ts')
+    const appFile = await fs.promises.readFile(appModulePath, { encoding: 'utf-8' })
+
+    await fs.promises.writeFile(appModulePath, await template.build(appFile))
   }
 
   async putScript(name: string, path: string, code: string): Promise<void> {

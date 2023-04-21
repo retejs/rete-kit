@@ -8,7 +8,7 @@ import { createEditor } from './rete'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  title = 'angular12'
+  title = 'angular'
   @ViewChild('rete') container!: ElementRef<HTMLElement>
 
   constructor(private injector: Injector) { }

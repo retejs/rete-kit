@@ -1,5 +1,6 @@
 import execa from 'execa'
 import fs from 'fs'
+import fse from 'fs-extra'
 import { dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
@@ -11,11 +12,19 @@ export class VueBuilder implements AppBuilder {
 
   public async create(name: string, version: number) {
     const assets = join(assetsStack, 'vue')
-    const src = join(name, 'src')
     const presetFolder = join(assets, version === 2 ? 'vue2' : 'vue3')
 
     await execa('npx', ['--package', `@vue/cli@`, 'vue', 'create', name, '--preset', presetFolder], { stdio: 'inherit' })
-    await fs.promises.copyFile(join(assets, 'App_vue'), join(src, 'App.vue'))
+  }
+
+  async putAssets(name: string): Promise<void> {
+    const assets = join(assetsStack, 'vue', 'modules', 'legacy')
+    const src = join(name, 'src')
+
+    await fse.copy(assets, src, {
+      recursive: true,
+      overwrite: true
+    })
   }
 
   async putScript(name: string, path: string, code: string): Promise<void> {

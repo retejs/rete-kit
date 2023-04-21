@@ -1,27 +1,40 @@
 import execa from 'execa'
 import fs from 'fs'
-import { join } from 'path'
+import fse from 'fs-extra'
+import { dirname, join } from 'path'
 
+import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
-import { VueBuilder } from './legacy'
 
-export class VueViteBuilder extends VueBuilder {
+export class VueViteBuilder implements AppBuilder {
   public name = 'Vue.js Vite'
+  public versions = [2, 3]
 
   public async create(name: string, version: number) {
-    const assets = join(assetsStack, 'vue')
-    const src = join(name, 'src')
-
     await execa('npm', ['create', `vue@${version}`, name, '--ts'], { stdio: 'inherit' })
     await execa('npm', ['--prefix', name, 'i'], { stdio: 'inherit' })
-    await fs.promises.copyFile(join(assets, 'tsconfig_json'), join(name, 'tsconfig.json'))
-    await fs.promises.copyFile(join(assets, 'App_vite_vue'), join(src, 'App.vue'))
+  }
 
+  async putAssets(name: string, version: number): Promise<void> {
+    const assets = join(assetsStack, 'vue', 'modules', 'vite')
+    const src = join(name, 'src')
+
+    await fse.copy(assets, src, {
+      recursive: true,
+      overwrite: true
+    })
     if (version === 2) {
       const appFile = await fs.promises.readFile(join(src, 'App.vue'), { encoding: 'utf-8' })
 
       await fs.promises.writeFile(join(src, 'App.vue'), appFile.replace(/<!--(.*)-->/g, '$1'))
     }
+  }
+
+  async putScript(name: string, path: string, code: string): Promise<void> {
+    const scriptPath = join(name, 'src', 'rete', path)
+
+    await fs.promises.mkdir(dirname(scriptPath), { recursive: true })
+    await fs.promises.writeFile(scriptPath, code)
   }
 
   getStaticPath() {

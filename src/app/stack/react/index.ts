@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import execa from 'execa'
 import fs from 'fs'
+import fse from 'fs-extra'
 import { dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
@@ -11,9 +12,6 @@ export class ReactBuilder implements AppBuilder {
   public versions = [16, 17, 18]
 
   public async create(name: string, version: number) {
-    const assets = join(assetsStack, 'react')
-    const src = join(name, 'src')
-
     await execa('npx', ['create-react-app', '--template', 'typescript', name], { stdio: 'inherit' })
     await execa('npm', [
       '--prefix', name, 'i',
@@ -21,10 +19,20 @@ export class ReactBuilder implements AppBuilder {
       `react-dom@${version}`,
       version < 18 ? `@testing-library/react@12` : `@testing-library/react@13`
     ], { stdio: 'inherit' })
+  }
 
-    if (version < 18) await fs.promises.copyFile(join(assets, 'index_tsx'), join(src, 'index.tsx'))
-    await fs.promises.copyFile(join(assets, 'rete_css'), join(src, 'rete.css'))
-    await fs.promises.copyFile(join(assets, 'App_tsx'), join(src, 'App.tsx'))
+  async putAssets(name: string, version: number) {
+    const modules = join(assetsStack, 'react', 'modules')
+    const src = join(name, 'src')
+
+    await fse.copy(modules, src, {
+      recursive: true,
+      overwrite: true,
+      filter(source) {
+        if (source.endsWith('index.tsx')) return version < 18
+        return true
+      }
+    })
   }
 
   async putScript(name: string, path: string, code: string) {
