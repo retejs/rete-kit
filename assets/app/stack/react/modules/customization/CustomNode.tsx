@@ -132,6 +132,7 @@ export function CustomNode<Scheme extends ClassicScheme>(props: Props<Scheme>) {
                 socketKey={key}
                 nodeId={id}
                 payload={output.socket}
+                data-testid="output-socket"
               />
             </div>
           )
@@ -144,6 +145,7 @@ export function CustomNode<Scheme extends ClassicScheme>(props: Props<Scheme>) {
             name="control"
             emit={props.emit}
             payload={control}
+            data-testid={`control-${key}`}
           />
         ) : null;
       })}
@@ -159,6 +161,7 @@ export function CustomNode<Scheme extends ClassicScheme>(props: Props<Scheme>) {
                 socketKey={key}
                 nodeId={id}
                 payload={input.socket}
+                data-testid="input-socket"
               />
               {input && (!input.control || !input.showControl) && (
                 <div className="input-title" data-testid="input-title">
@@ -172,6 +175,7 @@ export function CustomNode<Scheme extends ClassicScheme>(props: Props<Scheme>) {
                     name="input-control"
                     emit={props.emit}
                     payload={input.control}
+                    data-testid="input-control"
                   />
                 </span>
               )}
