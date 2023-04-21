@@ -10,6 +10,7 @@ import { assetsStack } from '../../consts'
 export class ReactBuilder implements AppBuilder {
   public name = 'React.js'
   public versions = [16, 17, 18]
+  public foundation = 'react'
 
   public async create(name: string, version: number) {
     await execa('npx', ['create-react-app', '--template', 'typescript', name], { stdio: 'inherit' })

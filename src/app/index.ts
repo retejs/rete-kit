@@ -47,7 +47,7 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
   if (!builder.versions.includes(selectedVersion)) throwError('specified version is not available for selected stack')
 
   const featuresList: Features.Feature[] = [
-    new Features.Default(selectedStack, next),
+    new Features.Default(builder.foundation, next),
     new Features.Angular(builder instanceof AngularBuilder ? selectedVersion as 12 | 13 | 14 | 15 : null, next),
     new Features.React(builder instanceof ReactBuilder ? selectedVersion : 18, selectedStack, next),
     new Features.Vue(builder instanceof VueBuilder ? selectedVersion as 2 : 3, next),

@@ -9,6 +9,7 @@ import { assetsStack } from '../../consts'
 export class VueBuilder implements AppBuilder {
   public name = 'Vue.js'
   public versions = [2, 3]
+  public foundation = 'vue'
 
   public async create(name: string, version: number) {
     const assets = join(assetsStack, 'vue')
