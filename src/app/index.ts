@@ -86,14 +86,14 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
   await Patch.commit(appName, selectedStack, selectedVersion)
 
   const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
-  const templateBuilder = new TemplateBuilder()
+  const activeFeaturesKeys = activeFeatures.map(({ templateKeys }) => templateKeys || []).flat()
+  const templateBuilder = new TemplateBuilder<DefaultTemplateKey>(activeFeaturesKeys)
+
+  await builder.putAssets(appName, selectedVersion, templateBuilder)
 
   for (const templateName of await templateBuilder.getTemplates()) {
     const template = await templateBuilder.load(templateName)
-    const keys = activeFeatures.map(({ templateKeys }) => templateKeys || []).flat()
-    const code = await templateBuilder.build<DefaultTemplateKey>(template, key => {
-      return keys.includes(key)
-    })
+    const code = await templateBuilder.build(template)
 
     await builder.putScript(appName, `${templateName}.ts`, code)
   }

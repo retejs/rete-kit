@@ -12,8 +12,10 @@ export type DefaultTemplateKey = 'zoom-at' | 'react-render' | 'react18' | 'vue-r
   | 'dataflow' | 'arrange' | 'readonly' | 'order-nodes' | 'selectable'
   | 'context-menu' | 'import-area-extensions' | `stack-${string}`
 
-export class TemplateBuilder {
+export class TemplateBuilder<Key extends string> {
   blockCommentRegex = /\/\* \[(!?[\w-]+)\][\n ]+(.*?)?[\n ]?\[\/\1\] \*\//gs
+
+  constructor(private keys: Key[]) {}
 
   async load(name: string) {
     return fs.promises.readFile(join(templatesPath, name), { encoding: 'utf-8' })
@@ -23,7 +25,7 @@ export class TemplateBuilder {
     return fs.promises.readdir(templatesPath)
   }
 
-  private replace<Keys extends string>(code: string, keep: (key: Keys) => boolean) {
+  private replace(code: string, keep: (key: Key) => boolean) {
     return code.replace(this.blockCommentRegex, (_substring, key, content) => {
       if (keep(key)) return this.replace(content, keep)
       if (key.startsWith('!') && !keep(key.split('!')[1])) return this.replace(content, keep)
@@ -31,7 +33,9 @@ export class TemplateBuilder {
     })
   }
 
-  async build<Keys extends string>(code: string, keep: (key: Keys) => boolean) {
+  async build(code: string) {
+    const keep = (key: Key) => this.keys.includes(key)
+
     return prettier.format(this.replace(code, keep), { singleQuote: true, parser: 'typescript' })
   }
 
