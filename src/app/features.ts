@@ -74,7 +74,7 @@ export class React implements Feature {
 export class Vue implements Feature {
   name = 'Vue render'
   templateKeys: DefaultTemplateKey[] = ['vue-render']
-  requiredDependencies: string[] = []
+  requiredDependencies: string[] = ['sass-loader', 'sass']
 
   constructor(version: 2 | 3, next: boolean) {
     if (version === 2) this.templateKeys.push('vue2')
