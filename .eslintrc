@@ -1,11 +1,16 @@
 {
-  "extends": ["./node_modules/rete-cli/.eslintrc"],
+  "extends": [
+    "./node_modules/rete-cli/.eslintrc"
+  ],
   "parserOptions": {
     "sourceType": "module"
   },
   "env": {
     "node": true
   },
+  "ignorePatterns": [
+    "assets"
+  ],
   "rules": {
     "global-require": "off",
     "@typescript-eslint/no-var-requires": "off",
