@@ -1,9 +1,11 @@
 import { createEditor as createDefaultEditor } from './default'
 import { createEditor as createPerfEditor } from './perf'
+import { createEditor as createCustomEditor } from './customization'
 
 const factory = {
   'default': createDefaultEditor,
-  'perf': createPerfEditor
+  'perf': createPerfEditor,
+  'customization': createCustomEditor
 }
 // eslint-disable-next-line no-restricted-globals, no-undef
 const query = new URLSearchParams(location.search)
