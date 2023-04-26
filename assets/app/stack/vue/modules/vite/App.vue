@@ -38,6 +38,7 @@ header {
 }
 
 .rete {
+  position: relative;
   height: 90vh;
   font-size: 1rem;
   background: white;

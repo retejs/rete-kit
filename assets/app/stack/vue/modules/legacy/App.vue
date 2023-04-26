@@ -27,7 +27,9 @@ export default defineComponent({
   color: #2c3e50;
   margin-top: 60px;
 }
+
 .rete {
+  position: relative;
   width: 80vw;
   height: 90vh;
   font-size: 1rem;
