@@ -1,3 +1,7 @@
+## 1.0.0-beta.21
+
+Added Minimap & Reroute features into default template
+
 ## v1.0.0-beta.18
 
 - Implemented multiple templates support (can be switched using the query parameter `?template=<name>`)
