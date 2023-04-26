@@ -98,7 +98,7 @@ export class ZoomAt implements Feature {
 
 export class Arrange implements Feature {
   name = 'Auto arrange'
-  templateKeys: DefaultTemplateKey[] = ['arrange']
+  templateKeys: DefaultTemplateKey[] = ['arrange', 'sizes']
   requiredDependencies = [
     'elkjs',
     'web-worker'
@@ -147,6 +147,30 @@ export class ContextMenu implements Feature {
   }
 }
 
+export class Minimap implements Feature {
+  name = 'Minimap'
+  templateKeys: DefaultTemplateKey[] = ['minimap', 'sizes']
+  requiredDependencies: string[] = []
+
+  constructor(next: boolean) {
+    this.requiredDependencies.push(
+      ver('rete-minimap-plugin', next)
+    )
+  }
+}
+
+export class Reroute implements Feature {
+  name = 'Reroute'
+  templateKeys: DefaultTemplateKey[] = ['reroute']
+  requiredDependencies: string[] = []
+
+  constructor(next: boolean) {
+    this.requiredDependencies.push(
+      ver('rete-connection-reroute-plugin', next)
+    )
+  }
+}
+
 export class Selectable implements Feature {
   name = 'Selectable nodes'
   templateKeys: DefaultTemplateKey[] = ['import-area-extensions', 'selectable']
@@ -170,17 +194,20 @@ export function validateFeatures(features: Feature[], options: { stack: AppStack
 }
 
 export function ensureFeatures(features: Feature[], all: Feature[]) {
-  const enabledContextMenu = features.some(feature => feature instanceof ContextMenu)
-  const enabledReact = features.some(feature => feature instanceof React)
+  features
+  all
+  chalk
+  // const enabledContextMenu = features.some(feature => feature instanceof ContextMenu)
+  // const enabledReact = features.some(feature => feature instanceof React)
 
-  if (enabledContextMenu && !enabledReact) {
-    const reactRender = all.find(feature => feature instanceof React)
+  // if (enabledContextMenu && !enabledReact) {
+  //   const reactRender = all.find(feature => feature instanceof React)
 
-    if (!reactRender) throw new Error('cannot find React feature')
+  //   if (!reactRender) throw new Error('cannot find React feature')
 
-    console.log(chalk.yellow('Enabling React render plugin since it is required for Context menu..'))
-    features.push(reactRender)
-  }
+  //   console.log(chalk.yellow('Enabling React render plugin since it is required for Context menu..'))
+  //   features.push(reactRender)
+  // }
 }
 
 export function getDependencies(features: Feature[]) {

@@ -9,8 +9,8 @@ export const templatesPath = join(assetsRoot, 'app', 'templates')
 export const entryScriptPath = join(assetsRoot, 'app', 'entry_ts')
 export type DefaultTemplateKey = 'zoom-at' | 'react-render' | 'react18' | 'vue-render'
   | 'vue2' | 'angular-render' | 'angular12' | 'angular13' | 'angular14' | 'angular15'
-  | 'dataflow' | 'arrange' | 'readonly' | 'order-nodes' | 'selectable'
-  | 'context-menu' | 'import-area-extensions' | `stack-${string}`
+  | 'dataflow' | 'arrange' | 'sizes' | 'readonly' | 'order-nodes' | 'selectable'
+  | 'context-menu' | 'import-area-extensions' | 'minimap' | 'reroute' | `stack-${string}`
 
 export class TemplateBuilder<Key extends string> {
   blockCommentRegex = /\/\* \[(!?[\w-]+)\][\n ]+(.*?)?[\n ]?\[\/\1\] \*\//gs

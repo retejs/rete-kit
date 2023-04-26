@@ -10,6 +10,8 @@ import { /* [import-area-extensions] AreaExtensions, [/import-area-extensions] *
 /* [arrange] import { AutoArrangePlugin, Presets as ArrangePresets } from 'rete-auto-arrange-plugin' [/arrange] */
 /* [readonly] import { ReadonlyPlugin } from 'rete-readonly-plugin' [/readonly] */
 /* [context-menu] import { ContextMenuPlugin, ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
+/* [minimap] import { MinimapExtra, MinimapPlugin } from 'rete-minimap-plugin'; [/minimap] */
+/* [reroute] import { ReroutePlugin, RerouteExtra /* [selectable] , RerouteExtensions [/selectable] */ } from "rete-connection-reroute-plugin"; [/reroute] */
 
 type Node =
   | NumberNode
@@ -23,10 +25,10 @@ type Schemes = GetSchemes<Node, Conn>
 class Connection<A extends Node, B extends Node> extends Classic.Connection<A, B> {}
 
 class NumberNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */{
-  /* [arrange]
+  /* [sizes]
   width = 180
   height = 120
-  [/arrange] */
+  [/sizes] */
 
   constructor(initial: number, change?: (value: number) => void) {
     super('Number')
@@ -46,10 +48,10 @@ class NumberNode extends Classic.Node /* [dataflow] implements DataflowNode [/da
 }
 
 class AddNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */ {
-  /* [arrange]
+  /* [sizes]
   width = 180
   height = 195
-  [/arrange] */
+  [/sizes] */
 
   constructor() {
     super('Add')
@@ -78,6 +80,9 @@ type AreaExtra =
 /* [vue-render] | VueArea2D<Schemes> [/vue-render] */
 /* [angular-render] | AngularArea2D<Schemes> [/angular-render] */
 /* [context-menu] | ContextMenuExtra<Schemes> [/context-menu] */
+/* [minimap] | MinimapExtra<Schemes> [/minimap] */
+/* [reroute] | RerouteExtra<Schemes> [/reroute] */
+
 
 const socket = new Classic.Socket('socket')
 
@@ -95,6 +100,8 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
       ['Add', () => new AddNode()]
     ])
   }) [/context-menu] */
+  /* [minimap] const minimap = new MinimapPlugin<Schemes, AreaExtra>(); [/minimap] */
+  /* [reroute] const reroutePlugin = new ReroutePlugin<Schemes, AreaExtra>(); [/reroute] */
 
   /* [readonly] editor.use(readonly.root) [/readonly] */
   editor.use(area)
@@ -104,12 +111,70 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [angular-render] area.use(angularRender) [/angular-render] */
   /* [!readonly] area.use(connection) [/!readonly] */
   /* [context-menu] area.use(contextMenu) [/context-menu] */
+  /* [minimap] area.use(minimap) [/minimap] */
+  /* [reroute]
+  /* [react-render] reactRender.use(reroutePlugin) [/react-render] */
+  /* [vue-render] vueRender.use(reroutePlugin) [/vue-render] */
+  /* [angular-render] angularRender.use(reroutePlugin) [/angular-render] */
+  [/reroute] */
 
   /* [!readonly] connection.addPreset(ConnectionPresets.classic.setup()) [/!readonly] */
-  /* [react-render] reactRender.addPreset(ReactPresets.classic.setup({ area })) [/react-render] */
+  /* [react-render]
+  reactRender.addPreset(ReactPresets.classic.setup({ area }))
   /* [context-menu] reactRender.addPreset(ReactPresets.contextMenu.setup()) [/context-menu] */
-  /* [vue-render] vueRender.addPreset(VuePresets.classic.setup({ area })) [/vue-render] */
-  /* [angular-render] angularRender.addPreset(AngularPresets.classic.setup({ area })) [/angular-render] */
+  /* [minimap] reactRender.addPreset(ReactPresets.minimap.setup()) [/minimap] */
+  /* [reroute] reactRender.addPreset(ReactPresets.reroute.setup({
+    contextMenu(id) {
+      reroutePlugin.remove(id);
+    },
+    translate(id, dx, dy) {
+      const { k } = area.area.transform;
+      reroutePlugin.translate(id, dx / k, dy / k);
+    },
+    /* [selectable] pointerdown(id) {
+      reroutePlugin.unselect(id);
+      reroutePlugin.select(id);
+    } [/selectable] */
+  })); [/reroute] */
+  [/react-render] */
+
+  /* [vue-render]
+  vueRender.addPreset(VuePresets.classic.setup({ area }))
+  /* [context-menu] vueRender.addPreset(VuePresets.contextMenu.setup()) [/context-menu] */
+  /* [minimap] vueRender.addPreset(VuePresets.minimap.setup()) [/minimap] */
+  /* [reroute] vueRender.addPreset(VuePresets.reroute.setup({
+    contextMenu(id) {
+      reroutePlugin.remove(id);
+    },
+    translate(id, dx, dy) {
+      const { k } = area.area.transform;
+      reroutePlugin.translate(id, dx / k, dy / k);
+    },
+    /* [selectable] pointerdown(id) {
+      reroutePlugin.unselect(id);
+      reroutePlugin.select(id);
+    } [/selectable] */
+  })); [/reroute] */
+  [/vue-render] */
+
+  /* [angular-render]
+  angularRender.addPreset(AngularPresets.classic.setup({ area }))
+  /* [context-menu] angularRender.addPreset(AngularPresets.contextMenu.setup()) [/context-menu] */
+  /* [minimap] angularRender.addPreset(AngularPresets.minimap.setup()) [/minimap] */
+  /* [reroute] angularRender.addPreset(AngularPresets.reroute.setup({
+    contextMenu(id) {
+      reroutePlugin.remove(id);
+    },
+    translate(id, dx, dy) {
+      const { k } = area.area.transform;
+      reroutePlugin.translate(id, dx / k, dy / k);
+    },
+    /* [selectable] pointerdown(id) {
+      reroutePlugin.unselect(id);
+      reroutePlugin.select(id);
+    } [/selectable] */
+  })); [/reroute] */
+  [/angular-render] */
 
   /* [dataflow] const dataflow = new DataflowEngine<Schemes>()
 
@@ -147,9 +212,15 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
 
   /* [order-nodes] AreaExtensions.simpleNodesOrder(area) [/order-nodes] */
 
-  /* [selectable] AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
-    accumulating: AreaExtensions.accumulateOnCtrl()
-  }) [/selectable] */
+  /* [selectable]
+  const selector = AreaExtensions.selector();
+  const accumulating = AreaExtensions.accumulateOnCtrl();
+
+  AreaExtensions.selectableNodes(area, selector, { accumulating });
+  /* [reroute]
+  RerouteExtensions.selectablePins(reroutePlugin, selector, accumulating);
+  [/reroute] */
+  [/selectable] */
 
   /* [dataflow] async function process() {
     dataflow.reset()
