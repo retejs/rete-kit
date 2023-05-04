@@ -8,7 +8,7 @@ import { assets as assetsRoot } from '../consts'
 export const templatesPath = join(assetsRoot, 'app', 'templates')
 export const entryScriptPath = join(assetsRoot, 'app', 'entry_ts')
 export type DefaultTemplateKey = 'zoom-at' | 'react-render' | 'react18' | 'vue-render'
-  | 'vue2' | 'angular-render' | 'angular12' | 'angular13' | 'angular14' | 'angular15'
+  | 'vue2' | 'angular-render' | `angular${12 | 13 | 14 | 15 | 16}`
   | 'dataflow' | 'arrange' | 'sizes' | 'readonly' | 'order-nodes' | 'selectable'
   | 'context-menu' | 'import-area-extensions' | 'minimap' | 'reroute' | `stack-${string}`
 

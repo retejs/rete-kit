@@ -4,7 +4,7 @@ import { /* [import-area-extensions] AreaExtensions, [/import-area-extensions] *
 /* [react-render] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/react-render] */
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
 /* [vue-render] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
-/* [angular-render] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] */' [/angular-render] */
+/* [angular-render] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] */' [/angular-render] */
 
 
 class Node extends Classic.Node {

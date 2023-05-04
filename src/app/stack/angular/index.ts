@@ -9,7 +9,7 @@ import { TemplateBuilder } from '../../template-builder'
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
-  public versions = [12, 13, 14, 15]
+  public versions = [12, 13, 14, 15, 16]
   public foundation = 'angular'
 
   public async create(name: string, version: number) {

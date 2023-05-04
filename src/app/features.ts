@@ -35,7 +35,7 @@ export class Angular implements Feature {
   templateKeys: DefaultTemplateKey[] = ['angular-render']
   requiredDependencies: string[] = []
 
-  constructor(version: 12 | 13 | 14 | 15 | null, next: boolean) {
+  constructor(version: 12 | 13 | 14 | 15 | 16 | null, next: boolean) {
     if (version !== null) this.templateKeys.push(`angular${version}`)
 
     this.requiredDependencies.push(
