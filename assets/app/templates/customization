@@ -141,7 +141,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
 
   /* [zoom-at] setTimeout(() => {
     AreaExtensions.zoomAt(area, editor.getNodes());
-  }, 100); [/zoom-at] */
+  }, 300); [/zoom-at] */
 
   return {
     destroy: () => area.destroy()
