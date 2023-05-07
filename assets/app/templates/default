@@ -1,6 +1,6 @@
 import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
 /* [stack-angular] import { Injector } from '@angular/core' [/stack-angular] */
-import { /* [import-area-extensions] AreaExtensions, [/import-area-extensions] */ AreaPlugin } from 'rete-area-plugin'
+import { Area2D, /* [import-area-extensions] AreaExtensions, [/import-area-extensions] */ AreaPlugin } from 'rete-area-plugin'
 /* [!readonly] import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin' [/!readonly] */
 /* [react-render] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/react-render] */
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
@@ -76,12 +76,13 @@ class AddNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataf
 }
 
 type AreaExtra =
+  | Area2D<Schemes>
 /* [react-render] | ReactArea2D<Schemes> [/react-render] */
 /* [vue-render] | VueArea2D<Schemes> [/vue-render] */
 /* [angular-render] | AngularArea2D<Schemes> [/angular-render] */
-/* [context-menu] | ContextMenuExtra<Schemes> [/context-menu] */
-/* [minimap] | MinimapExtra<Schemes> [/minimap] */
-/* [reroute] | RerouteExtra<Schemes> [/reroute] */
+/* [context-menu] | ContextMenuExtra [/context-menu] */
+/* [minimap] | MinimapExtra [/minimap] */
+/* [reroute] | RerouteExtra [/reroute] */
 
 
 const socket = new Classic.Socket('socket')
@@ -94,14 +95,14 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [vue-render] const vueRender = new VueRenderPlugin<Schemes, AreaExtra>() [/vue-render] */
   /* [angular-render] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
   /* [readonly] const readonly = new ReadonlyPlugin<Schemes>() [/readonly] */
-  /* [context-menu] const contextMenu = new ContextMenuPlugin<Schemes, AreaExtra>({
+  /* [context-menu] const contextMenu = new ContextMenuPlugin<Schemes>({
     items: ContextMenuPresets.classic.setup([
       ['Number', () => new NumberNode(1/* [dataflow] , process [/dataflow] */)],
       ['Add', () => new AddNode()]
     ])
   }) [/context-menu] */
-  /* [minimap] const minimap = new MinimapPlugin<Schemes, AreaExtra>(); [/minimap] */
-  /* [reroute] const reroutePlugin = new ReroutePlugin<Schemes, AreaExtra>(); [/reroute] */
+  /* [minimap] const minimap = new MinimapPlugin<Schemes>(); [/minimap] */
+  /* [reroute] const reroutePlugin = new ReroutePlugin<Schemes>(); [/reroute] */
 
   /* [readonly] editor.use(readonly.root) [/readonly] */
   editor.use(area)
@@ -120,7 +121,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
 
   /* [!readonly] connection.addPreset(ConnectionPresets.classic.setup()) [/!readonly] */
   /* [react-render]
-  reactRender.addPreset(ReactPresets.classic.setup({ area }))
+  reactRender.addPreset(ReactPresets.classic.setup())
   /* [context-menu] reactRender.addPreset(ReactPresets.contextMenu.setup()) [/context-menu] */
   /* [minimap] reactRender.addPreset(ReactPresets.minimap.setup()) [/minimap] */
   /* [reroute] reactRender.addPreset(ReactPresets.reroute.setup({
@@ -139,7 +140,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   [/react-render] */
 
   /* [vue-render]
-  vueRender.addPreset(VuePresets.classic.setup({ area }))
+  vueRender.addPreset(VuePresets.classic.setup())
   /* [context-menu] vueRender.addPreset(VuePresets.contextMenu.setup()) [/context-menu] */
   /* [minimap] vueRender.addPreset(VuePresets.minimap.setup()) [/minimap] */
   /* [reroute] vueRender.addPreset(VuePresets.reroute.setup({
@@ -158,7 +159,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   [/vue-render] */
 
   /* [angular-render]
-  angularRender.addPreset(AngularPresets.classic.setup({ area }))
+  angularRender.addPreset(AngularPresets.classic.setup())
   /* [context-menu] angularRender.addPreset(AngularPresets.contextMenu.setup()) [/context-menu] */
   /* [minimap] angularRender.addPreset(AngularPresets.minimap.setup()) [/minimap] */
   /* [reroute] angularRender.addPreset(AngularPresets.reroute.setup({

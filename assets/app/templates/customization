@@ -48,7 +48,6 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
 
   /* [stack-react] reactRender.addPreset(
     ReactPresets.classic.setup({
-      area,
       customize: {
         node(context) {
           if (context.payload.label === "Fully customized") {
@@ -71,7 +70,6 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
 
   /* [stack-vue] vueRender.addPreset(
     VuePresets.classic.setup({
-      area,
       customize: {
         node(context) {
           if (context.payload.label === "Custom") {
@@ -92,7 +90,6 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [stack-angular]
   angularRender.addPreset(
     AngularPresets.classic.setup({
-      area,
       customize: {
         node() {
           return CustomNodeComponent;

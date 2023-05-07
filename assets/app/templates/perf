@@ -40,9 +40,9 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [vue-render] area.use(vueRender) [/vue-render] */
   /* [angular-render] area.use(angularRender) [/angular-render] */
 
-  /* [react-render] reactRender.addPreset(ReactPresets.classic.setup({ area })) [/react-render] */
-  /* [vue-render] vueRender.addPreset(VuePresets.classic.setup({ area })) [/vue-render] */
-  /* [angular-render] angularRender.addPreset(AngularPresets.classic.setup({ area })) [/angular-render] */
+  /* [react-render] reactRender.addPreset(ReactPresets.classic.setup()) [/react-render] */
+  /* [vue-render] vueRender.addPreset(VuePresets.classic.setup()) [/vue-render] */
+  /* [angular-render] angularRender.addPreset(AngularPresets.classic.setup()) [/angular-render] */
 
   // eslint-disable-next-line no-restricted-globals
   const query = new URLSearchParams(location.search)
