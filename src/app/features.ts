@@ -50,8 +50,8 @@ export class React implements Feature {
   name = 'React render'
   templateKeys: DefaultTemplateKey[] = ['react-render']
   requiredDependencies = [
-    'styled-components',
-    '@types/styled-components'
+    'styled-components@5',
+    '@types/styled-components@5'
   ]
 
   constructor(version: number, stack: AppStack, next: boolean) {
