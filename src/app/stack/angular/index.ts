@@ -6,6 +6,7 @@ import { dirname, join } from 'path'
 import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
+import { installCompatibleTS } from './compatibility'
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
@@ -14,6 +15,10 @@ export class AngularBuilder implements AppBuilder {
 
   public async create(name: string, version: number) {
     await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, '--defaults'], { stdio: 'inherit' })
+
+    if (version < 14) {
+      await installCompatibleTS(name, '4.7')
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
