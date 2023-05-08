@@ -2,6 +2,7 @@ import fs from 'fs'
 import { join, relative } from 'path'
 
 import { getDependencyTopo, PackageFile } from '../shared/dependency-topo'
+import { getPackageConfig } from '../shared/npm'
 
 async function isRetePackage(folder: string) {
   for (const item of await fs.promises.readdir(folder)) {
@@ -17,13 +18,6 @@ async function isRetePackage(folder: string) {
   }
 
   return false
-}
-
-async function getPackageConfig(folder: string) {
-  const path = join(folder, 'package.json')
-  const content = await fs.promises.readFile(path, { encoding: 'utf-8' })
-
-  return JSON.parse(content)
 }
 
 export type Package = { folder: string, name: string }
