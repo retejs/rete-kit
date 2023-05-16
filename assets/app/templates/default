@@ -25,55 +25,55 @@ type Schemes = GetSchemes<Node, Conn>
 class Connection<A extends Node, B extends Node> extends Classic.Connection<A, B> {}
 
 class NumberNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */{
-  /* [sizes]
-  width = 180
-  height = 120
-  [/sizes] */
+    /* [sizes]
+    width = 180
+    height = 120
+    [/sizes] */
 
-  constructor(initial: number, change?: (value: number) => void) {
-    super('Number')
+    constructor(initial: number, change?: (value: number) => void) {
+      super('Number')
 
-    this.addOutput('value', new Classic.Output(socket, 'Number'))
-    this.addControl('value', new Classic.InputControl('number', { initial, change }))
-  }
-  /* [dataflow]
-  data() {
-    const value = (this.controls['value'] as Classic.InputControl<'number'>).value
-
-    return {
-      value
+      this.addOutput('value', new Classic.Output(socket, 'Number'))
+      this.addControl('value', new Classic.InputControl('number', { initial, change }))
     }
+    /* [dataflow]
+    data() {
+      const value = (this.controls['value'] as Classic.InputControl<'number'>).value
+
+      return {
+        value
+      }
+    }
+    [/dataflow] */
   }
-  [/dataflow] */
-}
 
 class AddNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */ {
-  /* [sizes]
-  width = 180
-  height = 195
-  [/sizes] */
+    /* [sizes]
+    width = 180
+    height = 195
+    [/sizes] */
 
-  constructor() {
-    super('Add')
+    constructor() {
+      super('Add')
 
-    this.addInput('a', new Classic.Input(socket, 'A'))
-    this.addInput('b', new Classic.Input(socket, 'B'))
-    this.addOutput('value', new Classic.Output(socket, 'Number'))
-    this.addControl('result', new Classic.InputControl('number', { initial: 0, readonly: true }))
-  }
-  /* [dataflow]
-  data(inputs: { a?: number[], b?: number[] }) {
-    const { a = [], b = [] } = inputs
-    const sum = (a[0] || 0) + (b[0] || 0)
-
-    ;(this.controls['result'] as Classic.InputControl<'number'>).setValue(sum)
-
-    return {
-      value: sum
+      this.addInput('a', new Classic.Input(socket, 'A'))
+      this.addInput('b', new Classic.Input(socket, 'B'))
+      this.addOutput('value', new Classic.Output(socket, 'Number'))
+      this.addControl('result', new Classic.InputControl('number', { initial: 0, readonly: true }))
     }
+    /* [dataflow]
+    data(inputs: { a?: number[], b?: number[] }) {
+      const { a = [], b = [] } = inputs
+      const sum = (a[0] || 0) + (b[0] || 0)
+
+      ;(this.controls['result'] as Classic.InputControl<'number'>).setValue(sum)
+
+      return {
+        value: sum
+      }
+    }
+    [/dataflow] */
   }
-  [/dataflow] */
-}
 
 type AreaExtra =
   | Area2D<Schemes>
@@ -98,9 +98,9 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [context-menu] const contextMenu = new ContextMenuPlugin<Schemes>({
     items: ContextMenuPresets.classic.setup([
       ['Number', () => new NumberNode(1/* [dataflow] , process [/dataflow] */)],
-      ['Add', () => new AddNode()]
+    ['Add', () => new AddNode()]
     ])
-  }) [/context-menu] */
+}) [/context-menu] */
   /* [minimap] const minimap = new MinimapPlugin<Schemes>(); [/minimap] */
   /* [reroute] const reroutePlugin = new ReroutePlugin<Schemes>(); [/reroute] */
 
@@ -129,8 +129,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
       reroutePlugin.remove(id);
     },
     translate(id, dx, dy) {
-      const { k } = area.area.transform;
-      reroutePlugin.translate(id, dx / k, dy / k);
+      reroutePlugin.translate(id, dx, dy);
     },
     /* [selectable] pointerdown(id) {
       reroutePlugin.unselect(id);
@@ -148,8 +147,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
       reroutePlugin.remove(id);
     },
     translate(id, dx, dy) {
-      const { k } = area.area.transform;
-      reroutePlugin.translate(id, dx / k, dy / k);
+      reroutePlugin.translate(id, dx, dy);
     },
     /* [selectable] pointerdown(id) {
       reroutePlugin.unselect(id);
@@ -167,8 +165,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
       reroutePlugin.remove(id);
     },
     translate(id, dx, dy) {
-      const { k } = area.area.transform;
-      reroutePlugin.translate(id, dx / k, dy / k);
+      reroutePlugin.translate(id, dx, dy);
     },
     /* [selectable] pointerdown(id) {
       reroutePlugin.unselect(id);
@@ -183,45 +180,45 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   [/dataflow] */
 
   const a = new NumberNode(1/* [dataflow] , process [/dataflow] */)
-  const b = new NumberNode(1/* [dataflow] , process [/dataflow] */)
-  const add = new AddNode()
+const b = new NumberNode(1/* [dataflow] , process [/dataflow] */)
+const add = new AddNode()
 
-  await editor.addNode(a)
-  await editor.addNode(b)
-  await editor.addNode(add)
+await editor.addNode(a)
+await editor.addNode(b)
+await editor.addNode(add)
 
-  await editor.addConnection(new Connection(a, 'value', add, 'a'))
-  await editor.addConnection(new Connection(b, 'value', add, 'b'))
+await editor.addConnection(new Connection(a, 'value', add, 'a'))
+await editor.addConnection(new Connection(b, 'value', add, 'b'))
 
-  /* [!arrange]
-  await area.nodeViews.get(a.id)?.translate(100, 100)
-  await area.nodeViews.get(b.id)?.translate(100, 300)
-  await area.nodeViews.get(add.id)?.translate(400, 150)
-  [/!arrange] */
+/* [!arrange]
+await area.nodeViews.get(a.id)?.translate(100, 100)
+await area.nodeViews.get(b.id)?.translate(100, 300)
+await area.nodeViews.get(add.id)?.translate(400, 150)
+[/!arrange] */
 
-  /* [arrange]
-  const arrange = new AutoArrangePlugin<Schemes>()
+/* [arrange]
+const arrange = new AutoArrangePlugin<Schemes>()
 
-  arrange.addPreset(ArrangePresets.classic.setup());
+arrange.addPreset(ArrangePresets.classic.setup());
 
-  area.use(arrange)
+area.use(arrange)
 
-  await arrange.layout()
-  [/arrange] */
+await arrange.layout()
+[/arrange] */
 
-  /* [zoom-at] AreaExtensions.zoomAt(area, editor.getNodes()) [/zoom-at] */
+/* [zoom-at] AreaExtensions.zoomAt(area, editor.getNodes()) [/zoom-at] */
 
-  /* [order-nodes] AreaExtensions.simpleNodesOrder(area) [/order-nodes] */
+/* [order-nodes] AreaExtensions.simpleNodesOrder(area) [/order-nodes] */
 
-  /* [selectable]
-  const selector = AreaExtensions.selector();
-  const accumulating = AreaExtensions.accumulateOnCtrl();
+/* [selectable]
+const selector = AreaExtensions.selector();
+const accumulating = AreaExtensions.accumulateOnCtrl();
 
-  AreaExtensions.selectableNodes(area, selector, { accumulating });
-  /* [reroute]
-  RerouteExtensions.selectablePins(reroutePlugin, selector, accumulating);
-  [/reroute] */
-  [/selectable] */
+AreaExtensions.selectableNodes(area, selector, { accumulating });
+/* [reroute]
+RerouteExtensions.selectablePins(reroutePlugin, selector, accumulating);
+[/reroute] */
+[/selectable] */
 
   /* [dataflow] async function process() {
     dataflow.reset()
@@ -249,6 +246,6 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [readonly] readonly.enable() [/readonly] */
 
   return {
-    destroy: () => area.destroy()
-  }
+  destroy: () => area.destroy()
+}
 }
