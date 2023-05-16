@@ -4,7 +4,7 @@ import { AppStack } from '.'
 import { DefaultTemplateKey } from './template-builder'
 
 function ver(name: string, next: boolean) {
-  return `${name}@${next ? 'next': 2}`
+  return `${name}@${next ? 'next' : 2}`
 }
 
 export interface Feature {
@@ -174,6 +174,19 @@ export class Reroute implements Feature {
 export class Selectable implements Feature {
   name = 'Selectable nodes'
   templateKeys: DefaultTemplateKey[] = ['import-area-extensions', 'selectable']
+}
+
+export class Area3D implements Feature {
+  name = '3D'
+  mandatory = true
+  templateKeys: DefaultTemplateKey[] = []
+  requiredDependencies: string[] = ['three', '@types/three']
+
+  constructor(next: boolean) {
+    this.requiredDependencies.push(
+      ver('rete-area-3d-plugin', next)
+    )
+  }
 }
 
 export function validateFeatures(features: Feature[], options: { stack: AppStack }) {
