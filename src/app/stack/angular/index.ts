@@ -21,14 +21,17 @@ export class AngularBuilder implements AppBuilder {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  async putAssets<K extends string>(name: string, _: number, template: TemplateBuilder<K>): Promise<void> {
+  async putAssets<K extends string>(name: string, version: number, template: TemplateBuilder<K>): Promise<void> {
     const assets = join(assetsStack, 'angular', 'modules')
     const src = join(name, 'src')
 
     await fse.copy(assets, src, {
       recursive: true,
-      overwrite: true
+      overwrite: true,
+      filter(sourcePath) {
+        if (version >= 14 && sourcePath.endsWith('/shims.d.ts')) return false
+        return true
+      }
     })
 
     const appModulePath = join(src, 'app', 'app.module.ts')
