@@ -234,6 +234,8 @@ RerouteExtensions.selectablePins(reroutePlugin, selector, accumulating);
 
   process()
 
+  [/dataflow] */
+
   const axesHelper = new THREE.AxesHelper(100)
   const gridHelper = new THREE.GridHelper(10000, 100)
 
@@ -243,8 +245,6 @@ RerouteExtensions.selectablePins(reroutePlugin, selector, accumulating);
   area.area.scene.root.add(gridHelper)
 
   Area3DExtensions.animate(area)
-
-  [/dataflow] */
 
   return {
   destroy: () => area.destroy()
