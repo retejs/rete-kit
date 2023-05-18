@@ -180,9 +180,10 @@ export class Area3D implements Feature {
   name = '3D'
   mandatory = true
   templateKeys: DefaultTemplateKey[] = []
-  requiredDependencies: string[] = ['three', '@types/three']
+  requiredDependencies: string[] = ['three']
 
-  constructor(next: boolean) {
+  constructor(typings: boolean, next: boolean) {
+    if (typings) this.requiredDependencies.push('@types/three')
     this.requiredDependencies.push(
       ver('rete-area-3d-plugin', next)
     )

@@ -10,7 +10,8 @@ import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-
 /* [dataflow] import { DataflowEngine, DataflowNode } from 'rete-engine' [/dataflow] */
 /* [arrange] import { AutoArrangePlugin, Presets as ArrangePresets } from 'rete-auto-arrange-plugin' [/arrange] */
 /* [context-menu] import { ContextMenuPlugin, ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
-/* [reroute] import { ReroutePlugin, RerouteExtra /* [selectable] , RerouteExtensions [/selectable] */ } from "rete-connection-reroute-plugin"; [/reroute] */
+/* [reroute] import { ReroutePlugin, RerouteExtra /* [selectable] , RerouteExtensions [/selectable] */ } from "rete-connection-reroute-plugin";[/reroute] */
+/* [angular12] // @ts-ignore [/angular12] *//* [angular13] // @ts-ignore [/angular13] */
 import * as THREE from 'three';
 
 type Node =
