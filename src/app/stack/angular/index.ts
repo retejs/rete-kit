@@ -11,7 +11,7 @@ import { installCompatibleTS } from './compatibility'
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
   public versions = [12, 13, 14, 15, 16]
-  public foundation = 'angular'
+  public foundation = 'angular' as const
 
   public async create(name: string, version: number) {
     await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, '--defaults'], { stdio: 'inherit' })

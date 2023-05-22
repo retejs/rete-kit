@@ -9,7 +9,7 @@ import { assetsStack } from '../../consts'
 export class VueViteBuilder implements AppBuilder {
   public name = 'Vue.js Vite'
   public versions = [2, 3]
-  public foundation = 'vue'
+  public foundation = 'vue' as const
 
   public async create(name: string, version: number) {
     await execa('npm', ['create', `vue@${version}`, name, '--ts'], { stdio: 'inherit' })
