@@ -1,3 +1,3 @@
 export { AngularBuilder } from './angular'
-export { ReactBuilder } from './react'
+export { ReactBuilder, ReactViteBuilder } from './react'
 export { VueBuilder, VueViteBuilder } from './vue'
