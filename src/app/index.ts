@@ -27,10 +27,11 @@ type Options = {
   depsAlias?: string
   depsLabel?: string
   next?: boolean
+  forceInstall?: boolean
 }
 
 // eslint-disable-next-line max-statements, complexity
-export async function createApp({ name, stack, version, features, depsAlias, next = false }: Options) {
+export async function createApp({ name, stack, version, features, depsAlias, forceInstall = false, next = false }: Options) {
   const appName = name || await input('Name')
   const selectedStack = stack || await select('Stack (framework)', appStacks.map(key => ({
     name: builders[key].name,
@@ -103,5 +104,5 @@ export async function createApp({ name, stack, version, features, depsAlias, nex
   }
   await builder.putScript(appName, `index.ts`, await templateBuilder.getEntryScript())
 
-  await install(appName, Features.getDependencies(activeFeatures), depsAlias)
+  await install(appName, Features.getDependencies(activeFeatures), depsAlias, forceInstall)
 }

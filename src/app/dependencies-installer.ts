@@ -17,7 +17,7 @@ function resolvePaths(alias: DependenciesAlias, aliasDirectory: string): Depende
   return Object.fromEntries(entries)
 }
 
-export async function install(cwd: string, dependencies: string[], aliases?: DependenciesAlias | string) {
+export async function install(cwd: string, dependencies: string[], aliases?: DependenciesAlias | string, force?: boolean) {
   const aliasesMap = typeof aliases === 'string'
     ? resolvePaths(JSON.parse(await fs.promises.readFile(aliases, { encoding: 'utf-8' })), dirname(aliases))
     : aliases
@@ -30,5 +30,5 @@ export async function install(cwd: string, dependencies: string[], aliases?: Dep
 
   console.log('Installing dependencies:', deps.map(dep => chalk.green(dep)).join(', '))
 
-  await execa('npm', ['--prefix', cwd, 'i', ...deps], { stdio: 'inherit' })
+  await execa('npm', ['--prefix', cwd, 'i', ...(force ? ['-f'] : []), ...deps], { stdio: 'inherit' })
 }
