@@ -35,10 +35,14 @@ export class SvelteBuilder implements AppBuilder {
       `svelte@${version}`,
       `@sveltejs/kit@latest`
     ], { stdio: 'inherit' })
+
+    const configName = 'svelte.config.js'
+
+    await fse.copy(join(assetsStack, 'svelte', configName), join(name, configName), { overwrite: true })
+    await execa('npm', ['--prefix', name, 'i', '@sveltejs/adapter-static'], { stdio: 'inherit' })
   }
 
   async putAssets(name: string, version: number) {
-    name
     version
     const modules = join(assetsStack, 'svelte', 'modules')
     const src = join(name, 'src')
