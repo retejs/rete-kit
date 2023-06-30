@@ -1,12 +1,13 @@
 import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
 /* [stack-angular] import { Injector } from '@angular/core' [/stack-angular] */
 /* [import-area-extensions] import { AreaExtensions } from 'rete-area-plugin' [/import-area-extensions] */
-import { Area3D, /* [import-area-extensions] Area3DExtensions, [/import-area-extensions] */ Area3DPlugin } from 'rete-area-3d-plugin'
+import { Area3D, Area3DExtensions, Area3DPlugin } from 'rete-area-3d-plugin'
 import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin'
 /* [react-render] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/react-render] */
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
 /* [vue-render] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
 /* [angular-render] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] */' [/angular-render] */
+/* [svelte-render] import { SvelteRenderPlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin' [/svelte-render] */
 /* [dataflow] import { DataflowEngine, DataflowNode } from 'rete-engine' [/dataflow] */
 /* [arrange] import { AutoArrangePlugin, Presets as ArrangePresets } from 'rete-auto-arrange-plugin' [/arrange] */
 /* [context-menu] import { ContextMenuPlugin, ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
@@ -26,57 +27,58 @@ type Schemes = GetSchemes<Node, Conn>
 class Connection<A extends Node, B extends Node> extends Classic.Connection<A, B> { }
 
 class NumberNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */ {
-    width = 180
-    height = 120
+  width = 180
+  height = 120
 
-    constructor(initial: number, change?: (value: number) => void) {
-      super('Number')
+  constructor(initial: number, change?: (value: number) => void) {
+    super('Number')
 
-      this.addOutput('value', new Classic.Output(socket, 'Number'))
-      this.addControl('value', new Classic.InputControl('number', { initial, change }))
-    }
-    /* [dataflow]
-    data() {
-      const value = (this.controls['value'] as Classic.InputControl<'number'>).value
-
-      return {
-        value
-      }
-    }
-    [/dataflow] */
+    this.addOutput('value', new Classic.Output(socket, 'Number'))
+    this.addControl('value', new Classic.InputControl('number', { initial, change }))
   }
+  /* [dataflow]
+  data() {
+    const value = (this.controls['value'] as Classic.InputControl<'number'>).value
+
+    return {
+      value
+    }
+  }
+  [/dataflow] */
+}
 
 class AddNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */ {
-    width = 180
-    height = 195
+  width = 180
+  height = 195
 
-    constructor() {
-      super('Add')
+  constructor() {
+    super('Add')
 
-      this.addInput('a', new Classic.Input(socket, 'A'))
-      this.addInput('b', new Classic.Input(socket, 'B'))
-      this.addOutput('value', new Classic.Output(socket, 'Number'))
-      this.addControl('result', new Classic.InputControl('number', { initial: 0, readonly: true }))
-    }
-    /* [dataflow]
-    data(inputs: { a?: number[], b?: number[] }) {
-      const { a = [], b = [] } = inputs
-      const sum = (a[0] || 0) + (b[0] || 0)
-
-      ;(this.controls['result'] as Classic.InputControl<'number'>).setValue(sum)
-
-      return {
-        value: sum
-      }
-    }
-    [/dataflow] */
+    this.addInput('a', new Classic.Input(socket, 'A'))
+    this.addInput('b', new Classic.Input(socket, 'B'))
+    this.addOutput('value', new Classic.Output(socket, 'Number'))
+    this.addControl('result', new Classic.InputControl('number', { initial: 0, readonly: true }))
   }
+  /* [dataflow]
+  data(inputs: { a?: number[], b?: number[] }) {
+    const { a = [], b = [] } = inputs
+    const sum = (a[0] || 0) + (b[0] || 0)
+
+    ;(this.controls['result'] as Classic.InputControl<'number'>).setValue(sum)
+
+    return {
+      value: sum
+    }
+  }
+  [/dataflow] */
+}
 
 type AreaExtra =
   | Area3D<Schemes>
 /* [react-render] | ReactArea2D<Schemes> [/react-render] */
 /* [vue-render] | VueArea2D<Schemes> [/vue-render] */
 /* [angular-render] | AngularArea2D<Schemes> [/angular-render] */
+/* [svelte-render] | SvelteArea2D<Schemes> [/svelte-render] */
 /* [context-menu] | ContextMenuExtra [/context-menu] */
 /* [reroute] | RerouteExtra [/reroute] */
 
@@ -90,6 +92,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [react-render] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/react-render] */
   /* [vue-render] const vueRender = new VueRenderPlugin<Schemes, AreaExtra>() [/vue-render] */
   /* [angular-render] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
+  /* [svelte-render] const svelteRender = new SvelteRenderPlugin<Schemes, AreaExtra>() [/svelte-render] */
   /* [context-menu] const contextMenu = new ContextMenuPlugin<Schemes>({
     items: ContextMenuPresets.classic.setup([
       ['Number', () => new NumberNode(1/* [dataflow] , process [/dataflow] */)],
@@ -102,12 +105,14 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [react-render] area.use(reactRender) [/react-render] */
   /* [vue-render] area.use(vueRender) [/vue-render] */
   /* [angular-render] area.use(angularRender) [/angular-render] */
+  /* [svelte-render] area.use(svelteRender) [/svelte-render] */
   area.use(connection)
   /* [context-menu] area.use(contextMenu) [/context-menu] */
   /* [reroute]
   /* [react-render] reactRender.use(reroutePlugin) [/react-render] */
   /* [vue-render] vueRender.use(reroutePlugin) [/vue-render] */
   /* [angular-render] angularRender.use(reroutePlugin) [/angular-render] */
+  /* [svelte-render] svelteRender.use(reroutePlugin) [/svelte-render] */
   [/reroute] */
 
   connection.addPreset(ConnectionPresets.classic.setup())
@@ -125,7 +130,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
       reroutePlugin.unselect(id);
       reroutePlugin.select(id);
     } [/selectable] */
-  })); [/reroute] */
+  }));[/reroute] */
   [/react-render] */
 
   /* [vue-render]
@@ -142,7 +147,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
       reroutePlugin.unselect(id);
       reroutePlugin.select(id);
     } [/selectable] */
-  })); [/reroute] */
+  }));[/reroute] */
   [/vue-render] */
 
   /* [angular-render]
@@ -159,12 +164,31 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
       reroutePlugin.unselect(id);
       reroutePlugin.select(id);
     } [/selectable] */
-  })); [/reroute] */
+  }));[/reroute] */
   [/angular-render] */
+
+
+  /* [svelte-render]
+  svelteRender.addPreset(SveltePresets.classic.setup())
+  /* [context-menu] svelteRender.addPreset(SveltePresets.contextMenu.setup()) [/context-menu] */
+  /* [reroute] svelteRender.addPreset(SveltePresets.reroute.setup({
+    contextMenu(id) {
+      reroutePlugin.remove(id);
+    },
+    translate(id, dx, dy) {
+      reroutePlugin.translate(id, dx, dy);
+    },
+    /* [selectable] pointerdown(id) {
+      reroutePlugin.unselect(id);
+      reroutePlugin.select(id);
+    } [/selectable] */
+  }));[/reroute] */
+  [/svelte-render] */
 
   /* [react-render] Area3DExtensions.forms.connection(reactRender) [/react-render] */
   /* [angular-render] Area3DExtensions.forms.connection(angularRender) [/angular-render] */
   /* [vue-render] Area3DExtensions.forms.connection(vueRender) [/vue-render] */
+  /* [svelte-render] Area3DExtensions.forms.connection(svelteRender) [/svelte-render] */
   Area3DExtensions.forms.node(area)
   /* [reroute] Area3DExtensions.forms.reroute(area) [/reroute] */
 
@@ -238,16 +262,16 @@ RerouteExtensions.selectablePins(reroutePlugin, selector, accumulating);
   [/dataflow] */
 
   const axesHelper = new THREE.AxesHelper(100)
-  const gridHelper = new THREE.GridHelper(10000, 100)
+const gridHelper = new THREE.GridHelper(10000, 100)
 
-  gridHelper.translateY(-320)
+gridHelper.translateY(-320)
 
-  area.area.scene.root.add(axesHelper)
-  area.area.scene.root.add(gridHelper)
+area.area.scene.root.add(axesHelper)
+area.area.scene.root.add(gridHelper)
 
-  Area3DExtensions.animate(area)
+Area3DExtensions.animate(area)
 
-  return {
+return {
   destroy: () => area.destroy()
 }
 }

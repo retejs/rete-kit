@@ -5,6 +5,7 @@ import { /* [import-area-extensions] AreaExtensions, [/import-area-extensions] *
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
 /* [vue-render] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
 /* [angular-render] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] */' [/angular-render] */
+/* [svelte-render] import { SvelteRenderPlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin' [/svelte-render] */
 
 
 class Node extends Classic.Node {
@@ -16,33 +17,37 @@ class Node extends Classic.Node {
   }
 }
 
-class Connection<A extends Node, B extends Node> extends Classic.Connection<A, B> {}
+class Connection<A extends Node, B extends Node> extends Classic.Connection<A, B> { }
 
 type Schemes = GetSchemes<Node, Connection<Node, Node>>
 
 type AreaExtra =
-/* [react-render] | ReactArea2D<Schemes> [/react-render] */
-/* [vue-render] | VueArea2D<Schemes> [/vue-render] */
-/* [angular-render] | AngularArea2D<Schemes> [/angular-render] */
+  /* [react-render] | ReactArea2D<Schemes> [/react-render] */
+  /* [vue-render] | VueArea2D<Schemes> [/vue-render] */
+  /* [angular-render] | AngularArea2D<Schemes> [/angular-render] */
+  /* [svelte-render] | SvelteArea2D<Schemes> [/svelte-render] */
 
-const socket = new Classic.Socket('socket')
+  const socket = new Classic.Socket('socket')
 
 export async function createEditor(container: HTMLElement/* [stack-angular] , injector: Injector [/stack-angular] */) {
   const editor = new NodeEditor<Schemes>()
   const area = new AreaPlugin<Schemes, AreaExtra>(container)
-  /* [react-render] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */) [/react-render] */
+  /* [react-render] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/react-render] */
   /* [vue-render] const vueRender = new VueRenderPlugin<Schemes, AreaExtra>() [/vue-render] */
   /* [angular-render] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
+  /* [svelte-render] const svelteRender = new SvelteRenderPlugin<Schemes, AreaExtra>() [/svelte-render] */
 
   editor.use(area)
 
   /* [react-render] area.use(reactRender) [/react-render] */
   /* [vue-render] area.use(vueRender) [/vue-render] */
   /* [angular-render] area.use(angularRender) [/angular-render] */
+  /* [svelte-render] area.use(svelteRender) [/svelte-render] */
 
   /* [react-render] reactRender.addPreset(ReactPresets.classic.setup()) [/react-render] */
   /* [vue-render] vueRender.addPreset(VuePresets.classic.setup()) [/vue-render] */
   /* [angular-render] angularRender.addPreset(AngularPresets.classic.setup()) [/angular-render] */
+  /* [svelte-render] svelteRender.addPreset(SveltePresets.classic.setup()) [/svelte-render] */
 
   // eslint-disable-next-line no-restricted-globals
   const query = new URLSearchParams(location.search)

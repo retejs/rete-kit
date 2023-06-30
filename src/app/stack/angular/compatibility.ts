@@ -25,5 +25,5 @@ export async function installCompatibleTS(path: string, version: string) {
 
   tsConfig.angularCompilerOptions.disableTypeScriptVersionCheck = true
 
-  setTSConfig(path, tsConfig)
+  await setTSConfig(path, tsConfig)
 }

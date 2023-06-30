@@ -86,6 +86,20 @@ export class Vue implements Feature {
   }
 }
 
+export class Svelte implements Feature {
+  name = 'Svelte render'
+  templateKeys: DefaultTemplateKey[] = ['svelte-render']
+  requiredDependencies: string[] = ['sass']
+
+  constructor(version: 3 | 4, next: boolean) {
+    this.templateKeys.push(`svelte${version}`)
+    this.requiredDependencies.push(
+      ver('rete-render-utils', next),
+      ver('rete-svelte-plugin', next)
+    )
+  }
+}
+
 export class OrderNodes implements Feature {
   name = 'Order nodes'
   templateKeys: DefaultTemplateKey[] = ['import-area-extensions', 'order-nodes']
@@ -191,7 +205,12 @@ export class Area3D implements Feature {
 }
 
 export function validateFeatures(features: Feature[], options: { stack: AppStack }) {
-  if (!features.some(feature => feature instanceof Angular || feature instanceof React || feature instanceof Vue)) {
+  if (!features.some(feature => {
+    return feature instanceof Angular
+      || feature instanceof React
+      || feature instanceof Vue
+      || feature instanceof Svelte
+  })) {
     return {
       issue: 'At least one render plugin should be selected'
     }

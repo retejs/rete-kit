@@ -4,7 +4,7 @@ import { throwError } from '../shared/throw'
 import { install } from './dependencies-installer'
 import * as Features from './features'
 import * as Patch from './patch'
-import { AngularBuilder, ReactBuilder, ReactViteBuilder, VueBuilder, VueViteBuilder } from './stack'
+import { AngularBuilder, ReactBuilder, ReactViteBuilder, SvelteBuilder, VueBuilder, VueViteBuilder } from './stack'
 import { DefaultTemplateKey, TemplateBuilder } from './template-builder'
 
 export const builders = {
@@ -12,7 +12,8 @@ export const builders = {
   'vue': new VueBuilder(),
   'vue-vite': new VueViteBuilder(),
   'react': new ReactBuilder(),
-  'react-vite': new ReactViteBuilder()
+  'react-vite': new ReactViteBuilder(),
+  'svelte': new SvelteBuilder()
 }
 
 export type AppStack = keyof typeof builders
@@ -54,6 +55,7 @@ export async function createApp({ name, stack, version, features, depsAlias, for
     new Features.Angular(builder.foundation === 'angular' ? selectedVersion as 12 | 13 | 14 | 15 | 16 : null, next),
     new Features.React(builder.foundation === 'react' ? selectedVersion : 18, selectedStack, next),
     new Features.Vue(builder.foundation === 'vue' ? selectedVersion as 2 : 3, next),
+    new Features.Svelte(builder.foundation === 'svelte' ? selectedVersion as 4 : 4, next),
     new Features.OrderNodes(),
     new Features.ZoomAt(),
     new Features.Arrange(next),
@@ -98,9 +100,15 @@ export async function createApp({ name, stack, version, features, depsAlias, for
 
   for (const templateName of await templateBuilder.getTemplates()) {
     const template = await templateBuilder.load(templateName)
-    const code = await templateBuilder.build(template)
 
-    await builder.putScript(appName, `${templateName}.ts`, code)
+    try {
+      const code = await templateBuilder.build(template)
+
+      await builder.putScript(appName, `${templateName}.ts`, code)
+    } catch (e) {
+      console.error(e)
+      throwError(`failed to build template "${templateName}"`)
+    }
   }
   await builder.putScript(appName, `index.ts`, await templateBuilder.getEntryScript())
 

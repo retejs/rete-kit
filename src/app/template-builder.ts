@@ -8,14 +8,14 @@ import { assets as assetsRoot } from '../consts'
 export const templatesPath = join(assetsRoot, 'app', 'templates')
 export const entryScriptPath = join(assetsRoot, 'app', 'entry_ts')
 export type DefaultTemplateKey = 'zoom-at' | 'react-render' | 'react18' | 'vue-render'
-  | 'vue2' | 'angular-render' | `angular${12 | 13 | 14 | 15 | 16}`
+  | 'vue2' | 'angular-render' | `angular${12 | 13 | 14 | 15 | 16}` | 'svelte-render' | `svelte${3 | 4}`
   | 'dataflow' | 'arrange' | 'sizes' | 'readonly' | 'order-nodes' | 'selectable'
   | 'context-menu' | 'import-area-extensions' | 'minimap' | 'reroute' | `stack-${string}`
 
 export class TemplateBuilder<Key extends string> {
   blockCommentRegex = /\/\* \[(!?[\w-]+)\][\n ]+(.*?)?[\n ]?\[\/\1\] \*\//gs
 
-  constructor(private keys: Key[]) {}
+  constructor(private keys: Key[]) { }
 
   async load(name: string) {
     return fs.promises.readFile(join(templatesPath, name), { encoding: 'utf-8' })
@@ -33,10 +33,11 @@ export class TemplateBuilder<Key extends string> {
     })
   }
 
-  async build(code: string) {
+  async build(template: string) {
     const keep = (key: Key) => this.keys.includes(key)
+    const code = this.replace(template, keep)
 
-    return prettier.format(this.replace(code, keep), { singleQuote: true, parser: 'typescript' })
+    return prettier.format(code, { singleQuote: true, parser: 'typescript' })
   }
 
   async getEntryScript() {

@@ -9,6 +9,7 @@ import {
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
 /* [stack-vue] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin/* [vue2] /vue2 [/vue2] */' [/stack-vue] */
 /* [stack-angular] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] */' [/stack-angular] */
+/* [stack-svelte] import { SvelteRenderPlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin' [/stack-svelte] */
 /* [stack-react] import { CustomNode } from "../customization/CustomNode";
 import { StyledNode } from "../customization/StyledNode";
 import { CustomSocket } from "../customization/CustomSocket";
@@ -19,6 +20,10 @@ import CustomSocket from "../customization/CustomSocket.vue"; [/stack-vue] */
 /* [stack-angular] import { CustomSocketComponent } from "../customization/custom-socket/custom-socket.component";
 import { CustomNodeComponent } from "../customization/custom-node/custom-node.component";
 import { CustomConnectionComponent } from "../customization/custom-connection/custom-connection.component"; [/stack-angular] */
+/* [stack-svelte]
+import CustomNodeComponent from '../customization/CustomNode.svelte'
+import CustomConnectionComponent from '../customization/CustomConnection.svelte'
+import CustomSocketComponent from '../customization/CustomSocket.svelte' [/stack-svelte] */
 import { addCustomBackground } from "../customization/custom-background";
 
 
@@ -28,19 +33,21 @@ type Schemes = GetSchemes<
   ClassicPreset.Connection<ClassicPreset.Node, ClassicPreset.Node>
 >;
 type AreaExtra =
-/* [stack-react] | ReactArea2D<Schemes> [/stack-react] */
-/* [stack-vue] | VueArea2D<Schemes> [/stack-vue] */
-/* [stack-angular] | AngularArea2D<Schemes> [/stack-angular] */
+  /* [stack-react] | ReactArea2D<Schemes> [/stack-react] */
+  /* [stack-vue] | VueArea2D<Schemes> [/stack-vue] */
+  /* [stack-angular] | AngularArea2D<Schemes> [/stack-angular] */
+  /* [stack-svelte] | SvelteArea2D<Schemes> [/stack-svelte] */
 
-const socket = new ClassicPreset.Socket("socket");
+  const socket = new ClassicPreset.Socket("socket");
 
 export async function createEditor(container: HTMLElement/* [stack-angular] , injector: Injector [/stack-angular] */) {
   const editor = new NodeEditor<Schemes>();
   const area = new AreaPlugin<Schemes, AreaExtra>(container);
   const connection = new ConnectionPlugin<Schemes, AreaExtra>();
-  /* [stack-react] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */) [/stack-react] */
+  /* [stack-react] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/stack-react] */
   /* [stack-vue] const vueRender = new VueRenderPlugin<Schemes, AreaExtra>() [/stack-vue] */
   /* [stack-angular] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>({ injector }) [/stack-angular] */
+  /* [stack-svelte] const svelteRender = new SvelteRenderPlugin<Schemes, AreaExtra>() [/stack-svelte] */
 
   /* [selectable] AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
     accumulating: AreaExtensions.accumulateOnCtrl()
@@ -104,15 +111,33 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
     })
   ); [/stack-angular] */
 
+  /* [stack-svelte]
+  svelteRender.addPreset(
+    SveltePresets.classic.setup({
+      customize: {
+        node() {
+          return CustomNodeComponent as any;
+        },
+        connection() {
+          return CustomConnectionComponent as any;
+        },
+        socket() {
+          return CustomSocketComponent as any;
+        }
+      },
+    })
+  ); [/stack-svelte] */
+
   connection.addPreset(ConnectionPresets.classic.setup());
 
-  addCustomBackground(area);
+    addCustomBackground(area);
 
-  editor.use(area);
-  area.use(connection);
+    editor.use(area);
+    area.use(connection);
   /* [stack-react] area.use(reactRender) [/stack-react] */
   /* [stack-vue] area.use(vueRender) [/stack-vue] */
   /* [stack-angular] area.use(angularRender) [/stack-angular] */
+  /* [stack-svelte] area.use(svelteRender) [/stack-svelte] */
 
   /* [order-nodes] AreaExtensions.simpleNodesOrder(area); [/order-nodes] */
 
