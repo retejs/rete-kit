@@ -1,4 +1,4 @@
-import { useRete } from 'rete-react-render-plugin';
+import { useRete } from 'rete-react-plugin';
 import reactLogo from './assets/react.svg'
 import reteLogo from './assets/rete.svg'
 import viteLogo from '/vite.svg'

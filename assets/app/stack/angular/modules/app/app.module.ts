@@ -5,11 +5,11 @@ import { AppComponent } from './app.component';
 import { CustomSocketComponent } from "./customization/custom-socket/custom-socket.component"
 import { CustomNodeComponent } from "./customization/custom-node/custom-node.component"
 import { CustomConnectionComponent } from "./customization/custom-connection/custom-connection.component";
-/* [angular12] import { ReteModule } from 'rete-angular-render-plugin/12'; [/angular12] */
-/* [angular13] import { ReteModule } from 'rete-angular-render-plugin/13'; [/angular13] */
-/* [angular14] import { ReteModule } from 'rete-angular-render-plugin/14'; [/angular14] */
-/* [angular15] import { ReteModule } from 'rete-angular-render-plugin/15'; [/angular15] */
-/* [angular16] import { ReteModule } from 'rete-angular-render-plugin/16'; [/angular16] */
+/* [angular12] import { ReteModule } from 'rete-angular-plugin/12'; [/angular12] */
+/* [angular13] import { ReteModule } from 'rete-angular-plugin/13'; [/angular13] */
+/* [angular14] import { ReteModule } from 'rete-angular-plugin/14'; [/angular14] */
+/* [angular15] import { ReteModule } from 'rete-angular-plugin/15'; [/angular15] */
+/* [angular16] import { ReteModule } from 'rete-angular-plugin/16'; [/angular16] */
 
 @NgModule({
   declarations: [

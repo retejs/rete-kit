@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRete } from 'rete-react-render-plugin';
+import { useRete } from 'rete-react-plugin';
 import logo from './logo.svg';
 import './App.css';
 import './rete.css';

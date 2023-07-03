@@ -2,11 +2,11 @@ import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
 /* [stack-angular] import { Injector } from '@angular/core' [/stack-angular] */
 import { Area2D, /* [import-area-extensions] AreaExtensions, [/import-area-extensions] */ AreaPlugin } from 'rete-area-plugin'
 /* [!readonly] import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin' [/!readonly] */
-/* [react-render] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/react-render] */
+/* [react-render] import { ReactPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-plugin' [/react-render] */
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
-/* [vue-render] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
-/* [angular-render] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] */' [/angular-render] */
-/* [svelte-render] import { SvelteRenderPlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin' [/svelte-render] */
+/* [vue-render] import { VuePlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
+/* [angular-render] import { AngularPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] */' [/angular-render] */
+/* [svelte-render] import { SveltePlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin' [/svelte-render] */
 /* [dataflow] import { DataflowEngine, DataflowNode } from 'rete-engine' [/dataflow] */
 /* [arrange] import { AutoArrangePlugin, Presets as ArrangePresets } from 'rete-auto-arrange-plugin' [/arrange] */
 /* [readonly] import { ReadonlyPlugin } from 'rete-readonly-plugin' [/readonly] */
@@ -93,10 +93,10 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   const editor = new NodeEditor<Schemes>()
   const area = new AreaPlugin<Schemes, AreaExtra>(container)
   /* [!readonly] const connection = new ConnectionPlugin<Schemes, AreaExtra>() [/!readonly] */
-  /* [react-render] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/react-render] */
-  /* [vue-render] const vueRender = new VueRenderPlugin<Schemes, AreaExtra>() [/vue-render] */
-  /* [angular-render] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
-  /* [svelte-render] const svelteRender = new SvelteRenderPlugin<Schemes, AreaExtra>() [/svelte-render] */
+  /* [react-render] const reactRender = new ReactPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/react-render] */
+  /* [vue-render] const vueRender = new VuePlugin<Schemes, AreaExtra>() [/vue-render] */
+  /* [angular-render] const angularRender = new AngularPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
+  /* [svelte-render] const svelteRender = new SveltePlugin<Schemes, AreaExtra>() [/svelte-render] */
   /* [readonly] const readonly = new ReadonlyPlugin<Schemes>() [/readonly] */
   /* [context-menu] const contextMenu = new ContextMenuPlugin<Schemes>({
     items: ContextMenuPresets.classic.setup([

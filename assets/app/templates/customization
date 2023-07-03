@@ -5,11 +5,11 @@ import {
   ConnectionPlugin,
   Presets as ConnectionPresets
 } from "rete-connection-plugin";
-/* [stack-react] import { ReactRenderPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-render-plugin' [/stack-react] */
+/* [stack-react] import { ReactPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-plugin' [/stack-react] */
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
-/* [stack-vue] import { VueRenderPlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-render-plugin/* [vue2] /vue2 [/vue2] */' [/stack-vue] */
-/* [stack-angular] import { AngularRenderPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-render-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] */' [/stack-angular] */
-/* [stack-svelte] import { SvelteRenderPlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin' [/stack-svelte] */
+/* [stack-vue] import { VuePlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/stack-vue] */
+/* [stack-angular] import { AngularPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] */' [/stack-angular] */
+/* [stack-svelte] import { SveltePlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin' [/stack-svelte] */
 /* [stack-react] import { CustomNode } from "../customization/CustomNode";
 import { StyledNode } from "../customization/StyledNode";
 import { CustomSocket } from "../customization/CustomSocket";
@@ -44,10 +44,10 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   const editor = new NodeEditor<Schemes>();
   const area = new AreaPlugin<Schemes, AreaExtra>(container);
   const connection = new ConnectionPlugin<Schemes, AreaExtra>();
-  /* [stack-react] const reactRender = new ReactRenderPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/stack-react] */
-  /* [stack-vue] const vueRender = new VueRenderPlugin<Schemes, AreaExtra>() [/stack-vue] */
-  /* [stack-angular] const angularRender = new AngularRenderPlugin<Schemes, AreaExtra>({ injector }) [/stack-angular] */
-  /* [stack-svelte] const svelteRender = new SvelteRenderPlugin<Schemes, AreaExtra>() [/stack-svelte] */
+  /* [stack-react] const reactRender = new ReactPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/stack-react] */
+  /* [stack-vue] const vueRender = new VuePlugin<Schemes, AreaExtra>() [/stack-vue] */
+  /* [stack-angular] const angularRender = new AngularPlugin<Schemes, AreaExtra>({ injector }) [/stack-angular] */
+  /* [stack-svelte] const svelteRender = new SveltePlugin<Schemes, AreaExtra>() [/stack-svelte] */
 
   /* [selectable] AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
     accumulating: AreaExtensions.accumulateOnCtrl()

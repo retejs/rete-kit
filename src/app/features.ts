@@ -41,7 +41,7 @@ export class Angular implements Feature {
     this.requiredDependencies.push(
       `@angular/elements@${version}`,
       ver('rete-render-utils', next),
-      ver('rete-angular-render-plugin', next)
+      ver('rete-angular-plugin', next)
     )
   }
 }
@@ -59,7 +59,7 @@ export class React implements Feature {
 
     this.requiredDependencies.push(
       ver('rete-render-utils', next),
-      ver('rete-react-render-plugin', next)
+      ver('rete-react-plugin', next)
     )
     if (stack !== 'react') {
       this.requiredDependencies.push(
@@ -81,7 +81,7 @@ export class Vue implements Feature {
 
     this.requiredDependencies.push(
       ver('rete-render-utils', next),
-      ver('rete-vue-render-plugin', next)
+      ver('rete-vue-plugin', next)
     )
   }
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ClassicScheme, RenderEmit, Presets } from "rete-react-render-plugin";
+import { ClassicScheme, RenderEmit, Presets } from "rete-react-plugin";
 import styled, { css } from "styled-components";
 import { $nodewidth, $socketmargin, $socketsize } from "./vars";
 
