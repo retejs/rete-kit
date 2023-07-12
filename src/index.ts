@@ -57,8 +57,6 @@ program
     forceInstall?: boolean
     next?: boolean
   }) => {
-    if (!options.next) throwError('--next option is required since v2 is still in Beta')
-
     createApp({
       name: options.name,
       stack: options.stack,
