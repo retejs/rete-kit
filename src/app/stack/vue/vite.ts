@@ -5,6 +5,7 @@ import { dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
+import { TemplateBuilder } from '../../template-builder'
 
 export class VueViteBuilder implements AppBuilder {
   public name = 'Vue.js Vite'
@@ -16,7 +17,7 @@ export class VueViteBuilder implements AppBuilder {
     await execa('npm', ['--prefix', name, 'i'], { stdio: 'inherit' })
   }
 
-  async putAssets(name: string, version: number): Promise<void> {
+  async putAssets<K extends string>(name: string, version: number, template: TemplateBuilder<K>): Promise<void> {
     const assets = join(assetsStack, 'vue', 'modules', 'vite')
     const src = join(name, 'src')
 
@@ -29,6 +30,10 @@ export class VueViteBuilder implements AppBuilder {
 
       await fs.promises.writeFile(join(src, 'App.vue'), appFile.replace(/<!--(.*)-->/g, '$1'))
     }
+    const customNodePath = join(src, 'customization', 'CustomNode.vue')
+    const customNodeContent = await fs.promises.readFile(customNodePath, { encoding: 'utf-8' })
+
+    await fs.promises.writeFile(customNodePath, await template.build(customNodeContent, false))
   }
 
   async putScript(name: string, path: string, code: string): Promise<void> {

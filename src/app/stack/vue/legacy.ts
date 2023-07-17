@@ -5,6 +5,7 @@ import { dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
+import { TemplateBuilder } from '../../template-builder'
 
 export class VueBuilder implements AppBuilder {
   public name = 'Vue.js'
@@ -18,7 +19,8 @@ export class VueBuilder implements AppBuilder {
     await execa('npx', ['--package', `@vue/cli@`, 'vue', 'create', name, '--preset', presetFolder], { stdio: 'inherit' })
   }
 
-  async putAssets(name: string): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  async putAssets<K extends string>(name: string, _: number, template: TemplateBuilder<K>): Promise<void> {
     const assets = join(assetsStack, 'vue', 'modules', 'legacy')
     const src = join(name, 'src')
 
@@ -26,6 +28,11 @@ export class VueBuilder implements AppBuilder {
       recursive: true,
       overwrite: true
     })
+
+    const customNodePath = join(src, 'customization', 'CustomNode.vue')
+    const customNodeContent = await fs.promises.readFile(customNodePath, { encoding: 'utf-8' })
+
+    await fs.promises.writeFile(customNodePath, await template.build(customNodeContent, false))
   }
 
   async putScript(name: string, path: string, code: string): Promise<void> {
