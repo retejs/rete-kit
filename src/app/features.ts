@@ -77,7 +77,7 @@ export class Vue implements Feature {
   requiredDependencies: string[] = ['sass-loader', 'sass']
 
   constructor(version: 2 | 3, next: boolean) {
-    if (version === 2) this.templateKeys.push('vue2')
+    this.templateKeys.push(`vue${version}`)
 
     this.requiredDependencies.push(
       ver('rete-render-utils', next),
