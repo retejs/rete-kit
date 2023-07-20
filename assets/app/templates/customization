@@ -65,10 +65,10 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
           }
           return ReactPresets.classic.Node;
         },
-        socket(context) {
+        socket() {
           return CustomSocket;
         },
-        connection(context) {
+        connection() {
           return CustomConnection;
         }
       }
@@ -84,10 +84,10 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
           }
           return VuePresets.classic.Node;
         },
-        socket(context) {
+        socket() {
           return CustomSocket;
         },
-        connection(context) {
+        connection() {
           return CustomConnection;
         }
       }

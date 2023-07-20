@@ -20,7 +20,7 @@ export class ViteBuilder implements AppBuilder {
 
     const tsConfig = await getTSConfig(name)
 
-    tsConfig.jsx = 'react-jsx'
+    tsConfig.compilerOptions.jsx = 'react-jsx'
 
     await setTSConfig(name, tsConfig)
   }
