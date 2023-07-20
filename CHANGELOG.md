@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/retejs/rete-kit/compare/v1.2.0...v1.2.1) (2023-07-20)
+
+
+### Bug Fixes
+
+* **templates:** unused parameters in customization template ([82a6943](https://github.com/retejs/rete-kit/commit/82a69433681d961903c6e4936ffbb5e813f03def))
+* **vite:** TS config ([5591a6a](https://github.com/retejs/rete-kit/commit/5591a6a84a21fec3b8f561ba009905c50d70feec))
+
 # [1.2.0](https://github.com/retejs/rete-kit/compare/v1.1.1...v1.2.0) (2023-07-20)
 
 
