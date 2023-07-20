@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/retejs/rete-kit/compare/v1.1.1...v1.2.0) (2023-07-20)
+
+
+### Bug Fixes
+
+* **react:** unused import ([1c66177](https://github.com/retejs/rete-kit/commit/1c661778b5c6aaed2b6c6ffa763d1a727771962c))
+
+
+### Features
+
+* **vite:** add vite builder ([9a5f6d1](https://github.com/retejs/rete-kit/commit/9a5f6d1b913c793453f9be8c26be17c1bc444427))
+
 ## [1.1.1](https://github.com/retejs/rete-kit/compare/v1.1.0...v1.1.1) (2023-07-17)
 
 
