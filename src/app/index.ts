@@ -4,7 +4,10 @@ import { throwError } from '../shared/throw'
 import { install } from './dependencies-installer'
 import * as Features from './features'
 import * as Patch from './patch'
-import { AngularBuilder, ReactBuilder, ReactViteBuilder, SvelteBuilder, VueBuilder, VueViteBuilder } from './stack'
+import {
+  AngularBuilder, ReactBuilder, ReactViteBuilder, SvelteBuilder,
+  ViteBuilder, VueBuilder, VueViteBuilder
+} from './stack'
 import { DefaultTemplateKey, TemplateBuilder } from './template-builder'
 
 export const builders = {
@@ -13,7 +16,8 @@ export const builders = {
   'vue-vite': new VueViteBuilder(),
   'react': new ReactBuilder(),
   'react-vite': new ReactViteBuilder(),
-  'svelte': new SvelteBuilder()
+  'svelte': new SvelteBuilder(),
+  'vite': new ViteBuilder()
 }
 
 export type AppStack = keyof typeof builders
