@@ -5,7 +5,8 @@ import { install } from './dependencies-installer'
 import * as Features from './features'
 import * as Patch from './patch'
 import {
-  AngularBuilder, ReactBuilder, ReactViteBuilder, SvelteBuilder,
+  AngularBuilder, NextBuilder,
+  ReactBuilder, ReactViteBuilder, SvelteBuilder,
   ViteBuilder, VueBuilder, VueViteBuilder
 } from './stack'
 import { DefaultTemplateKey, TemplateBuilder } from './template-builder'
@@ -17,7 +18,8 @@ export const builders = {
   'react': new ReactBuilder(),
   'react-vite': new ReactViteBuilder(),
   'svelte': new SvelteBuilder(),
-  'vite': new ViteBuilder()
+  'vite': new ViteBuilder(),
+  'next': new NextBuilder()
 }
 
 export type AppStack = keyof typeof builders
