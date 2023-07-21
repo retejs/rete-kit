@@ -6,6 +6,7 @@ import { dirname, join } from 'path'
 import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
+import { templateAssets } from './helpers'
 
 export class VueBuilder implements AppBuilder {
   public name = 'Vue.js'
@@ -29,10 +30,7 @@ export class VueBuilder implements AppBuilder {
       overwrite: true
     })
 
-    const customNodePath = join(src, 'customization', 'CustomNode.vue')
-    const customNodeContent = await fs.promises.readFile(customNodePath, { encoding: 'utf-8' })
-
-    await fs.promises.writeFile(customNodePath, await template.build(customNodeContent, false))
+    await templateAssets(src, template)
   }
 
   async putScript(name: string, path: string, code: string): Promise<void> {
