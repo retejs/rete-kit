@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/retejs/rete-kit/compare/v1.2.1...v1.3.0) (2023-07-21)
+
+
+### Bug Fixes
+
+* **template:** validate location for ssr ([7cb52ea](https://github.com/retejs/rete-kit/commit/7cb52ea142c4b99820ef0581ab62b8f2a1bcd136))
+
+
+### Features
+
+* add next builder ([945a253](https://github.com/retejs/rete-kit/commit/945a2538370ea0fd67e44bf3ec4b9b4222f395db))
+
 ## [1.2.1](https://github.com/retejs/rete-kit/compare/v1.2.0...v1.2.1) (2023-07-20)
 
 
