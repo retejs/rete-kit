@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/retejs/rete-kit/compare/v1.3.0...v1.4.0) (2023-07-21)
+
+
+### Features
+
+* **app:** add nuxt builder ([75680bb](https://github.com/retejs/rete-kit/commit/75680bbb5de83ec97e0ac77419a42ed17f26de28))
+
 # [1.3.0](https://github.com/retejs/rete-kit/compare/v1.2.1...v1.3.0) (2023-07-21)
 
 
