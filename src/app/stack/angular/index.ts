@@ -1,7 +1,7 @@
 import execa from 'execa'
 import fs from 'fs'
 import fse from 'fs-extra'
-import { dirname, join } from 'path'
+import { basename, dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
@@ -29,7 +29,7 @@ export class AngularBuilder implements AppBuilder {
       recursive: true,
       overwrite: true,
       filter(sourcePath) {
-        if (version >= 14 && sourcePath.endsWith('/shims.d.ts')) return false
+        if (version >= 14 && basename(sourcePath) === 'shims.d.ts') return false
         return true
       }
     })
