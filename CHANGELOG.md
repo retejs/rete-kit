@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/retejs/rete-kit/compare/v1.4.0...v1.4.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* **angular:** typing for Windows ([eed4932](https://github.com/retejs/rete-kit/commit/eed4932b7ef3c65c7382a58d9f9371b29c13ecf2))
+
 # [1.4.0](https://github.com/retejs/rete-kit/compare/v1.3.0...v1.4.0) (2023-07-21)
 
 
