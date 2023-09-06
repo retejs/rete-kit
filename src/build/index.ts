@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import { join } from 'path'
+import { join, relative } from 'path'
 
 import { getDependencyTopo, PackageFile } from '../shared/dependency-topo'
 import { throwError } from '../shared/throw'
@@ -36,7 +36,7 @@ export async function build(folders: string[]) {
 
   const commands = targetPackages.map(({ config, folder, dependent }) => {
     const dependentPackages = dependent.map(name => dependencyTopology.filter(n => n.config.name === name)).flat()
-    const outputs = dependentPackages.map(dep => join('..', dep.folder, 'node_modules', config.name))
+    const outputs = dependentPackages.map(dep => join(relative(folder, dep.folder), 'node_modules', config.name))
 
     if (!outputs.length) throwError(`outputs for ${config.name} is empty`)
 
