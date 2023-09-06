@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/retejs/rete-kit/compare/v1.4.1...v1.4.2) (2023-09-06)
+
+
+### Bug Fixes
+
+* **build:** output path for nested packages ([74c9b1a](https://github.com/retejs/rete-kit/commit/74c9b1a724a387912316efd7eaf4422211457af0))
+
 ## [1.4.1](https://github.com/retejs/rete-kit/compare/v1.4.0...v1.4.1) (2023-07-24)
 
 
