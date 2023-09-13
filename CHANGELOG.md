@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/retejs/rete-kit/compare/v1.4.2...v1.4.3) (2023-09-13)
+
+
+### Bug Fixes
+
+* three version ([5af30f1](https://github.com/retejs/rete-kit/commit/5af30f1b7927348f17dd90e542e88f4bc3388ebf))
+
 ## [1.4.2](https://github.com/retejs/rete-kit/compare/v1.4.1...v1.4.2) (2023-09-06)
 
 
