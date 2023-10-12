@@ -1,3 +1,10 @@
+## [1.4.4](https://github.com/retejs/rete-kit/compare/v1.4.3...v1.4.4) (2023-10-12)
+
+
+### Bug Fixes
+
+* **vue:** custom node re-render ([8eaba7a](https://github.com/retejs/rete-kit/commit/8eaba7a1a4b2cbe5c49a76a6f5dd26ceb8a3bd39))
+
 ## [1.4.3](https://github.com/retejs/rete-kit/compare/v1.4.2...v1.4.3) (2023-09-13)
 
 
