@@ -1,18 +1,18 @@
 <template>
-  <div class="node" :class="{ selected: data.selected }" :style="nodeStyles" data-testid="node">
+  <div class="node" :class="{ selected: data.selected }" :style="nodeStyles()" data-testid="node">
     <div class="title" data-testid="title">{{ data.label }}</div>
     <!-- Outputs-->
-    <div class="output" v-for="[key, output] in outputs" :key="'output' + key + seed" :data-testid="'output-' + key">
+    <div class="output" v-for="[key, output] in outputs()" :key="'output' + key + seed" :data-testid="'output-' + key">
       <div class="output-title" data-testid="output-title">{{ output.label }}</div>
       <Ref class="output-socket" :emit="emit"
         :data="{ type: 'socket', side: 'output', key: key, nodeId: data.id, payload: output.socket }"
         data-testid="output-socket" />
     </div>
     <!-- Controls-->
-    <Ref class="control" v-for="[key, control] in controls" :key="'control' + key + seed" :emit="emit"
+    <Ref class="control" v-for="[key, control] in controls()" :key="'control' + key + seed" :emit="emit"
       :data="{ type: 'control', payload: control }" :data-testid="'control-' + key" />
     <!-- Inputs-->
-    <div class="input" v-for="[key, input] in inputs" :key="'input' + key + seed" :data-testid="'input-' + key">
+    <div class="input" v-for="[key, input] in inputs()" :key="'input' + key + seed" :data-testid="'input-' + key">
       <Ref class="input-socket" :emit="emit"
         :data="{ type: 'socket', side: 'input', key: key, nodeId: data.id, payload: input.socket }"
         data-testid="input-socket" />
@@ -43,32 +43,6 @@ function sortByIndex(entries) {
 export default defineComponent({
   props: ['data', 'emit', 'seed'],
   methods: {
-    onRef(element, key, entity, type) {
-      if (!element) return
-
-      if (['output', 'input'].includes(type)) {
-        this.emit({
-          type: 'render', data: {
-            type: 'socket',
-            side: type,
-            key,
-            nodeId: this.data.id,
-            element,
-            payload: entity.socket
-          }
-        })
-      } else if (type === 'control') {
-        this.emit({
-          type: 'render', data: {
-            type: 'control',
-            element,
-            payload: entity
-          }
-        })
-      }
-    }
-  },
-  computed: {
     nodeStyles() {
       return {
         width: Number.isFinite(this.data.width) ? `${this.data.width}px` : '',
