@@ -10,6 +10,7 @@ import { CustomConnectionComponent } from "./customization/custom-connection/cus
 /* [angular14] import { ReteModule } from 'rete-angular-plugin/14'; [/angular14] */
 /* [angular15] import { ReteModule } from 'rete-angular-plugin/15'; [/angular15] */
 /* [angular16] import { ReteModule } from 'rete-angular-plugin/16'; [/angular16] */
+/* [angular17] import { ReteModule } from 'rete-angular-plugin/17'; [/angular17] */
 
 @NgModule({
   declarations: [
