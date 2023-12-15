@@ -8,7 +8,7 @@ import {
 /* [stack-react] import { ReactPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-plugin' [/stack-react] */
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
 /* [stack-vue] import { VuePlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/stack-vue] */
-/* [stack-angular] import { AngularPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] */' [/stack-angular] */
+/* [stack-angular] import { AngularPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] *//* [angular17] /17 [/angular17] */' [/stack-angular] */
 /* [stack-svelte] import { SveltePlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin' [/stack-svelte] */
 /* [stack-react] import { CustomNode } from "../customization/CustomNode";
 import { StyledNode } from "../customization/StyledNode";

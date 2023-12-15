@@ -10,11 +10,15 @@ import { installCompatibleTS } from './compatibility'
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
-  public versions = [12, 13, 14, 15, 16]
+  public versions = [12, 13, 14, 15, 16, 17]
   public foundation = 'angular' as const
 
   public async create(name: string, version: number) {
-    await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, '--defaults'], { stdio: 'inherit' })
+    const options = ['--defaults']
+
+    if (version === 17) options.push('--no-standalone')
+
+    await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, ...options], { stdio: 'inherit' })
 
     if (version < 14) {
       await installCompatibleTS(name, '4.7')
