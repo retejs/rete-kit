@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/retejs/rete-kit/compare/v1.4.4...v1.5.0) (2023-12-15)
+
+
+### Features
+
+* **angular:** support angular 17 ([2463f07](https://github.com/retejs/rete-kit/commit/2463f072851be9b46d90f025023250153f3ccffb))
+
 ## [1.4.4](https://github.com/retejs/rete-kit/compare/v1.4.3...v1.4.4) (2023-10-12)
 
 
