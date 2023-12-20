@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/retejs/rete-kit/compare/v1.5.1...v1.5.2) (2023-12-20)
+
+
+### Bug Fixes
+
+* **angular:** typings of produced app ([4bc17e6](https://github.com/retejs/rete-kit/commit/4bc17e6d8b11ecd48c50a5341918059d177dac29))
+
 ## [1.5.1](https://github.com/retejs/rete-kit/compare/v1.5.0...v1.5.1) (2023-12-20)
 
 

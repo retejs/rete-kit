@@ -1,6 +1,6 @@
 {
   "name": "rete-kit",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "main": "bin/module.js",
   "module": "bin/module.js",
   "types": "bin/module.d.ts",
