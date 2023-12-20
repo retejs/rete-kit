@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/retejs/rete-kit/compare/v1.5.2...v1.5.3) (2023-12-20)
+
+
+### Bug Fixes
+
+* **svelte:** deps version ([ee19500](https://github.com/retejs/rete-kit/commit/ee195001a98c284a960d0fc70cf3251e8399b196))
+
 ## [1.5.2](https://github.com/retejs/rete-kit/compare/v1.5.1...v1.5.2) (2023-12-20)
 
 
