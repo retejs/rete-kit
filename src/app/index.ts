@@ -58,7 +58,7 @@ export async function createApp({ name, stack, version, features, depsAlias, for
 
   const featuresList: Features.Feature[] = [
     new Features.Default(builder.foundation, next),
-    new Features.Area3D(!(builder instanceof AngularBuilder && selectedVersion < 14), next),
+    new Features.Area3D(!(builder instanceof AngularBuilder && selectedVersion < 13), next),
     new Features.Angular(builder.foundation === 'angular' ? selectedVersion as 12 | 13 | 14 | 15 | 16 | 17 : null, next),
     new Features.React(builder.foundation === 'react' ? selectedVersion : 18, selectedStack, next),
     new Features.Vue(builder.foundation === 'vue' ? selectedVersion as 2 : 3, next),

@@ -21,7 +21,7 @@ export class AngularBuilder implements AppBuilder {
     await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, ...options], { stdio: 'inherit' })
     await execa('npx', ['npm-check-updates', '--upgrade', '--target', 'minor', '--filter', '/@angular.*/'], { stdio: 'inherit', cwd: name })
 
-    if (version < 14) {
+    if (version < 13) {
       await installCompatibleTS(name, '4.7')
     }
   }
@@ -34,7 +34,7 @@ export class AngularBuilder implements AppBuilder {
       recursive: true,
       overwrite: true,
       filter(sourcePath) {
-        if (version >= 14 && basename(sourcePath) === 'shims.d.ts') return false
+        if (version >= 13 && basename(sourcePath) === 'shims.d.ts') return false
         return true
       }
     })
