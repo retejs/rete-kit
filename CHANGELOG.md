@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/retejs/rete-kit/compare/v1.5.0...v1.5.1) (2023-12-20)
+
+
+### Bug Fixes
+
+* **angular:** deps conflict ([8d77535](https://github.com/retejs/rete-kit/commit/8d77535c729449b6eac7a7ea2db68a7f369a1b55))
+
 # [1.5.0](https://github.com/retejs/rete-kit/compare/v1.4.4...v1.5.0) (2023-12-15)
 
 
