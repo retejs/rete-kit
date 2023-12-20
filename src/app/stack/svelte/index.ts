@@ -14,7 +14,7 @@ export class SvelteBuilder implements AppBuilder {
 
   public async create(name: string, version: number) {
     await execa('npm', [
-      'create', `svelte-with-args@3`, '-y',
+      'create', `svelte-with-args@4`, '-y',
       '--',
       '--name', name,
       '--template', 'default',
@@ -33,13 +33,13 @@ export class SvelteBuilder implements AppBuilder {
     await execa('npm', [
       '--prefix', name, 'i',
       `svelte@${version}`,
-      `@sveltejs/kit@latest`
+      `@sveltejs/kit@1`
     ], { stdio: 'inherit' })
 
     const configName = 'svelte.config.js'
 
     await fse.copy(join(assetsStack, 'svelte', configName), join(name, configName), { overwrite: true })
-    await execa('npm', ['--prefix', name, 'i', '@sveltejs/adapter-static'], { stdio: 'inherit' })
+    await execa('npm', ['--prefix', name, 'i', `@sveltejs/adapter-static@2`], { stdio: 'inherit' })
   }
 
   async putAssets(name: string, version: number) {
