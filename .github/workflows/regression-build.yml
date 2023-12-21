@@ -59,10 +59,16 @@ jobs:
 
     steps:
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
     - name: Install Rete Kit
       run: npm i -g rete-kit
     - name: Rete Kit version
       run: rete-kit -V
-    - name: Test
-      run: echo  ${{ matrix.stack }}${{ matrix.version }} $FEATURES ${{ matrix.features }}  # rete-kit app -n app -s ${{ matrix.stack }} -v ${{ matrix.version }} 
+    - name: Bootstrapp application
+      run: rete-kit app -n app -s ${{ matrix.stack }} -v ${{ matrix.version }} -f "${{ matrix.features }},$FEATURES"
+    - name: Build application
+      run: npm run build
+      working-directory: ./app
+      
