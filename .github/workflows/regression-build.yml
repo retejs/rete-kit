@@ -24,7 +24,7 @@ jobs:
           - stack: angular
             version: 13
             features: 'Angular render'
-            node: 14
+            node: 16
           - stack: angular
             version: 14
             features: 'Angular render'
