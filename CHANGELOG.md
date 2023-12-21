@@ -1,3 +1,10 @@
+## [1.5.4](https://github.com/retejs/rete-kit/compare/v1.5.3...v1.5.4) (2023-12-21)
+
+
+### Bug Fixes
+
+* **angular:** remove budgets ([97527f5](https://github.com/retejs/rete-kit/commit/97527f5680b3247a7ecca43a49add489fa930ca9))
+
 ## [1.5.3](https://github.com/retejs/rete-kit/compare/v1.5.2...v1.5.3) (2023-12-20)
 
 
