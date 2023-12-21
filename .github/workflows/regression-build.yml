@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: '0 2 * * *'
 
+env:
+  FEATURES: 'Order nodes,Zoom at,Auto arrange,Dataflow engine,Selectable nodes,Context menu,Minimap,Reroute'
+
 jobs:
   build-app:
     runs-on: ubuntu-latest
@@ -13,8 +16,6 @@ jobs:
       fail-fast: false
       max-parallel: 4
       matrix:
-        stack: [angular,react,vue,svelte]
-        common-features: ['Order nodes,Zoom at,Auto arrange,Dataflow engine,Selectable nodes,Context menu,Minimap,Reroute']
         include:
           - stack: angular
             version: 12
@@ -64,4 +65,4 @@ jobs:
     - name: Rete Kit version
       run: rete-kit -V
     - name: Test
-      run: echo  ${{ matrix.stack }}${{ matrix.version }} ${{ matrix.common-features }} ${{ matrix.features }}  # rete-kit app -n app -s ${{ matrix.stack }} -v ${{ matrix.version }} 
+      run: echo  ${{ matrix.stack }}${{ matrix.version }} $FEATURES ${{ matrix.features }}  # rete-kit app -n app -s ${{ matrix.stack }} -v ${{ matrix.version }} 
