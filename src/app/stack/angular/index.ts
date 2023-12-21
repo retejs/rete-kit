@@ -7,6 +7,7 @@ import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
 import { installCompatibleTS } from './compatibility'
+import { removeBudgets } from './budgets'
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
@@ -24,6 +25,7 @@ export class AngularBuilder implements AppBuilder {
     if (version < 13) {
       await installCompatibleTS(name, '4.7')
     }
+    await removeBudgets(name)
   }
 
   async putAssets<K extends string>(name: string, version: number, template: TemplateBuilder<K>): Promise<void> {
