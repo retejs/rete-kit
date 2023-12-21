@@ -20,15 +20,19 @@ jobs:
           - stack: angular
             version: 12
             features: 'Angular render'
+            node: 14
           - stack: angular
             version: 13
             features: 'Angular render'
+            node: 14
           - stack: angular
             version: 14
             features: 'Angular render'
+            node: 16
           - stack: angular
             version: 15
             features: 'Angular render'
+            node: 16
           - stack: angular
             version: 16
             features: 'Angular render'
@@ -61,7 +65,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: ${{ matrix.node || 18 }}
     - name: Install Rete Kit
       run: npm i -g rete-kit
     - name: Rete Kit version
@@ -70,5 +74,7 @@ jobs:
       run: rete-kit app -n app -s ${{ matrix.stack }} -v ${{ matrix.version }} -f "${{ matrix.features }},$FEATURES"
     - name: Build application
       run: npm run build
+      env:
+        CI: ""
       working-directory: ./app
       
