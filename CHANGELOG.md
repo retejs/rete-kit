@@ -1,3 +1,10 @@
+## [1.5.5](https://github.com/retejs/rete-kit/compare/v1.5.4...v1.5.5) (2023-12-23)
+
+
+### Bug Fixes
+
+* **angular:** static path ([4a3b7bf](https://github.com/retejs/rete-kit/commit/4a3b7bfbe043e1967af558b09e80f283bc3c60de))
+
 ## [1.5.4](https://github.com/retejs/rete-kit/compare/v1.5.3...v1.5.4) (2023-12-21)
 
 
