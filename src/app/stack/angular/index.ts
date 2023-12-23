@@ -54,7 +54,8 @@ export class AngularBuilder implements AppBuilder {
     await fs.promises.writeFile(scriptPath, code)
   }
 
-  getStaticPath(name: string) {
+  getStaticPath(name: string, version?: number) {
+    if (version === 17) return join('dist', name, 'browser')
     return join('dist', name)
   }
 }
