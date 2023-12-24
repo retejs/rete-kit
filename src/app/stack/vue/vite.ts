@@ -5,6 +5,7 @@ import { dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
+import { getTSConfig, setTSConfig } from '../../../shared/ts-config'
 import { TemplateBuilder } from '../../template-builder'
 import { templateAssets } from './helpers'
 
@@ -16,6 +17,16 @@ export class VueViteBuilder implements AppBuilder {
   public async create(name: string, version: number) {
     await execa('npm', ['create', `vue@${version}`, name, '--', '--ts'], { stdio: 'inherit' })
     await execa('npm', ['--prefix', name, 'i'], { stdio: 'inherit' })
+
+    const configName = version === 3 ? 'tsconfig.app.json' : 'tsconfig.json'
+    const tsConfig = await getTSConfig(name, configName)
+
+    tsConfig.compilerOptions.allowJs = true
+    tsConfig.compilerOptions.preserveValueImports = false
+    tsConfig.compilerOptions.importsNotUsedAsValues = 'remove'
+    tsConfig.compilerOptions.verbatimModuleSyntax = false
+
+    await setTSConfig(name, tsConfig, configName)
   }
 
   async putAssets<K extends string>(name: string, version: number, template: TemplateBuilder<K>): Promise<void> {
