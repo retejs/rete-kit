@@ -1,0 +1,81 @@
+name: Test build
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: string
+      stack:
+        description: 'Stack'
+        required: true
+        type: string
+      version:
+        description: 'Stack version'
+        type: number
+        required: true
+      features:
+        description: 'Features (comma separated)'
+        required: true
+        type: string
+      node:
+        description: 'Node version'
+        type: string
+        required: true
+  workflow_dispatch:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: choice
+        options:
+        - ubuntu-latest
+        - windows-latest
+      stack:
+        description: 'Stack'
+        required: true
+        type: choice
+        options:
+        - angular
+        - react
+        - react-vite
+        - vue
+        - vue-vite
+        - vite
+        - next
+        - nuxt
+      version:
+        description: 'Stack version'
+        type: number
+        required: true
+      features:
+        description: 'Features (comma separated)'
+        required: true
+        type: string
+      node:
+        description: 'Node version'
+        type: string
+        required: true
+
+
+jobs:
+  build-app:
+    runs-on: ${{ inputs.os }}
+    steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node }}
+    - name: Install Rete Kit
+      run: npm i -g rete-kit
+    - name: Rete Kit version
+      run: rete-kit -V
+    - name: Bootstrapp application
+      run: rete-kit app -n app -s ${{ inputs.stack }} -v ${{ inputs.version }} -f "${{ inputs.features }}"
+    - name: Build application
+      run: npm run build
+      env:
+        CI: ""
+      working-directory: ./app
+      
