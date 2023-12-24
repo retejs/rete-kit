@@ -31,15 +31,15 @@ export class SvelteBuilder implements AppBuilder {
     await setTSConfig(name, tsConfig)
 
     await execa('npm', [
-      '--prefix', name, 'i',
+      'i',
       `svelte@${version}`,
       `@sveltejs/kit@1`
-    ], { stdio: 'inherit' })
+    ], { stdio: 'inherit', cwd: name })
 
     const configName = 'svelte.config.js'
 
     await fse.copy(join(assetsStack, 'svelte', configName), join(name, configName), { overwrite: true })
-    await execa('npm', ['--prefix', name, 'i', `@sveltejs/adapter-static@2`], { stdio: 'inherit' })
+    await execa('npm', ['i', `@sveltejs/adapter-static@2`], { stdio: 'inherit', cwd: name })
   }
 
   async putAssets(name: string, version: number) {
