@@ -9,7 +9,7 @@ jobs:
   angular:
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         version: [17,16,15,14,13,12]
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -24,7 +24,7 @@ jobs:
   react:
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         version: [18,17,16]
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -39,7 +39,7 @@ jobs:
   vue:
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         version: [3,2]
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -54,7 +54,7 @@ jobs:
   svelte:
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         version: [4,3]
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -69,7 +69,7 @@ jobs:
   vite:
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     uses: ./.github/workflows/test-build.yml
@@ -83,7 +83,7 @@ jobs:
   react-vite:
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         version: [18,17,16]
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -98,7 +98,7 @@ jobs:
   vue-vite:
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         version: [3,2]
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -113,7 +113,7 @@ jobs:
   next:
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     uses: ./.github/workflows/test-build.yml
@@ -127,7 +127,7 @@ jobs:
   nuxt:
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     uses: ./.github/workflows/test-build.yml
