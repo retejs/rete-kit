@@ -21,6 +21,7 @@ export class AngularBuilder implements AppBuilder {
 
     await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, ...options], { stdio: 'inherit' })
     await execa('npx', ['npm-check-updates', '--upgrade', '--target', 'minor', '--filter', '/@angular.*/'], { stdio: 'inherit', cwd: name })
+    await execa('npm', ['i'], { cwd: name })
 
     if (version < 13) {
       await installCompatibleTS(name, '4.7')
