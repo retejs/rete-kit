@@ -1,3 +1,10 @@
+## [1.5.10](https://github.com/retejs/rete-kit/compare/v1.5.9...v1.5.10) (2023-12-24)
+
+
+### Bug Fixes
+
+* **angular:** build on Windows ([daef839](https://github.com/retejs/rete-kit/commit/daef839ec6de1ce7d02a035a7297b3603149be2b))
+
 ## [1.5.9](https://github.com/retejs/rete-kit/compare/v1.5.8...v1.5.9) (2023-12-24)
 
 
