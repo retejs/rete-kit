@@ -1,3 +1,10 @@
+## [1.5.9](https://github.com/retejs/rete-kit/compare/v1.5.8...v1.5.9) (2023-12-24)
+
+
+### Bug Fixes
+
+* npm i for Windows ([4e03c3d](https://github.com/retejs/rete-kit/commit/4e03c3d1274a2af2f5fe0866fc805532fe5797e5))
+
 ## [1.5.8](https://github.com/retejs/rete-kit/compare/v1.5.7...v1.5.8) (2023-12-24)
 
 
