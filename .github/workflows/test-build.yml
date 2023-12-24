@@ -75,6 +75,9 @@ jobs:
       run: rete-kit -V
     - name: Bootstrapp application
       run: rete-kit app -n app -s ${{ inputs.stack }} -v ${{ inputs.version }} -f "${{ inputs.features }}"
+    - name: Force install dependencies
+      run: npm install
+      working-directory: ./app
     - name: Build application
       run: npm run build
       env:
