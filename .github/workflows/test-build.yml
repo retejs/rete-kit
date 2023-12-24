@@ -1,4 +1,5 @@
 name: Test build
+run-name: Test build for ${{ inputs.stack }} v${{ inputs.version }} (Node.js ${{ inputs.node }}, ${{ inputs.os }})
 
 on:
   workflow_call:
