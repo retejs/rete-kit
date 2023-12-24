@@ -14,7 +14,7 @@ export class NuxtBuilder implements AppBuilder {
   public foundation = 'vue' as const
 
   public async create(name: string) {
-    await execa('npx', ['nuxi@latest', 'init', name], { stdio: 'inherit' })
+    await execa('npx', ['nuxi@3', 'init', name, '--packageManager', 'npm', '--gitInit'], { stdio: 'inherit' })
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention

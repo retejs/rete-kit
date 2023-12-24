@@ -14,7 +14,7 @@ export class VueViteBuilder implements AppBuilder {
   public foundation = 'vue' as const
 
   public async create(name: string, version: number) {
-    await execa('npm', ['create', `vue@${version}`, name, '--ts'], { stdio: 'inherit' })
+    await execa('npm', ['create', `vue@${version}`, name, '--', '--ts'], { stdio: 'inherit' })
     await execa('npm', ['--prefix', name, 'i'], { stdio: 'inherit' })
   }
 
