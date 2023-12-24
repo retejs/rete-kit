@@ -1,3 +1,10 @@
+## [1.5.8](https://github.com/retejs/rete-kit/compare/v1.5.7...v1.5.8) (2023-12-24)
+
+
+### Bug Fixes
+
+* **vue vite:** tsconfig options ([1e42fc8](https://github.com/retejs/rete-kit/commit/1e42fc8d5eec1a5cb31618212d1c0df55d6029fe))
+
 ## [1.5.7](https://github.com/retejs/rete-kit/compare/v1.5.6...v1.5.7) (2023-12-24)
 
 
