@@ -28,143 +28,119 @@ jobs:
           features: "Angular render,${{ env.FEATURES }}"
 
   react:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
         version: [16,17,18]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./.github/workflows/test-build.yml
-        with:
-          os: ${{ matrix.os }}
-          stack: react
-          version: ${{ matrix.version }}
-          node: 18
-          features: "React render,${{ env.FEATURES }}"
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ matrix.os }}
+      stack: react
+      version: ${{ matrix.version }}
+      node: 18
+      features: "React render,${{ env.FEATURES }}"
 
   vue:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
         version: [2,3]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./.github/workflows/test-build.yml
-        with:
-          os: ${{ matrix.os }}
-          stack: vue
-          version: ${{ matrix.version }}
-          node: 18
-          features: "Vue render,${{ env.FEATURES }}"
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ matrix.os }}
+      stack: vue
+      version: ${{ matrix.version }}
+      node: 18
+      features: "Vue render,${{ env.FEATURES }}"
         
   svelte:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
         version: [3,4]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./.github/workflows/test-build.yml
-        with:
-          os: ${{ matrix.os }}
-          stack: svelte
-          version: ${{ matrix.version }}
-          node: 18
-          features: "Svelte render,${{ env.FEATURES }}"
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ matrix.os }}
+      stack: svelte
+      version: ${{ matrix.version }}
+      node: 18
+      features: "Svelte render,${{ env.FEATURES }}"
           
   vite:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./.github/workflows/test-build.yml
-        with:
-          os: ${{ matrix.os }}
-          stack: vite
-          version: 18
-          node: 18
-          features: "React render,${{ env.FEATURES }}"
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ matrix.os }}
+      stack: vite
+      version: 18
+      node: 18
+      features: "React render,${{ env.FEATURES }}"
           
   react-vite:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
         version: [16,17,18]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./.github/workflows/test-build.yml
-        with:
-          os: ${{ matrix.os }}
-          stack: react-vite
-          version: ${{ matrix.version }}
-          node: 18
-          features: "React render,${{ env.FEATURES }}"
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ matrix.os }}
+      stack: react-vite
+      version: ${{ matrix.version }}
+      node: 18
+      features: "React render,${{ env.FEATURES }}"
 
   vue-vite:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
         version: [2,3]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./.github/workflows/test-build.yml
-        with:
-          os: ${{ matrix.os }}
-          stack: vue-vite
-          version: ${{ matrix.version }}
-          node: 18
-          features: "Vue render,${{ env.FEATURES }}"
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ matrix.os }}
+      stack: vue-vite
+      version: ${{ matrix.version }}
+      node: 18
+      features: "Vue render,${{ env.FEATURES }}"
 
   next:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./.github/workflows/test-build.yml
-        with:
-          os: ${{ matrix.os }}
-          stack: next
-          version: 18
-          node: 18
-          features: "React render,${{ env.FEATURES }}"
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ matrix.os }}
+      stack: next
+      version: 18
+      node: 18
+      features: "React render,${{ env.FEATURES }}"
       
   nuxt:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
-    steps:
-      - uses: actions/checkout@v1
-      - uses: ./.github/workflows/test-build.yml
-        with:
-          os: ${{ matrix.os }}
-          stack: nuxt
-          version: 3
-          node: 18
-          features: "Vue render,${{ env.FEATURES }}"
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ matrix.os }}
+      stack: nuxt
+      version: 3
+      node: 18
+      features: "Vue render,${{ env.FEATURES }}"
           
