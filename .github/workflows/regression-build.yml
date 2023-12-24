@@ -9,93 +9,153 @@ env:
   FEATURES: 'Order nodes,Zoom at,Auto arrange,Dataflow engine,Selectable nodes,Context menu,Minimap,Reroute'
 
 jobs:
-  build-app:
-    runs-on: ${{ matrix.os }}
+  angular:
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 4
+      max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest]
-        stack: [angular, react, react-vite, vue, svelte, vite, next, nuxt]
-        include:
-          - stack: angular
-            version: 12
-            features: 'Angular render'
-            node: 14
-          - stack: angular
-            version: 13
-            features: 'Angular render'
-            node: 16
-          - stack: angular
-            version: 14
-            features: 'Angular render'
-            node: 16
-          - stack: angular
-            version: 15
-            features: 'Angular render'
-            node: 16
-          - stack: angular
-            version: 16
-            features: 'Angular render'
-            node: 18
-          - stack: angular
-            version: 17
-            features: 'Angular render'
-            node: 18
-          - stack: react
-            version: 16
-            features: 'React render'
-          - stack: react
-            version: 17
-            features: 'React render'
-          - stack: react
-            version: 18
-            features: 'React render'
-          - stack: react-vite
-            version: 16
-            features: 'React render'
-          - stack: react-vite
-            version: 17
-            features: 'React render'
-          - stack: react-vite
-            version: 18
-            features: 'React render'
-          - stack: vue
-            version: 2
-            features: 'Vue render'
-          - stack: vue
-            version: 3
-            features: 'Vue render'
-          - stack: svelte
-            version: 3
-            features: 'Svelte render'
-          - stack: svelte
-            version: 4
-            features: 'Svelte render'
-          - stack: vite
-            version: 18
-            features: 'React render'
-          - stack: next
-            version: 18
-            features: 'React render'
-          - stack: nuxt
-            version: 3
-            features: 'Vue render'
-
+        version: [12,13,14,15,16,17]
     steps:
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node }}
-    - name: Install Rete Kit
-      run: npm i -g rete-kit
-    - name: Rete Kit version
-      run: rete-kit -V
-    - name: Bootstrapp application
-      run: rete-kit app -n app -s ${{ matrix.stack }} -v ${{ matrix.version }} -f "${{ matrix.features }},${{ env.FEATURES }}"
-    - name: Build application
-      run: npm run build
-      env:
-        CI: ""
-      working-directory: ./app
+      - uses: ./.github/workflows/test-build.yml
+        with:
+          os: ${{ matrix.os }}
+          stack: angular
+          version: ${{ matrix.version }}
+          node: ${{ matrix.version < 14 && 14 || (matrix.version >=17 && 18 || 16) }}
+          features: "Angular render,${{ env.FEATURES }}"
+
+  react:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        version: [16,17,18]
+    steps:
+      - uses: ./.github/workflows/test-build.yml
+        with:
+          os: ${{ matrix.os }}
+          stack: react
+          version: ${{ matrix.version }}
+          node: 18
+          features: "React render,${{ env.FEATURES }}"
+
+  vue:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        version: [2,3]
+    steps:
+      - uses: ./.github/workflows/test-build.yml
+        with:
+          os: ${{ matrix.os }}
+          stack: vue
+          version: ${{ matrix.version }}
+          node: 18
+          features: "Vue render,${{ env.FEATURES }}"
+        
+  svelte:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        version: [3,4]
+    steps:
+      - uses: ./.github/workflows/test-build.yml
+        with:
+          os: ${{ matrix.os }}
+          stack: svelte
+          version: ${{ matrix.version }}
+          node: 18
+          features: "Svelte render,${{ env.FEATURES }}"
+          
+  vite:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: ./.github/workflows/test-build.yml
+        with:
+          os: ${{ matrix.os }}
+          stack: vite
+          version: 18
+          node: 18
+          features: "React render,${{ env.FEATURES }}"
+          
+  react-vite:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        version: [16,17,18]
+    steps:
+      - uses: ./.github/workflows/test-build.yml
+        with:
+          os: ${{ matrix.os }}
+          stack: react-vite
+          version: ${{ matrix.version }}
+          node: 18
+          features: "React render,${{ env.FEATURES }}"
+
+  vue-vite:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        version: [2,3]
+    steps:
+      - uses: ./.github/workflows/test-build.yml
+        with:
+          os: ${{ matrix.os }}
+          stack: vue-vite
+          version: ${{ matrix.version }}
+          node: 18
+          features: "Vue render,${{ env.FEATURES }}"
+
+  next:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: ./.github/workflows/test-build.yml
+        with:
+          os: ${{ matrix.os }}
+          stack: next
+          version: 18
+          node: 18
+          features: "React render,${{ env.FEATURES }}"
       
+  nuxt:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: ./.github/workflows/test-build.yml
+        with:
+          os: ${{ matrix.os }}
+          stack: nuxt
+          version: 3
+          node: 18
+          features: "Vue render,${{ env.FEATURES }}"
+          
