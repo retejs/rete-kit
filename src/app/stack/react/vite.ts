@@ -14,12 +14,12 @@ export class ReactViteBuilder implements AppBuilder {
   public async create(name: string, version: number) {
     await execa('npm', ['create', 'vite@latest', name, '--', '--template', 'react-ts'], { stdio: 'inherit' })
     await execa('npm', [
-      '--prefix', name, 'i',
+      'i',
       `react@${version}`,
       `react-dom@${version}`,
       `@types/react@${version}`,
       `@types/react-dom@${version}`
-    ], { stdio: 'inherit' })
+    ], { stdio: 'inherit', cwd: name })
   }
 
   async putAssets(name: string, version: number) {

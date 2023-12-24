@@ -16,7 +16,7 @@ export class VueViteBuilder implements AppBuilder {
 
   public async create(name: string, version: number) {
     await execa('npm', ['create', `vue@${version}`, name, '--', '--ts'], { stdio: 'inherit' })
-    await execa('npm', ['--prefix', name, 'i'], { stdio: 'inherit' })
+    await execa('npm', ['i'], { stdio: 'inherit', cwd: name })
 
     const configName = version === 3 ? 'tsconfig.app.json' : 'tsconfig.json'
     const tsConfig = await getTSConfig(name, configName)

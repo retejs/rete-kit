@@ -19,7 +19,7 @@ export async function installCompatibleTS(path: string, version: string) {
   }
 
   await setPackageConfig(path, config)
-  await execa('npm', ['--prefix', path, 'i', `typescript@${version}`])
+  await execa('npm', ['i', `typescript@${version}`], { cwd: path })
 
   const tsConfig = await getTSConfig(path)
 

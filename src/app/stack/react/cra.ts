@@ -14,11 +14,11 @@ export class ReactBuilder implements AppBuilder {
   public async create(name: string, version: number) {
     await execa('npx', ['create-react-app', '--template', 'typescript', name], { stdio: 'inherit' })
     await execa('npm', [
-      '--prefix', name, 'i',
+      'i',
       `react@${version}`,
       `react-dom@${version}`,
       version < 18 ? `@testing-library/react@12` : `@testing-library/react@13`
-    ], { stdio: 'inherit' })
+    ], { stdio: 'inherit', cwd: name })
   }
 
   async putAssets(name: string, version: number) {
