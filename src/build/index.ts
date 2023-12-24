@@ -44,14 +44,16 @@ export async function build(folders: string[]) {
       config,
       folder,
       command: 'npm',
-      args: ['--prefix', folder, '--silent', 'run', 'build', '--', '--watch', '--output', outputs.join(',')]
+      args: ['--silent', 'run', 'build', '--', '--watch', '--output', outputs.join(',')],
+      cwd: folder
     }
   })
 
-  for (const { config, command, args } of commands) {
+  for (const { config, command, args, cwd } of commands) {
     await awaitedExec(
       command,
       args,
+      { cwd },
       line => console.log(` [${config.name}] ${line}`),
       line => /Build (\w+) completed/.test(line)
     )

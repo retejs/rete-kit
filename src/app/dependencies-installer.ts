@@ -30,5 +30,5 @@ export async function install(cwd: string, dependencies: string[], aliases?: Dep
 
   console.log('Installing dependencies:', deps.map(dep => chalk.green(dep)).join(', '))
 
-  await execa('npm', ['--prefix', cwd, 'i', ...(force ? ['-f'] : []), ...deps], { stdio: 'inherit' })
+  await execa('npm', ['i', ...(force ? ['-f'] : []), ...deps], { stdio: 'inherit', cwd })
 }
