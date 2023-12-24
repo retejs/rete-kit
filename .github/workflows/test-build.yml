@@ -33,6 +33,7 @@ on:
         options:
         - ubuntu-latest
         - windows-latest
+        - macos-latest
       stack:
         description: 'Stack'
         required: true
