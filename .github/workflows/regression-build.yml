@@ -16,6 +16,7 @@ jobs:
       max-parallel: 4
       matrix:
         os: [ubuntu-latest, windows-latest]
+        stack: [angular, react, react-vite, vue, vue-vite, svelte, vite, next, nuxt]
         include:
           - stack: angular
             version: 12
