@@ -1,3 +1,11 @@
+## [1.5.6](https://github.com/retejs/rete-kit/compare/v1.5.5...v1.5.6) (2023-12-24)
+
+
+### Bug Fixes
+
+* **nuxt:** builder ([9226cba](https://github.com/retejs/rete-kit/commit/9226cba6cdfe793dc2cfa1bbefbe616dfe82f09a))
+* **vue vite:** builder ([7de02a5](https://github.com/retejs/rete-kit/commit/7de02a572416846277be650df1422fc48087080b))
+
 ## [1.5.5](https://github.com/retejs/rete-kit/compare/v1.5.4...v1.5.5) (2023-12-23)
 
 
