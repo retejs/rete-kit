@@ -1,3 +1,10 @@
+## [1.5.7](https://github.com/retejs/rete-kit/compare/v1.5.6...v1.5.7) (2023-12-24)
+
+
+### Bug Fixes
+
+* **vue vite:** path in assets config ([2d66bd6](https://github.com/retejs/rete-kit/commit/2d66bd6686a343c36d359706bdd57dfd03c12212))
+
 ## [1.5.6](https://github.com/retejs/rete-kit/compare/v1.5.5...v1.5.6) (2023-12-24)
 
 
