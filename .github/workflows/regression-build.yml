@@ -11,8 +11,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
+        version: [17,16,15,14,13,12]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        version: [12,13,14,15,16,17]
     uses: ./.github/workflows/test-build.yml
     with:
       os: ${{ matrix.os }}
@@ -26,8 +26,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
+        version: [18,17,16]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        version: [16,17,18]
     uses: ./.github/workflows/test-build.yml
     with:
       os: ${{ matrix.os }}
@@ -41,8 +41,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
+        version: [3,2]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        version: [2,3]
     uses: ./.github/workflows/test-build.yml
     with:
       os: ${{ matrix.os }}
@@ -56,8 +56,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
+        version: [4,3]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        version: [3,4]
     uses: ./.github/workflows/test-build.yml
     with:
       os: ${{ matrix.os }}
@@ -85,8 +85,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
+        version: [18,17,16]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        version: [16,17,18]
     uses: ./.github/workflows/test-build.yml
     with:
       os: ${{ matrix.os }}
@@ -100,8 +100,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
+        version: [3,2]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        version: [2,3]
     uses: ./.github/workflows/test-build.yml
     with:
       os: ${{ matrix.os }}
