@@ -5,9 +5,6 @@ on:
   schedule:
     - cron: '0 2 * * *'
 
-env:
-  FEATURES: 'Order nodes,Zoom at,Auto arrange,Dataflow engine,Selectable nodes,Context menu,Minimap,Reroute'
-
 jobs:
   angular:
     strategy:
@@ -22,7 +19,7 @@ jobs:
       stack: angular
       version: ${{ matrix.version }}
       node: ${{ matrix.version < 14 && 14 || (matrix.version >=17 && 18 || 16) }}
-      features: "Angular render,${{ env.FEATURES }}"
+      features: "Angular render,${{ vars.FEATURES }}"
 
   react:
     strategy:
@@ -37,7 +34,7 @@ jobs:
       stack: react
       version: ${{ matrix.version }}
       node: 18
-      features: "React render,${{ env.FEATURES }}"
+      features: "React render,${{ vars.FEATURES }}"
 
   vue:
     strategy:
@@ -52,7 +49,7 @@ jobs:
       stack: vue
       version: ${{ matrix.version }}
       node: 18
-      features: "Vue render,${{ env.FEATURES }}"
+      features: "Vue render,${{ vars.FEATURES }}"
         
   svelte:
     strategy:
@@ -67,7 +64,7 @@ jobs:
       stack: svelte
       version: ${{ matrix.version }}
       node: 18
-      features: "Svelte render,${{ env.FEATURES }}"
+      features: "Svelte render,${{ vars.FEATURES }}"
           
   vite:
     strategy:
@@ -81,7 +78,7 @@ jobs:
       stack: vite
       version: 18
       node: 18
-      features: "React render,${{ env.FEATURES }}"
+      features: "React render,${{ vars.FEATURES }}"
           
   react-vite:
     strategy:
@@ -96,7 +93,7 @@ jobs:
       stack: react-vite
       version: ${{ matrix.version }}
       node: 18
-      features: "React render,${{ env.FEATURES }}"
+      features: "React render,${{ vars.FEATURES }}"
 
   vue-vite:
     strategy:
@@ -111,7 +108,7 @@ jobs:
       stack: vue-vite
       version: ${{ matrix.version }}
       node: 18
-      features: "Vue render,${{ env.FEATURES }}"
+      features: "Vue render,${{ vars.FEATURES }}"
 
   next:
     strategy:
@@ -125,7 +122,7 @@ jobs:
       stack: next
       version: 18
       node: 18
-      features: "React render,${{ env.FEATURES }}"
+      features: "React render,${{ vars.FEATURES }}"
       
   nuxt:
     strategy:
@@ -139,5 +136,5 @@ jobs:
       stack: nuxt
       version: 3
       node: 18
-      features: "Vue render,${{ env.FEATURES }}"
+      features: "Vue render,${{ vars.FEATURES }}"
           
