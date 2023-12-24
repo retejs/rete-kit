@@ -92,7 +92,7 @@ jobs:
     - name: Rete Kit version
       run: rete-kit -V
     - name: Bootstrapp application
-      run: rete-kit app -n app -s ${{ matrix.stack }} -v ${{ matrix.version }} -f "${{ matrix.features }},$FEATURES"
+      run: rete-kit app -n app -s ${{ matrix.stack }} -v ${{ matrix.version }} -f "${{ matrix.features }},${{ env.FEATURES }}"
     - name: Build application
       run: npm run build
       env:
