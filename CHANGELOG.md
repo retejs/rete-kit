@@ -1,3 +1,10 @@
+## [1.5.11](https://github.com/retejs/rete-kit/compare/v1.5.10...v1.5.11) (2023-12-24)
+
+
+### Bug Fixes
+
+* **angular:** force install deps for Angular 12-13 ([81e00f6](https://github.com/retejs/rete-kit/commit/81e00f6e87c87fea232e0c17e9175a0c07c3cd87))
+
 ## [1.5.10](https://github.com/retejs/rete-kit/compare/v1.5.9...v1.5.10) (2023-12-24)
 
 
