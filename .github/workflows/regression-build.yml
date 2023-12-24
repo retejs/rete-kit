@@ -37,9 +37,11 @@ jobs:
           - stack: angular
             version: 16
             features: 'Angular render'
+            node: 18
           - stack: angular
             version: 17
             features: 'Angular render'
+            node: 18
           - stack: react
             version: 16
             features: 'React render'
@@ -62,12 +64,6 @@ jobs:
             version: 2
             features: 'Vue render'
           - stack: vue
-            version: 3
-            features: 'Vue render'
-          - stack: vue-vite
-            version: 2
-            features: 'Vue render'
-          - stack: vue-vite
             version: 3
             features: 'Vue render'
           - stack: svelte
@@ -90,7 +86,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node || 18 }}
+        node-version: ${{ matrix.node }}
     - name: Install Rete Kit
       run: npm i -g rete-kit
     - name: Rete Kit version
