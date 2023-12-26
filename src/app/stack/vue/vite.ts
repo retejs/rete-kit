@@ -18,6 +18,7 @@ export class VueViteBuilder implements AppBuilder {
     await execa('npm', ['create', `vue@${version}`, name, '--', '--ts'], { stdio: 'inherit' })
     await execa('npm', ['i'], { stdio: 'inherit', cwd: name })
 
+    const configName = 'tsconfig.json'
     const tsConfig = await getTSConfig(name, configName)
 
     tsConfig.compilerOptions.allowJs = true
