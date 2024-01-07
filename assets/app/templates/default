@@ -13,6 +13,20 @@ import { Area2D, /* [import-area-extensions] AreaExtensions, [/import-area-exten
 /* [context-menu] import { ContextMenuPlugin, ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
 /* [minimap] import { MinimapExtra, MinimapPlugin } from 'rete-minimap-plugin'; [/minimap] */
 /* [reroute] import { ReroutePlugin, RerouteExtra /* [selectable] , RerouteExtensions [/selectable] */ } from "rete-connection-reroute-plugin";[/reroute] */
+/* [vue2]
+import Vue from 'vue'
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n)
+
+const i18n = new VueI18n({})
+[/vue2] */
+/* [vue3]
+import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
+
+const i18n = createI18n({})
+[/vue3] */
 
 type Node =
   | NumberNode
@@ -94,14 +108,26 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   const area = new AreaPlugin<Schemes, AreaExtra>(container)
   /* [!readonly] const connection = new ConnectionPlugin<Schemes, AreaExtra>() [/!readonly] */
   /* [react-render] const reactRender = new ReactPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/react-render] */
-  /* [vue-render] const vueRender = new VuePlugin<Schemes, AreaExtra>() [/vue-render] */
+  /* [vue-render] const vueRender = new VuePlugin<Schemes, AreaExtra>({
+    setup(context) {
+      /* [vue2] Vue
+      const app = new Vue({ ...context, i18n })
+      [/vue2] */
+      /* [vue3]
+      const app = createApp(context)
+      app.use(i18n)
+      [/vue3] */
+      console.log(app, context)
+      return app
+}
+  })[/vue-render] */
   /* [angular-render] const angularRender = new AngularPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
   /* [svelte-render] const svelteRender = new SveltePlugin<Schemes, AreaExtra>() [/svelte-render] */
   /* [readonly] const readonly = new ReadonlyPlugin<Schemes>() [/readonly] */
   /* [context-menu] const contextMenu = new ContextMenuPlugin<Schemes>({
     items: ContextMenuPresets.classic.setup([
       ['Number', () => new NumberNode(1/* [dataflow] , process [/dataflow] */)],
-    ['Add', () => new AddNode()]
+  ['Add', () => new AddNode()]
     ])
 })[/context-menu] */
   /* [minimap] const minimap = new MinimapPlugin<Schemes>(); [/minimap] */

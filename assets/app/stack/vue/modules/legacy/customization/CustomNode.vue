@@ -1,6 +1,6 @@
 <template>
   <div class="node" :class="{ selected: data.selected }" :style="nodeStyles()" data-testid="node">
-    <div class="title" data-testid="title">{{ data.label }}</div>
+    <div class="title" data-testid="title">{{ $t(data.label + '-test') }}</div>
     <!-- Outputs-->
     <div class="output" v-for="[key, output] in outputs()" :key="'output' + key + seed" :data-testid="'output-' + key">
       <div class="output-title" data-testid="output-title">{{ output.label }}</div>

@@ -81,7 +81,8 @@ export class Vue implements Feature {
 
     this.requiredDependencies.push(
       ver('rete-render-utils', next),
-      ver('rete-vue-plugin', next)
+      ver('rete-vue-plugin', next),
+      `vue-i18n@${version === 2 ? 8 : 9}`
     )
   }
 }

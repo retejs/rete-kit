@@ -25,8 +25,29 @@ import CustomNodeComponent from '../customization/CustomNode.svelte'
 import CustomConnectionComponent from '../customization/CustomConnection.svelte'
 import CustomSocketComponent from '../customization/CustomSocket.svelte' [/stack-svelte] */
 import { addCustomBackground } from "../customization/custom-background";
+/* [vue2]
+import Vue from 'vue'
+import VueI18n from 'vue-i18n'
 
+Vue.use(VueI18n)
 
+const i18n = new VueI18n({
+[/vue2] */
+/* [vue3]
+import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
+
+const i18n = createI18n({
+[/vue3] */
+/* [vue-render]
+  locale: 'en',
+  messages: {
+    'en': {
+      'Custom-test': 'Custom'
+    }
+  }
+})
+[/vue-render] */
 
 type Schemes = GetSchemes<
   ClassicPreset.Node,
@@ -45,7 +66,19 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   const area = new AreaPlugin<Schemes, AreaExtra>(container);
   const connection = new ConnectionPlugin<Schemes, AreaExtra>();
   /* [stack-react] const reactRender = new ReactPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/stack-react] */
-  /* [stack-vue] const vueRender = new VuePlugin<Schemes, AreaExtra>() [/stack-vue] */
+  /* [vue-render] const vueRender = new VuePlugin<Schemes, AreaExtra>({
+    setup(context) {
+      /* [vue2] Vue
+      const app = new Vue({ ...context, i18n })
+      [/vue2] */
+      /* [vue3]
+      const app = createApp(context)
+      app.use(i18n)
+      [/vue3] */
+      console.log(app, context)
+      return app
+}
+  })[/vue-render] */
   /* [stack-angular] const angularRender = new AngularPlugin<Schemes, AreaExtra>({ injector }) [/stack-angular] */
   /* [stack-svelte] const svelteRender = new SveltePlugin<Schemes, AreaExtra>() [/stack-svelte] */
 
@@ -130,10 +163,10 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
 
   connection.addPreset(ConnectionPresets.classic.setup());
 
-    addCustomBackground(area);
+  addCustomBackground(area);
 
-    editor.use(area);
-    area.use(connection);
+  editor.use(area);
+  area.use(connection);
   /* [stack-react] area.use(reactRender) [/stack-react] */
   /* [stack-vue] area.use(vueRender) [/stack-vue] */
   /* [stack-angular] area.use(angularRender) [/stack-angular] */
@@ -147,25 +180,25 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   const bLabel = "Custom"; [/!stack-react] */
 
   const a = new ClassicPreset.Node(aLabel);
-  a.addOutput("a", new ClassicPreset.Output(socket));
-  a.addInput("a", new ClassicPreset.Input(socket));
-  await editor.addNode(a);
+a.addOutput("a", new ClassicPreset.Output(socket));
+a.addInput("a", new ClassicPreset.Input(socket));
+await editor.addNode(a);
 
-  const b = new ClassicPreset.Node(bLabel);
-  b.addOutput("a", new ClassicPreset.Output(socket));
-  b.addInput("a", new ClassicPreset.Input(socket));
-  await editor.addNode(b);
+const b = new ClassicPreset.Node(bLabel);
+b.addOutput("a", new ClassicPreset.Output(socket));
+b.addInput("a", new ClassicPreset.Input(socket));
+await editor.addNode(b);
 
-  await area.translate(a.id, { x: 0, y: 0 });
-  await area.translate(b.id, { x: 300, y: 0 });
+await area.translate(a.id, { x: 0, y: 0 });
+await area.translate(b.id, { x: 300, y: 0 });
 
-  await editor.addConnection(new ClassicPreset.Connection(a, "a", b, "a"));
+await editor.addConnection(new ClassicPreset.Connection(a, "a", b, "a"));
 
-  /* [zoom-at] setTimeout(() => {
-    AreaExtensions.zoomAt(area, editor.getNodes());
-  }, 300); [/zoom-at] */
+/* [zoom-at] setTimeout(() => {
+  AreaExtensions.zoomAt(area, editor.getNodes());
+}, 300); [/zoom-at] */
 
-  return {
-    destroy: () => area.destroy()
-  };
+return {
+  destroy: () => area.destroy()
+};
 }
