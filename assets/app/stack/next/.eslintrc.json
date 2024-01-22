@@ -1,0 +1,13 @@
+{
+  "extends": ["eslint:recommended"],
+  "rules": {
+    "@typescript-eslint/semi": "off",
+    "semi": "off",
+    "comma-dangle": "off",
+    "no-undef": "off",
+    "no-unused-vars": "off",
+    "newline-after-var": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "quotes": "off"
+  }
+}

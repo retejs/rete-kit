@@ -15,6 +15,10 @@ export class NextBuilder implements AppBuilder {
     await execa('npx', ['create-next-app@latest', name,
       '--ts', '--src-dir', '--no-eslint', '--no-tailwind', '--app', '--import-alias', '@/*'
     ], { stdio: 'inherit' })
+
+    const eslintConfigName = '.eslintrc.json'
+
+    await fse.copy(join(assetsStack, 'next', eslintConfigName), join(name, eslintConfigName), { overwrite: true })
   }
 
   async putAssets(name: string) {
