@@ -7,6 +7,11 @@ on:
 
 jobs:
   release:
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
     uses: retejs/.github/.github/workflows/release.yml@main
     secrets: inherit
     with:
