@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/retejs/rete-kit/compare/v1.5.12...v1.6.0) (2024-01-23)
+
+
+### Bug Fixes
+
+* nuxt static path ([d37e4f9](https://github.com/retejs/rete-kit/commit/d37e4f921df01cd6c83adbbecba347a7d9176d1b))
+
+
+### Features
+
+* specify build command for each stack ([a5e9206](https://github.com/retejs/rete-kit/commit/a5e9206b386ebd5bd2c806455f520fd29687555f))
+
 ## [1.5.12](https://github.com/retejs/rete-kit/compare/v1.5.11...v1.5.12) (2024-01-22)
 
 
