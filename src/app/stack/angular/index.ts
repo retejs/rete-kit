@@ -6,8 +6,8 @@ import { basename, dirname, join } from 'path'
 import { AppBuilder } from '../../app-builder'
 import { assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
-import { installCompatibleTS } from './compatibility'
 import { removeBudgets } from './budgets'
+import { installCompatibleTS } from './compatibility'
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
@@ -58,5 +58,9 @@ export class AngularBuilder implements AppBuilder {
   getStaticPath(name: string, version?: number) {
     if (version === 17) return join('dist', name, 'browser')
     return join('dist', name)
+  }
+
+  getBuildCommand(): string {
+    return 'build'
   }
 }

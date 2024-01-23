@@ -56,4 +56,8 @@ export class VueViteBuilder implements AppBuilder {
   getStaticPath() {
     return 'dist'
   }
+
+  getBuildCommand(): string {
+    return 'build'
+  }
 }

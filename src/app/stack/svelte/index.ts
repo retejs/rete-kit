@@ -63,4 +63,8 @@ export class SvelteBuilder implements AppBuilder {
   getStaticPath() {
     return 'build'
   }
+
+  getBuildCommand(): string {
+    return 'build'
+  }
 }

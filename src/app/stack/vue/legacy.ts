@@ -43,4 +43,8 @@ export class VueBuilder implements AppBuilder {
   getStaticPath() {
     return 'dist'
   }
+
+  getBuildCommand(): string {
+    return 'build'
+  }
 }

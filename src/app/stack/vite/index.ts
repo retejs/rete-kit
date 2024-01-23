@@ -55,4 +55,8 @@ export class ViteBuilder implements AppBuilder {
   getStaticPath() {
     return 'build'
   }
+
+  getBuildCommand(): string {
+    return 'build'
+  }
 }
