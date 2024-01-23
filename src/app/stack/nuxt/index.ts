@@ -42,7 +42,7 @@ export class NuxtBuilder implements AppBuilder {
   }
 
   getStaticPath() {
-    return 'build'
+    return join('.output', 'public')
   }
 
   getBuildCommand(): string {
