@@ -44,4 +44,8 @@ export class NuxtBuilder implements AppBuilder {
   getStaticPath() {
     return 'build'
   }
+
+  getBuildCommand(): string {
+    return 'generate'
+  }
 }

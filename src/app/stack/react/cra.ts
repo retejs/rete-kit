@@ -45,4 +45,8 @@ export class ReactBuilder implements AppBuilder {
   getStaticPath() {
     return 'build'
   }
+
+  getBuildCommand(): string {
+    return 'build'
+  }
 }
