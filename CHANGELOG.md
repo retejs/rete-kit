@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/retejs/rete-kit/compare/v1.6.0...v1.6.1) (2024-01-27)
+
+
+### Bug Fixes
+
+* **build:** source maps ([12ccd57](https://github.com/retejs/rete-kit/commit/12ccd57a91212db197a10463f3dd3b249407de78))
+
 # [1.6.0](https://github.com/retejs/rete-kit/compare/v1.5.12...v1.6.0) (2024-01-23)
 
 
