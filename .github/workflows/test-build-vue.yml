@@ -1,0 +1,36 @@
+name: Test Vue build 
+run-name: Test Vue build for ${{ inputs.os }}
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: choice
+        options:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+
+jobs:
+  vue:
+    name: Vue
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        version: [3,2]
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ inputs.os }}
+      stack: vue
+      version: ${{ matrix.version }}
+      node: 18
+      features: "Vue render,${{ vars.FEATURES }}"
