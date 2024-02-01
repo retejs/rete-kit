@@ -7,6 +7,7 @@ on:
 
 jobs:
   angular:
+    name: Angular
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -22,6 +23,7 @@ jobs:
       features: "Angular render,${{ vars.FEATURES }}"
 
   react:
+    name: React
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -37,6 +39,7 @@ jobs:
       features: "React render,${{ vars.FEATURES }}"
 
   vue:
+    name: Vue
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -52,6 +55,7 @@ jobs:
       features: "Vue render,${{ vars.FEATURES }}"
         
   svelte:
+    name: Svelte
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -67,6 +71,7 @@ jobs:
       features: "Svelte render,${{ vars.FEATURES }}"
           
   vite:
+    name: Vite
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -81,6 +86,7 @@ jobs:
       features: "React render,${{ vars.FEATURES }}"
           
   react-vite:
+    name: React vite
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -96,6 +102,7 @@ jobs:
       features: "React render,${{ vars.FEATURES }}"
 
   vue-vite:
+    name: Vue vite
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -111,6 +118,7 @@ jobs:
       features: "Vue render,${{ vars.FEATURES }}"
 
   next:
+    name: Next
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -125,6 +133,7 @@ jobs:
       features: "React render,${{ vars.FEATURES }}"
       
   nuxt:
+    name: Nuxt
     strategy:
       fail-fast: false
       max-parallel: 3
