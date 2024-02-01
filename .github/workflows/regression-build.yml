@@ -6,6 +6,7 @@ on:
     - cron: '0 2 * * *'
 
 jobs:
+# Angular
   ubuntu-angular:
     name: "Ubuntu: Angular"
     uses: ./.github/workflows/test-build-angular.yml
@@ -25,129 +26,172 @@ jobs:
     uses: ./.github/workflows/test-build-angular.yml
     with:
       os: macos-latest
-
-  react:
-    name: React
-    strategy:
-      fail-fast: false
-      max-parallel: 3
-      matrix:
-        version: [18,17,16]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    uses: ./.github/workflows/test-build.yml
-    with:
-      os: ${{ matrix.os }}
-      stack: react
-      version: ${{ matrix.version }}
-      node: 18
-      features: "React render,${{ vars.FEATURES }}"
-
-  vue:
-    name: Vue
-    strategy:
-      fail-fast: false
-      max-parallel: 3
-      matrix:
-        version: [3,2]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    uses: ./.github/workflows/test-build.yml
-    with:
-      os: ${{ matrix.os }}
-      stack: vue
-      version: ${{ matrix.version }}
-      node: 18
-      features: "Vue render,${{ vars.FEATURES }}"
-        
-  svelte:
-    name: Svelte
-    strategy:
-      fail-fast: false
-      max-parallel: 3
-      matrix:
-        version: [4,3]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    uses: ./.github/workflows/test-build.yml
-    with:
-      os: ${{ matrix.os }}
-      stack: svelte
-      version: ${{ matrix.version }}
-      node: 18
-      features: "Svelte render,${{ vars.FEATURES }}"
-          
-  vite:
-    name: Vite
-    strategy:
-      fail-fast: false
-      max-parallel: 3
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    uses: ./.github/workflows/test-build.yml
-    with:
-      os: ${{ matrix.os }}
-      stack: vite
-      version: 18
-      node: 18
-      features: "React render,${{ vars.FEATURES }}"
-          
-  react-vite:
-    name: React vite
-    strategy:
-      fail-fast: false
-      max-parallel: 3
-      matrix:
-        version: [18,17,16]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    uses: ./.github/workflows/test-build.yml
-    with:
-      os: ${{ matrix.os }}
-      stack: react-vite
-      version: ${{ matrix.version }}
-      node: 18
-      features: "React render,${{ vars.FEATURES }}"
-
-  vue-vite:
-    name: Vue vite
-    strategy:
-      fail-fast: false
-      max-parallel: 3
-      matrix:
-        version: [3,2]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    uses: ./.github/workflows/test-build.yml
-    with:
-      os: ${{ matrix.os }}
-      stack: vue-vite
-      version: ${{ matrix.version }}
-      node: 18
-      features: "Vue render,${{ vars.FEATURES }}"
-
-  next:
-    name: Next
-    strategy:
-      fail-fast: false
-      max-parallel: 3
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    uses: ./.github/workflows/test-build.yml
-    with:
-      os: ${{ matrix.os }}
-      stack: next
-      version: 18
-      node: 18
-      features: "React render,${{ vars.FEATURES }}"
       
-  nuxt:
-    name: Nuxt
-    strategy:
-      fail-fast: false
-      max-parallel: 3
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    uses: ./.github/workflows/test-build.yml
+# React
+  ubuntu-react:
+    name: "Ubuntu: React"
+    uses: ./.github/workflows/test-build-react.yml
     with:
-      os: ${{ matrix.os }}
-      stack: nuxt
-      version: 3
-      node: 18
-      features: "Vue render,${{ vars.FEATURES }}"
-          
+      os: ubuntu-latest
+  
+  windows-react:
+    name: "Windows: React"
+    needs: ubuntu-react
+    uses: ./.github/workflows/test-build-react.yml
+    with:
+      os: windows-latest
+  
+  macos-react:
+    name: "MacOS: React"
+    needs: windows-react
+    uses: ./.github/workflows/test-build-react.yml
+    with:
+      os: macos-latest
+   
+# Vue
+  ubuntu-vue:
+    name: "Ubuntu: Vue"
+    uses: ./.github/workflows/test-build-vue.yml
+    with:
+      os: ubuntu-latest
+  
+  windows-vue:
+    name: "Windows: Vue"
+    needs: ubuntu-vue
+    uses: ./.github/workflows/test-build-vue.yml
+    with:
+      os: windows-latest
+  
+  macos-vue:
+    name: "MacOS: Vue"
+    needs: windows-vue
+    uses: ./.github/workflows/test-build-vue.yml
+    with:
+      os: macos-latest
+   
+# Svelte
+
+  ubuntu-svelte:
+    name: "Ubuntu: Svelte"
+    uses: ./.github/workflows/test-build-svelte.yml
+    with:
+      os: ubuntu-latest
+  
+  windows-svelte:
+    name: "Windows: Svelte"
+    needs: ubuntu-svelte
+    uses: ./.github/workflows/test-build-svelte.yml
+    with:
+      os: windows-latest
+  
+  macos-svelte:
+    name: "MacOS: Svelte"
+    needs: windows-svelte
+    uses: ./.github/workflows/test-build-svelte.yml
+    with:
+      os: macos-latest
+   
+# Vite
+  ubuntu-vite:
+    name: "Ubuntu: Vite"
+    uses: ./.github/workflows/test-build-vite.yml
+    with:
+      os: ubuntu-latest
+  
+  windows-vite:
+    name: "Windows: Vite"
+    needs: ubuntu-vite
+    uses: ./.github/workflows/test-build-vite.yml
+    with:
+      os: windows-latest
+  
+  macos-vite:
+    name: "MacOS: Vite"
+    needs: windows-vite
+    uses: ./.github/workflows/test-build-vite.yml
+    with:
+      os: macos-latest
+   
+# React Vite
+  ubuntu-react-vite:
+    name: "Ubuntu: React Vite"
+    uses: ./.github/workflows/test-build-react-vite.yml
+    with:
+      os: ubuntu-latest
+  
+  windows-react-vite:
+    name: "Windows: React Vite"
+    needs: ubuntu-react-vite
+    uses: ./.github/workflows/test-build-react-vite.yml
+    with:
+      os: windows-latest
+  
+  macos-react-vite:
+    name: "MacOS: React Vite"
+    needs: windows-react-vite
+    uses: ./.github/workflows/test-build-react-vite.yml
+    with:
+      os: macos-latest
+   
+# Vue Vite
+  ubuntu-vue-vite:
+    name: "Ubuntu: Vue Vite"
+    uses: ./.github/workflows/test-build-vue-vite.yml
+    with:
+      os: ubuntu-latest
+  
+  windows-vue-vite:
+    name: "Windows: Vue Vite"
+    needs: ubuntu-vue-vite
+    uses: ./.github/workflows/test-build-vue-vite.yml
+    with:
+      os: windows-latest
+  
+  macos-vue-vite:
+    name: "MacOS: Vue Vite"
+    needs: windows-vue-vite
+    uses: ./.github/workflows/test-build-vue-vite.yml
+    with:
+      os: macos-latest
+   
+# Next
+  ubuntu-next:
+    name: "Ubuntu: Next"
+    uses: ./.github/workflows/test-build-next.yml
+    with:
+      os: ubuntu-latest
+  
+  windows-next:
+    name: "Windows: Next"
+    needs: ubuntu-next
+    uses: ./.github/workflows/test-build-next.yml
+    with:
+      os: windows-latest
+  
+  macos-next:
+    name: "MacOS: Next"
+    needs: windows-next
+    uses: ./.github/workflows/test-build-next.yml
+    with:
+      os: macos-latest
+   
+# Nuxt
+  ubuntu-nuxt:
+    name: "Ubuntu: Nuxt"
+    uses: ./.github/workflows/test-build-nuxt.yml
+    with:
+      os: ubuntu-latest
+  
+  windows-nuxt:
+    name: "Windows: Nuxt"
+    needs: ubuntu-nuxt
+    uses: ./.github/workflows/test-build-nuxt.yml
+    with:
+      os: windows-latest
+  
+  macos-nuxt:
+    name: "MacOS: Nuxt"
+    needs: windows-nuxt
+    uses: ./.github/workflows/test-build-nuxt.yml
+    with:
+      os: macos-latest
