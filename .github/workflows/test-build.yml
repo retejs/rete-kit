@@ -63,6 +63,7 @@ on:
 
 jobs:
   build-app:
+    name:  ${{ inputs.stack }} v${{ inputs.version }} ${{ inputs.os }}
     runs-on: ${{ inputs.os }}
     steps:
     - name: Set up Node.js
