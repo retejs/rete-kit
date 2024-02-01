@@ -6,21 +6,25 @@ on:
     - cron: '0 2 * * *'
 
 jobs:
-  angular:
-    name: Angular
-    strategy:
-      fail-fast: false
-      max-parallel: 3
-      matrix:
-        version: [17,16,15,14,13,12]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    uses: ./.github/workflows/test-build.yml
+  ubuntu-angular:
+    name: "Ubuntu: Angular"
+    uses: ./.github/workflows/test-build-angular.yml
     with:
-      os: ${{ matrix.os }}
-      stack: angular
-      version: ${{ matrix.version }}
-      node: ${{ matrix.version < 14 && 14 || (matrix.version >=17 && 18 || 16) }}
-      features: "Angular render,${{ vars.FEATURES }}"
+      os: ubuntu-latest
+  
+  windows-angular:
+    name: "Windows: Angular"
+    needs: ubuntu-angular
+    uses: ./.github/workflows/test-build-angular.yml
+    with:
+      os: windows-latest
+  
+  macos-angular:
+    name: "MacOS: Angular"
+    needs: windows-angular
+    uses: ./.github/workflows/test-build-angular.yml
+    with:
+      os: macos-latest
 
   react:
     name: React
