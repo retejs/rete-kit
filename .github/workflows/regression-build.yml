@@ -7,6 +7,7 @@ on:
 
 jobs:
   angular:
+    name: Angular v${{ matrix.version }} | ${{ matrix.os }}
     strategy:
       fail-fast: false
       max-parallel: 3
