@@ -18,6 +18,7 @@ on:
         - ubuntu-latest
         - windows-latest
         - macos-latest
+        - macos-14
 
 jobs:
   react:
