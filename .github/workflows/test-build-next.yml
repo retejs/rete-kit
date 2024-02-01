@@ -1,0 +1,36 @@
+name: Test Next build 
+run-name: Test Next build for ${{ inputs.os }}
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: choice
+        options:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+
+jobs:
+  next:
+    name: Next
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        version: [18]
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ inputs.os }}
+      stack: next
+      version: ${{ matrix.version }}
+      node: 18
+      features: "React render,${{ vars.FEATURES }}"
