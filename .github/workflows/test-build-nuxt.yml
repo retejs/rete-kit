@@ -1,0 +1,37 @@
+name: Test Nuxt build 
+run-name: Test Nuxt build for ${{ inputs.os }}
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: choice
+        options:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+
+jobs:
+  nuxt:
+    name: Nuxt
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        version: [3]
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ inputs.os }}
+      stack: nuxt
+      version: ${{ matrix.version }}
+      node: 18
+      features: "Vue render,${{ vars.FEATURES }}"
+          
