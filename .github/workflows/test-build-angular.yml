@@ -1,0 +1,36 @@
+name: Test Angular build 
+run-name: Test Angular build for ${{ inputs.os }}
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: choice
+        options:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+
+jobs:
+  build:
+    name: ${{ matrix.version }}
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        version: [17,16,15,14,13,12]
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ inputs.os }}
+      stack: angular
+      version: ${{ matrix.version }}
+      node: ${{ matrix.version < 14 && 14 || (matrix.version >=17 && 18 || 16) }}
+      features: "Angular render,${{ vars.FEATURES }}"
