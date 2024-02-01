@@ -1,0 +1,36 @@
+name: Test Vue Vite build 
+run-name: Test Vue Vite build for ${{ inputs.os }}
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      os:
+        description: 'OS'
+        required: true
+        type: choice
+        options:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+
+jobs:
+  vue-vite:
+    name: Vue vite
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        version: [3,2]
+    uses: ./.github/workflows/test-build.yml
+    with:
+      os: ${{ inputs.os }}
+      stack: vue-vite
+      version: ${{ matrix.version }}
+      node: 18
+      features: "Vue render,${{ vars.FEATURES }}"
