@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       linux:
-        description: Linux runner (empty to skip) 
+        description: Linux runner ('-' to skip) 
         default: ubuntu-latest
       win:
-        description: Windows runner (empty to skip) 
+        description: Windows runner ('-' to skip) 
         default: windows-latest
       mac:
-        description: MacOS runner (empty to skip) 
+        description: MacOS runner ('-' to skip) 
         default: macos-14
         
         
@@ -21,14 +21,14 @@ jobs:
 # Angular
   linux-angular:
     name: "Ubuntu: Angular"
-    if: ${{ inputs.linux != '' }}
+    if: ${{ inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-angular.yml
     with:
       os: ${{ inputs.linux }}
   
   win-angular:
     name: "Windows: Angular"
-    if: ${{ inputs.win != '' }}
+    if: ${{ inputs.win != '-' }}
     needs: linux-angular
     uses: ./.github/workflows/test-build-angular.yml
     with:
@@ -36,7 +36,7 @@ jobs:
   
   mac-angular:
     name: "MacOS: Angular"
-    if: ${{ inputs.mac != '' }}
+    if: ${{ inputs.mac != '-' }}
     needs: win-angular
     uses: ./.github/workflows/test-build-angular.yml
     with:
@@ -45,14 +45,14 @@ jobs:
 # React
   linux-react:
     name: "Ubuntu: React"
-    if: ${{ inputs.linux != '' }}
+    if: ${{ inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-react.yml
     with:
       os: ${{ inputs.linux }}
   
   win-react:
     name: "Windows: React"
-    if: ${{ inputs.win != '' }}
+    if: ${{ inputs.win != '-' }}
     needs: linux-react
     uses: ./.github/workflows/test-build-react.yml
     with:
@@ -60,7 +60,7 @@ jobs:
   
   mac-react:
     name: "MacOS: React"
-    if: ${{ inputs.mac != '' }}
+    if: ${{ inputs.mac != '-' }}
     needs: win-react
     uses: ./.github/workflows/test-build-react.yml
     with:
@@ -69,14 +69,14 @@ jobs:
 # Vue
   linux-vue:
     name: "Ubuntu: Vue"
-    if: ${{ inputs.linux != '' }}
+    if: ${{ inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-vue.yml
     with:
       os: ${{ inputs.linux }}
   
   win-vue:
     name: "Windows: Vue"
-    if: ${{ inputs.win != '' }}
+    if: ${{ inputs.win != '-' }}
     needs: linux-vue
     uses: ./.github/workflows/test-build-vue.yml
     with:
@@ -84,7 +84,7 @@ jobs:
   
   mac-vue:
     name: "MacOS: Vue"
-    if: ${{ inputs.mac != '' }}
+    if: ${{ inputs.mac != '-' }}
     needs: win-vue
     uses: ./.github/workflows/test-build-vue.yml
     with:
@@ -94,14 +94,14 @@ jobs:
 
   linux-svelte:
     name: "Ubuntu: Svelte"
-    if: ${{ inputs.linux != '' }}
+    if: ${{ inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-svelte.yml
     with:
       os: ${{ inputs.linux }}
   
   win-svelte:
     name: "Windows: Svelte"
-    if: ${{ inputs.win != '' }}
+    if: ${{ inputs.win != '-' }}
     needs: linux-svelte
     uses: ./.github/workflows/test-build-svelte.yml
     with:
@@ -109,7 +109,7 @@ jobs:
   
   mac-svelte:
     name: "MacOS: Svelte"
-    if: ${{ inputs.mac != '' }}
+    if: ${{ inputs.mac != '-' }}
     needs: win-svelte
     uses: ./.github/workflows/test-build-svelte.yml
     with:
@@ -118,14 +118,14 @@ jobs:
 # Vite
   linux-vite:
     name: "Ubuntu: Vite"
-    if: ${{ inputs.linux != '' }}
+    if: ${{ inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-vite.yml
     with:
       os: ${{ inputs.linux }}
   
   win-vite:
     name: "Windows: Vite"
-    if: ${{ inputs.win != '' }}
+    if: ${{ inputs.win != '-' }}
     needs: linux-vite
     uses: ./.github/workflows/test-build-vite.yml
     with:
@@ -133,7 +133,7 @@ jobs:
   
   mac-vite:
     name: "MacOS: Vite"
-    if: ${{ inputs.mac != '' }}
+    if: ${{ inputs.mac != '-' }}
     needs: win-vite
     uses: ./.github/workflows/test-build-vite.yml
     with:
@@ -142,14 +142,14 @@ jobs:
 # React Vite
   linux-react-vite:
     name: "Ubuntu: React Vite"
-    if: ${{ inputs.linux != '' }}
+    if: ${{ inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-react-vite.yml
     with:
       os: ${{ inputs.linux }}
   
   win-react-vite:
     name: "Windows: React Vite"
-    if: ${{ inputs.win != '' }}
+    if: ${{ inputs.win != '-' }}
     needs: linux-react-vite
     uses: ./.github/workflows/test-build-react-vite.yml
     with:
@@ -157,7 +157,7 @@ jobs:
   
   mac-react-vite:
     name: "MacOS: React Vite"
-    if: ${{ inputs.mac != '' }}
+    if: ${{ inputs.mac != '-' }}
     needs: win-react-vite
     uses: ./.github/workflows/test-build-react-vite.yml
     with:
@@ -166,14 +166,14 @@ jobs:
 # Vue Vite
   linux-vue-vite:
     name: "Ubuntu: Vue Vite"
-    if: ${{ inputs.linux != '' }}
+    if: ${{ inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-vue-vite.yml
     with:
       os: ${{ inputs.linux }}
   
   win-vue-vite:
     name: "Windows: Vue Vite"
-    if: ${{ inputs.win != '' }}
+    if: ${{ inputs.win != '-' }}
     needs: linux-vue-vite
     uses: ./.github/workflows/test-build-vue-vite.yml
     with:
@@ -181,7 +181,7 @@ jobs:
   
   mac-vue-vite:
     name: "MacOS: Vue Vite"
-    if: ${{ inputs.mac != '' }}
+    if: ${{ inputs.mac != '-' }}
     needs: win-vue-vite
     uses: ./.github/workflows/test-build-vue-vite.yml
     with:
@@ -190,14 +190,14 @@ jobs:
 # Next
   linux-next:
     name: "Ubuntu: Next"
-    if: ${{ inputs.linux != '' }}
+    if: ${{ inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-next.yml
     with:
       os: ${{ inputs.linux }}
   
   win-next:
     name: "Windows: Next"
-    if: ${{ inputs.win != '' }}
+    if: ${{ inputs.win != '-' }}
     needs: linux-next
     uses: ./.github/workflows/test-build-next.yml
     with:
@@ -205,7 +205,7 @@ jobs:
   
   mac-next:
     name: "MacOS: Next"
-    if: ${{ inputs.mac != '' }}
+    if: ${{ inputs.mac != '-' }}
     needs: win-next
     uses: ./.github/workflows/test-build-next.yml
     with:
@@ -214,14 +214,14 @@ jobs:
 # Nuxt
   linux-nuxt:
     name: "Ubuntu: Nuxt"
-    if: ${{ inputs.linux != '' }}
+    if: ${{ inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-nuxt.yml
     with:
       os: ${{ inputs.linux }}
   
   win-nuxt:
     name: "Windows: Nuxt"
-    if: ${{ inputs.win != '' }}
+    if: ${{ inputs.win != '-' }}
     needs: linux-nuxt
     uses: ./.github/workflows/test-build-nuxt.yml
     with:
@@ -229,7 +229,7 @@ jobs:
   
   mac-nuxt:
     name: "MacOS: Nuxt"
-    if: ${{ inputs.mac != '' }}
+    if: ${{ inputs.mac != '-' }}
     needs: win-nuxt
     uses: ./.github/workflows/test-build-nuxt.yml
     with:
