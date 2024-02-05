@@ -11,7 +11,7 @@ on:
         default: windows-latest
       mac:
         description: MacOS runner ('-' to skip) 
-        default: macos-14
+        default: macos-latest
         
         
   schedule:
