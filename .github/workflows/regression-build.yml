@@ -2,196 +2,235 @@ name: Regression build
 
 on:
   workflow_dispatch:
+    inputs:
+      linux:
+        description: Linux runner (empty to skip) 
+        default: ubuntu-latest
+      win:
+        description: Windows runner (empty to skip) 
+        default: windows-latest
+      mac:
+        description: MacOS runner (empty to skip) 
+        default: macos-14
+        
+        
   schedule:
     - cron: '0 2 * * *'
 
 jobs:
 # Angular
-  ubuntu-angular:
+  linux-angular:
     name: "Ubuntu: Angular"
+    if: ${{ inputs.linux != '' }}
     uses: ./.github/workflows/test-build-angular.yml
     with:
-      os: ubuntu-latest
+      os: ${{ inputs.linux }}
   
-  windows-angular:
+  win-angular:
     name: "Windows: Angular"
-    needs: ubuntu-angular
+    if: ${{ inputs.win != '' }}
+    needs: linux-angular
     uses: ./.github/workflows/test-build-angular.yml
     with:
-      os: windows-latest
+      os: ${{ inputs.win }}
   
-  macos-angular:
+  mac-angular:
     name: "MacOS: Angular"
-    needs: windows-angular
+    if: ${{ inputs.mac != '' }}
+    needs: win-angular
     uses: ./.github/workflows/test-build-angular.yml
     with:
-      os: macos-latest
+      os: ${{ inputs.mac }}
       
 # React
-  ubuntu-react:
+  linux-react:
     name: "Ubuntu: React"
+    if: ${{ inputs.linux != '' }}
     uses: ./.github/workflows/test-build-react.yml
     with:
-      os: ubuntu-latest
+      os: ${{ inputs.linux }}
   
-  windows-react:
+  win-react:
     name: "Windows: React"
-    needs: ubuntu-react
+    if: ${{ inputs.win != '' }}
+    needs: linux-react
     uses: ./.github/workflows/test-build-react.yml
     with:
-      os: windows-latest
+      os: ${{ inputs.win }}
   
-  macos-react:
+  mac-react:
     name: "MacOS: React"
-    needs: windows-react
+    if: ${{ inputs.mac != '' }}
+    needs: win-react
     uses: ./.github/workflows/test-build-react.yml
     with:
-      os: macos-latest
+      os: ${{ inputs.mac }}
    
 # Vue
-  ubuntu-vue:
+  linux-vue:
     name: "Ubuntu: Vue"
+    if: ${{ inputs.linux != '' }}
     uses: ./.github/workflows/test-build-vue.yml
     with:
-      os: ubuntu-latest
+      os: ${{ inputs.linux }}
   
-  windows-vue:
+  win-vue:
     name: "Windows: Vue"
-    needs: ubuntu-vue
+    if: ${{ inputs.win != '' }}
+    needs: linux-vue
     uses: ./.github/workflows/test-build-vue.yml
     with:
-      os: windows-latest
+      os: ${{ inputs.win }}
   
-  macos-vue:
+  mac-vue:
     name: "MacOS: Vue"
-    needs: windows-vue
+    if: ${{ inputs.mac != '' }}
+    needs: win-vue
     uses: ./.github/workflows/test-build-vue.yml
     with:
-      os: macos-latest
+      os: ${{ inputs.mac }}
    
 # Svelte
 
-  ubuntu-svelte:
+  linux-svelte:
     name: "Ubuntu: Svelte"
+    if: ${{ inputs.linux != '' }}
     uses: ./.github/workflows/test-build-svelte.yml
     with:
-      os: ubuntu-latest
+      os: ${{ inputs.linux }}
   
-  windows-svelte:
+  win-svelte:
     name: "Windows: Svelte"
-    needs: ubuntu-svelte
+    if: ${{ inputs.win != '' }}
+    needs: linux-svelte
     uses: ./.github/workflows/test-build-svelte.yml
     with:
-      os: windows-latest
+      os: ${{ inputs.win }}
   
-  macos-svelte:
+  mac-svelte:
     name: "MacOS: Svelte"
-    needs: windows-svelte
+    if: ${{ inputs.mac != '' }}
+    needs: win-svelte
     uses: ./.github/workflows/test-build-svelte.yml
     with:
-      os: macos-latest
+      os: ${{ inputs.mac }}
    
 # Vite
-  ubuntu-vite:
+  linux-vite:
     name: "Ubuntu: Vite"
+    if: ${{ inputs.linux != '' }}
     uses: ./.github/workflows/test-build-vite.yml
     with:
-      os: ubuntu-latest
+      os: ${{ inputs.linux }}
   
-  windows-vite:
+  win-vite:
     name: "Windows: Vite"
-    needs: ubuntu-vite
+    if: ${{ inputs.win != '' }}
+    needs: linux-vite
     uses: ./.github/workflows/test-build-vite.yml
     with:
-      os: windows-latest
+      os: ${{ inputs.win }}
   
-  macos-vite:
+  mac-vite:
     name: "MacOS: Vite"
-    needs: windows-vite
+    if: ${{ inputs.mac != '' }}
+    needs: win-vite
     uses: ./.github/workflows/test-build-vite.yml
     with:
-      os: macos-latest
+      os: ${{ inputs.mac }}
    
 # React Vite
-  ubuntu-react-vite:
+  linux-react-vite:
     name: "Ubuntu: React Vite"
+    if: ${{ inputs.linux != '' }}
     uses: ./.github/workflows/test-build-react-vite.yml
     with:
-      os: ubuntu-latest
+      os: ${{ inputs.linux }}
   
-  windows-react-vite:
+  win-react-vite:
     name: "Windows: React Vite"
-    needs: ubuntu-react-vite
+    if: ${{ inputs.win != '' }}
+    needs: linux-react-vite
     uses: ./.github/workflows/test-build-react-vite.yml
     with:
-      os: windows-latest
+      os: ${{ inputs.win }}
   
-  macos-react-vite:
+  mac-react-vite:
     name: "MacOS: React Vite"
-    needs: windows-react-vite
+    if: ${{ inputs.mac != '' }}
+    needs: win-react-vite
     uses: ./.github/workflows/test-build-react-vite.yml
     with:
-      os: macos-latest
+      os: ${{ inputs.mac }}
    
 # Vue Vite
-  ubuntu-vue-vite:
+  linux-vue-vite:
     name: "Ubuntu: Vue Vite"
+    if: ${{ inputs.linux != '' }}
     uses: ./.github/workflows/test-build-vue-vite.yml
     with:
-      os: ubuntu-latest
+      os: ${{ inputs.linux }}
   
-  windows-vue-vite:
+  win-vue-vite:
     name: "Windows: Vue Vite"
-    needs: ubuntu-vue-vite
+    if: ${{ inputs.win != '' }}
+    needs: linux-vue-vite
     uses: ./.github/workflows/test-build-vue-vite.yml
     with:
-      os: windows-latest
+      os: ${{ inputs.win }}
   
-  macos-vue-vite:
+  mac-vue-vite:
     name: "MacOS: Vue Vite"
-    needs: windows-vue-vite
+    if: ${{ inputs.mac != '' }}
+    needs: win-vue-vite
     uses: ./.github/workflows/test-build-vue-vite.yml
     with:
-      os: macos-latest
+      os: ${{ inputs.mac }}
    
 # Next
-  ubuntu-next:
+  linux-next:
     name: "Ubuntu: Next"
+    if: ${{ inputs.linux != '' }}
     uses: ./.github/workflows/test-build-next.yml
     with:
-      os: ubuntu-latest
+      os: ${{ inputs.linux }}
   
-  windows-next:
+  win-next:
     name: "Windows: Next"
-    needs: ubuntu-next
+    if: ${{ inputs.win != '' }}
+    needs: linux-next
     uses: ./.github/workflows/test-build-next.yml
     with:
-      os: windows-latest
+      os: ${{ inputs.win }}
   
-  macos-next:
+  mac-next:
     name: "MacOS: Next"
-    needs: windows-next
+    if: ${{ inputs.mac != '' }}
+    needs: win-next
     uses: ./.github/workflows/test-build-next.yml
     with:
-      os: macos-latest
+      os: ${{ inputs.mac }}
    
 # Nuxt
-  ubuntu-nuxt:
+  linux-nuxt:
     name: "Ubuntu: Nuxt"
+    if: ${{ inputs.linux != '' }}
     uses: ./.github/workflows/test-build-nuxt.yml
     with:
-      os: ubuntu-latest
+      os: ${{ inputs.linux }}
   
-  windows-nuxt:
+  win-nuxt:
     name: "Windows: Nuxt"
-    needs: ubuntu-nuxt
+    if: ${{ inputs.win != '' }}
+    needs: linux-nuxt
     uses: ./.github/workflows/test-build-nuxt.yml
     with:
-      os: windows-latest
+      os: ${{ inputs.win }}
   
-  macos-nuxt:
+  mac-nuxt:
     name: "MacOS: Nuxt"
-    needs: windows-nuxt
+    if: ${{ inputs.mac != '' }}
+    needs: win-nuxt
     uses: ./.github/workflows/test-build-nuxt.yml
     with:
-      os: macos-latest
+      os: ${{ inputs.mac }}
