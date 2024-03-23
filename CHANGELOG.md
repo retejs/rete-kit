@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/retejs/rete-kit/compare/v1.6.1...v1.7.0) (2024-03-23)
+
+
+### Features
+
+* scopes template ([a213611](https://github.com/retejs/rete-kit/commit/a2136116cae058904b65f692320938e8d39bbd80))
+
 ## [1.6.1](https://github.com/retejs/rete-kit/compare/v1.6.0...v1.6.1) (2024-01-27)
 
 
