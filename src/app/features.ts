@@ -207,6 +207,19 @@ export class Area3D implements Feature {
   }
 }
 
+export class Scopes implements Feature {
+  name = 'Scopes'
+  mandatory = true
+  templateKeys: DefaultTemplateKey[] = []
+  requiredDependencies: string[] = []
+
+  constructor(next: boolean) {
+    this.requiredDependencies.push(
+      ver('rete-scopes-plugin', next)
+    )
+  }
+}
+
 export function validateFeatures(features: Feature[], options: { stack: AppStack }) {
   if (!features.some(feature => {
     return feature instanceof Angular
