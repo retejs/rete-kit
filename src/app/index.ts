@@ -71,7 +71,8 @@ export async function createApp({ name, stack, version, features, depsAlias, for
     new Features.Selectable(),
     new Features.ContextMenu(next),
     new Features.Minimap(next),
-    new Features.Reroute(next)
+    new Features.Reroute(next),
+    new Features.Scopes(next)
   ]
   const mandatoryFeatures = featuresList.filter(feature => feature.mandatory)
   const optionalFeatures = featuresList.filter(feature => !feature.mandatory)
