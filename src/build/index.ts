@@ -50,13 +50,20 @@ export async function build(folders: string[]) {
   })
 
   for (const { config, command, args, cwd } of commands) {
-    await awaitedExec(
-      command,
-      args,
-      { cwd },
-      line => console.log(` [${config.name}] ${line}`),
-      line => /Build (\w+) completed/.test(line)
-    )
+    try {
+      await awaitedExec(
+        command,
+        args,
+        { cwd },
+        line => console.log(` [${config.name}] ${line}`),
+        line => /Build (\w+) completed/.test(line)
+      )
+    } catch (e) {
+      const commandString = `${command} ${args.join(' ')}`
+      const message = String((e as Error).message).trim()
+
+      throwError(`Failed to execute command: ${commandString}\n${message}`)
+    }
   }
   console.log(chalk.bgGreen(' READY '), chalk.green('Ready for development'))
   console.log(chalk.grey([
