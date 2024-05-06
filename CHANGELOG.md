@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/retejs/rete-kit/compare/v1.7.0...v1.7.1) (2024-05-06)
+
+
+### Bug Fixes
+
+* **build:** throw error if any command is rejected ([6228a4c](https://github.com/retejs/rete-kit/commit/6228a4c901ebda65110addd080f174bb624600ff))
+
 # [1.7.0](https://github.com/retejs/rete-kit/compare/v1.6.1...v1.7.0) (2024-03-23)
 
 
