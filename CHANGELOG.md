@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/retejs/rete-kit/compare/v1.7.1...v1.7.2) (2024-05-08)
+
+
+### Bug Fixes
+
+* **build:** exit command on child build exit instead of stderr message ([763d4bc](https://github.com/retejs/rete-kit/commit/763d4bcd54bc7ade7f26100d09775268ec1ae327))
+
 ## [1.7.1](https://github.com/retejs/rete-kit/compare/v1.7.0...v1.7.1) (2024-05-06)
 
 
