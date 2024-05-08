@@ -55,14 +55,17 @@ export async function build(folders: string[]) {
         command,
         args,
         { cwd },
-        line => console.log(` [${config.name}] ${line}`),
-        line => /Build (\w+) completed/.test(line)
+        {
+          log: line => console.log(` [${config.name}] ${line}`),
+          error: line => console.error(chalk.red(` [${config.name}] ${line}`)),
+          resolveOn: line => /Build (\w+) completed/.test(line)
+        }
       )
     } catch (e) {
       const commandString = `${command} ${args.join(' ')}`
       const message = String((e as Error).message).trim()
 
-      throwError(`Failed to execute command: ${commandString}\n${message}`)
+      throwError(`Failed to execute: ${commandString}. ${message}`)
     }
   }
   console.log(chalk.bgGreen(' READY '), chalk.green('Ready for development'))
