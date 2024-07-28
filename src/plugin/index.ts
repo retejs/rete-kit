@@ -3,9 +3,8 @@ import fs from 'fs'
 import { join } from 'path'
 import copyDir from 'recursive-copy'
 
+import { addConstraint, getCliVersion } from './deps'
 import { renderTemplates } from './render'
-
-const { version } = require('../../package.json')
 
 async function createDir(folder: string) {
   const boilerplateFolder = join(__dirname, '..', '..', 'assets', 'plugin-boilerplate')
@@ -23,7 +22,7 @@ export async function createPlugin(name: string) {
   const bundleName = Case.kebab(`${lowerCaseName} plugin`)
   const folderName = packageName
   const id = Case.kebab(lowerCaseName)
-  const cliVersion = version
+  const cliVersion = addConstraint('^', getCliVersion())
 
   await createDir(folderName)
   await renderTemplates(folderName, {
