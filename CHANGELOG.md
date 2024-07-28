@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/retejs/rete-kit/compare/v1.7.2...v1.7.3) (2024-07-28)
+
+
+### Bug Fixes
+
+* **plugin:** cli version ([ea5bf4f](https://github.com/retejs/rete-kit/commit/ea5bf4f36d6d11fb13a4aba1e4c65a91ed973301))
+
 ## [1.7.2](https://github.com/retejs/rete-kit/compare/v1.7.1...v1.7.2) (2024-05-08)
 
 
