@@ -8,6 +8,7 @@ import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-
 /* [vue-render] import { VuePlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
 /* [angular-render] import { AngularPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] *//* [angular17] /17 [/angular17] */' [/angular-render] */
 /* [svelte-render] import { SveltePlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin' [/svelte-render] */
+/* [lit-render] import { LitPlugin, LitArea2D, Presets as LitPresets } from '@retejs/lit-plugin' [/lit-render] */
 /* [dataflow] import { DataflowEngine, DataflowNode } from 'rete-engine' [/dataflow] */
 /* [arrange] import { AutoArrangePlugin, Presets as ArrangePresets } from 'rete-auto-arrange-plugin' [/arrange] */
 /* [context-menu] import { ContextMenuPlugin, ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
@@ -79,6 +80,7 @@ type AreaExtra =
 /* [vue-render] | VueArea2D<Schemes> [/vue-render] */
 /* [angular-render] | AngularArea2D<Schemes> [/angular-render] */
 /* [svelte-render] | SvelteArea2D<Schemes> [/svelte-render] */
+/* [lit-render] | LitArea2D<Schemes> [/lit-render] */
 /* [context-menu] | ContextMenuExtra [/context-menu] */
 /* [reroute] | RerouteExtra [/reroute] */
 
@@ -93,6 +95,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [vue-render] const vueRender = new VuePlugin<Schemes, AreaExtra>() [/vue-render] */
   /* [angular-render] const angularRender = new AngularPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
   /* [svelte-render] const svelteRender = new SveltePlugin<Schemes, AreaExtra>() [/svelte-render] */
+  /* [lit-render] const litRender = new LitPlugin<Schemes, AreaExtra>() [/lit-render] */
   /* [context-menu] const contextMenu = new ContextMenuPlugin<Schemes>({
     items: ContextMenuPresets.classic.setup([
       ['Number', () => new NumberNode(1/* [dataflow] , process [/dataflow] */)],
@@ -106,6 +109,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [vue-render] area.use(vueRender) [/vue-render] */
   /* [angular-render] area.use(angularRender) [/angular-render] */
   /* [svelte-render] area.use(svelteRender) [/svelte-render] */
+  /* [lit-render] area.use(litRender) [/lit-render] */
   area.use(connection)
   /* [context-menu] area.use(contextMenu) [/context-menu] */
   /* [reroute]
@@ -113,6 +117,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [vue-render] vueRender.use(reroutePlugin) [/vue-render] */
   /* [angular-render] angularRender.use(reroutePlugin) [/angular-render] */
   /* [svelte-render] svelteRender.use(reroutePlugin) [/svelte-render] */
+  /* [lit-render] litRender.use(reroutePlugin) [/lit-render] */
   [/reroute] */
 
   connection.addPreset(ConnectionPresets.classic.setup())
@@ -185,10 +190,28 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   }));[/reroute] */
   [/svelte-render] */
 
+  /* [lit-render]
+  litRender.addPreset(LitPresets.classic.setup())
+  /* [context-menu] litRender.addPreset(LitPresets.contextMenu.setup()) [/context-menu] */
+  /* [reroute] litRender.addPreset(LitPresets.reroute.setup({
+    contextMenu(id) {
+      reroutePlugin.remove(id);
+    },
+    translate(id, dx, dy) {
+      reroutePlugin.translate(id, dx, dy);
+    },
+    /* [selectable] pointerdown(id) {
+      reroutePlugin.unselect(id);
+      reroutePlugin.select(id);
+    } [/selectable] */
+  }));[/reroute] */
+  [/lit-render] */
+  
   /* [react-render] Area3DExtensions.forms.connection(reactRender) [/react-render] */
   /* [angular-render] Area3DExtensions.forms.connection(angularRender) [/angular-render] */
   /* [vue-render] Area3DExtensions.forms.connection(vueRender) [/vue-render] */
   /* [svelte-render] Area3DExtensions.forms.connection(svelteRender) [/svelte-render] */
+  /* [lit-render] Area3DExtensions.forms.connection(litRender) [/lit-render] */
   Area3DExtensions.forms.node(area)
   /* [reroute] Area3DExtensions.forms.reroute(area) [/reroute] */
 

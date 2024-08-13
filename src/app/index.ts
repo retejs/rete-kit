@@ -5,7 +5,7 @@ import { install } from './dependencies-installer'
 import * as Features from './features'
 import * as Patch from './patch'
 import {
-  AngularBuilder, NextBuilder, NuxtBuilder,
+  AngularBuilder, LitViteBuilder, NextBuilder, NuxtBuilder,
   ReactBuilder, ReactViteBuilder, SvelteBuilder,
   ViteBuilder, VueBuilder, VueViteBuilder
 } from './stack'
@@ -20,7 +20,8 @@ export const builders = {
   'svelte': new SvelteBuilder(),
   'vite': new ViteBuilder(),
   'next': new NextBuilder(),
-  'nuxt': new NuxtBuilder()
+  'nuxt': new NuxtBuilder(),
+  'lit-vite': new LitViteBuilder()
 }
 
 export type AppStack = keyof typeof builders
@@ -63,6 +64,7 @@ export async function createApp({ name, stack, version, features, depsAlias, for
     new Features.React(builder.foundation === 'react' ? selectedVersion : 18, selectedStack, next),
     new Features.Vue(builder.foundation === 'vue' ? selectedVersion as 2 : 3, next),
     new Features.Svelte(builder.foundation === 'svelte' ? selectedVersion as 4 : 4, next),
+    new Features.Lit(builder.foundation === 'lit' ? selectedVersion as 3 : 3, next),
     new Features.OrderNodes(),
     new Features.ZoomAt(),
     new Features.Arrange(next),

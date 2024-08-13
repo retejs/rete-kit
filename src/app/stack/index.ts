@@ -1,4 +1,5 @@
 export { AngularBuilder } from './angular'
+export { LitViteBuilder } from './lit/vite'
 export { NextBuilder } from './next'
 export { NuxtBuilder } from './nuxt'
 export { ReactBuilder, ReactViteBuilder } from './react'
