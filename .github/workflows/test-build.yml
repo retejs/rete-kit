@@ -24,6 +24,14 @@ on:
         description: 'Node version'
         type: string
         required: true
+      kit-source:
+        description: 'Rete Kit version source (npm or github)'
+        type: string
+        default: 'npm'
+      kit-version:
+        description: 'Rete Kit version/reference'
+        type: string
+        default: 'latest'
   workflow_dispatch:
     inputs:
       os:
@@ -60,7 +68,17 @@ on:
         description: 'Node version'
         type: string
         required: true
-
+      kit-source:
+        description: 'Rete Kit version source (npm or github)'
+        type: choice
+        options:
+        - npm
+        - github
+        default: 'npm'
+      kit-version:
+        description: 'Rete Kit version/reference'
+        type: string
+        default: 'latest'
 
 jobs:
   build-app:
@@ -71,8 +89,21 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node }}
-    - name: Install Rete Kit
-      run: npm i -g rete-kit
+    - name: Install Rete Kit from NPM
+      if: inputs.kit-source == 'npm'
+      run: npm i -g rete-kit@${{ inputs.kit-version }}
+    - uses: actions/checkout@v3
+      if: inputs.kit-source == 'github'
+      with:
+        repository: retejs/rete-kit
+        token: ${{ secrets.RETE_QA_PUBLIC_PULL }}
+        ref: ${{ inputs.kit-version }}
+    - name: Install Rete Kit from GitHub
+      if: inputs.kit-source == 'github'
+      run: |
+        npm ci
+        npm run build
+        npm i -g .
     - name: Rete Kit version
       run: rete-kit -V
     - name: Bootstrapp application
