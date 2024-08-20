@@ -1,3 +1,11 @@
+## [1.8.1](https://github.com/retejs/rete-kit/compare/v1.8.0...v1.8.1) (2024-08-20)
+
+
+### Bug Fixes
+
+* lit customization boilerplate ([bfd026f](https://github.com/retejs/rete-kit/commit/bfd026f3e5bab7593dbdbfe4ffe80e440f2884cd))
+* scopes lit ([1f71f98](https://github.com/retejs/rete-kit/commit/1f71f9852bbbb24e5769903f8ff6240ec98e837f))
+
 # [1.8.0](https://github.com/retejs/rete-kit/compare/v1.7.3...v1.8.0) (2024-08-20)
 
 
