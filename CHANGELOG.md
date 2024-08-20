@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/retejs/rete-kit/compare/v1.8.2...v1.8.3) (2024-08-20)
+
+
+### Bug Fixes
+
+* lit custom node testid attrs ([4a18506](https://github.com/retejs/rete-kit/commit/4a18506636248f5a0c2ca3f0bfe64cb37710417f))
+
 ## [1.8.2](https://github.com/retejs/rete-kit/compare/v1.8.1...v1.8.2) (2024-08-20)
 
 
