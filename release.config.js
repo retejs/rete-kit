@@ -1,1 +1,1 @@
-module.exports = { branches: ['main', { name: 'beta', channel: 'beta', prerelease: 'beta' }], plugins: [ '@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/changelog', '@semantic-release/github', ["@semantic-release/npm"] ] };
+module.exports = { branches: ['main', { name: 'beta', prerelease: true }], plugins: [ '@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/changelog', '@semantic-release/github', ["@semantic-release/npm"] ] };

@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/retejs/rete-kit/compare/v1.7.3...v1.8.0) (2024-08-20)
+
+
+### Features
+
+* stack with lit plugin ([9d6ac0c](https://github.com/retejs/rete-kit/commit/9d6ac0c3f6d669d5816646efb7d1e3473279477d))
+
 ## [1.7.3](https://github.com/retejs/rete-kit/compare/v1.7.2...v1.7.3) (2024-07-28)
 
 
