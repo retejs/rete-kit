@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/retejs/rete-kit/compare/v1.8.1...v1.8.2) (2024-08-20)
+
+
+### Bug Fixes
+
+* lit dist folder ([66f3ca7](https://github.com/retejs/rete-kit/commit/66f3ca7645b3a4877f6aa50748050c5b2d8de026))
+
 ## [1.8.1](https://github.com/retejs/rete-kit/compare/v1.8.0...v1.8.1) (2024-08-20)
 
 
