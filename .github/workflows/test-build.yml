@@ -47,6 +47,7 @@ on:
         - vite
         - next
         - nuxt
+        - lit-vite
       version:
         description: 'Stack version'
         type: number
@@ -84,4 +85,4 @@ jobs:
       env:
         CI: ""
       working-directory: ./app
-      
+
