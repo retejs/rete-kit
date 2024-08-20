@@ -25,19 +25,9 @@ export class LitViteBuilder implements AppBuilder {
   }
 
   async putAssets(name: string) {
-    const customization = join(assetsStack, 'react', 'modules', 'vite', 'customization')
-    const assets = join(assetsStack, 'react', 'modules', 'vite', 'assets')
     const modules = join(assetsStack, 'lit', 'modules')
     const src = join(name, 'src')
 
-    await fse.copy(customization, join(src, 'customization'), {
-      recursive: true,
-      overwrite: true
-    })
-    await fse.copy(assets, join(src, 'assets'), {
-      recursive: true,
-      overwrite: true
-    })
     await fse.copy(modules, src, {
       recursive: true,
       overwrite: true
