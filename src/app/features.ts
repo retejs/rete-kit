@@ -100,6 +100,20 @@ export class Svelte implements Feature {
   }
 }
 
+export class Lit implements Feature {
+  name = 'Lit render'
+  templateKeys: DefaultTemplateKey[] = ['lit-render']
+  requiredDependencies: string[] = []
+
+  constructor(version: 3, next: boolean) {
+    this.templateKeys.push(`lit${version}`)
+    this.requiredDependencies.push(
+      ver('rete-render-utils', next),
+      ver('@retejs/lit-plugin', next)
+    )
+  }
+}
+
 export class OrderNodes implements Feature {
   name = 'Order nodes'
   templateKeys: DefaultTemplateKey[] = ['import-area-extensions', 'order-nodes']
@@ -226,6 +240,7 @@ export function validateFeatures(features: Feature[], options: { stack: AppStack
       || feature instanceof React
       || feature instanceof Vue
       || feature instanceof Svelte
+      || feature instanceof Lit
   })) {
     return {
       issue: 'At least one render plugin should be selected'

@@ -10,6 +10,7 @@ import {
 /* [stack-vue] import { VuePlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/stack-vue] */
 /* [stack-angular] import { AngularPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] *//* [angular17] /17 [/angular17] */' [/stack-angular] */
 /* [stack-svelte] import { SveltePlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin' [/stack-svelte] */
+/* [stack-lit] import { LitPlugin, LitArea2D, Presets as LitPresets } from '@retejs/lit-plugin' [/stack-lit] */
 /* [stack-react] import { CustomNode } from "../customization/CustomNode";
 import { StyledNode } from "../customization/StyledNode";
 import { CustomSocket } from "../customization/CustomSocket";
@@ -24,9 +25,17 @@ import { CustomConnectionComponent } from "../customization/custom-connection/cu
 import CustomNodeComponent from '../customization/CustomNode.svelte'
 import CustomConnectionComponent from '../customization/CustomConnection.svelte'
 import CustomSocketComponent from '../customization/CustomSocket.svelte' [/stack-svelte] */
+/* [stack-lit]
+import { html } from 'lit';
+import { CustomNodeElement } from '../customization/custom-node'
+import { CustomConnectionElement } from '../customization/custom-connection'
+import { CustomSocketElement } from '../customization/custom-socket' [/stack-lit] */
 import { addCustomBackground } from "../customization/custom-background";
 
-
+/* [stack-lit]
+customElements.define('custom-node', CustomNodeElement);
+customElements.define('custom-connection', CustomConnectionElement);
+customElements.define('custom-socket', CustomSocketElement); [/stack-lit] */
 
 type Schemes = GetSchemes<
   ClassicPreset.Node,
@@ -37,6 +46,7 @@ type AreaExtra =
   /* [stack-vue] | VueArea2D<Schemes> [/stack-vue] */
   /* [stack-angular] | AngularArea2D<Schemes> [/stack-angular] */
   /* [stack-svelte] | SvelteArea2D<Schemes> [/stack-svelte] */
+  /* [stack-lit] | LitArea2D<Schemes> [/stack-lit] */
 
   const socket = new ClassicPreset.Socket("socket");
 
@@ -48,6 +58,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [stack-vue] const vueRender = new VuePlugin<Schemes, AreaExtra>() [/stack-vue] */
   /* [stack-angular] const angularRender = new AngularPlugin<Schemes, AreaExtra>({ injector }) [/stack-angular] */
   /* [stack-svelte] const svelteRender = new SveltePlugin<Schemes, AreaExtra>() [/stack-svelte] */
+  /* [stack-lit] const litRender = new LitPlugin<Schemes, AreaExtra>() [/stack-lit] */
 
   /* [selectable] AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
     accumulating: AreaExtensions.accumulateOnCtrl()
@@ -128,6 +139,23 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
     })
   ); [/stack-svelte] */
 
+  /* [stack-lit]
+  litRender.addPreset(
+    LitPresets.classic.setup({
+      customize: {
+        node(data) {
+          return ({ emit }) => html`<custom-node .data=${data.payload} .emit=${emit}></rete-custom>`;
+        },
+        connection() {
+          return ({ path }) => html`<custom-connection .path=${path}></custom-connection>`;
+        },
+        socket(data) {
+          return () => html`<custom-socket .data=${data}></custom-socket>`;
+        },
+      },
+    })
+  ); [/stack-lit] */
+
   connection.addPreset(ConnectionPresets.classic.setup());
 
     addCustomBackground(area);
@@ -138,6 +166,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [stack-vue] area.use(vueRender) [/stack-vue] */
   /* [stack-angular] area.use(angularRender) [/stack-angular] */
   /* [stack-svelte] area.use(svelteRender) [/stack-svelte] */
+  /* [stack-lit] area.use(litRender) [/stack-lit] */
 
   /* [order-nodes] AreaExtensions.simpleNodesOrder(area); [/order-nodes] */
 
