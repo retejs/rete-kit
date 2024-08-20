@@ -42,7 +42,7 @@ export class LitViteBuilder implements AppBuilder {
   }
 
   getStaticPath() {
-    return 'build'
+    return 'dist'
   }
 
   getBuildCommand(): string {
