@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/retejs/rete-kit/compare/v1.8.3...v1.9.0) (2024-08-23)
+
+
+### Features
+
+* **app:** headless mode ([154f412](https://github.com/retejs/rete-kit/commit/154f412d47e5ff61669cec6e12cc3515959d3570))
+
 ## [1.8.3](https://github.com/retejs/rete-kit/compare/v1.8.2...v1.8.3) (2024-08-20)
 
 
