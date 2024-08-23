@@ -3,9 +3,9 @@ import fs from 'fs'
 import fse from 'fs-extra'
 import { dirname, join } from 'path'
 
-import { AppBuilder } from '../../app-builder'
-import { assetsStack } from '../../consts'
 import { getTSConfig, setTSConfig } from '../../../shared/ts-config'
+import { AppBuilder } from '../../app-builder'
+import { assetsCommon, assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
 import { templateAssets } from './helpers'
 
@@ -33,6 +33,10 @@ export class VueViteBuilder implements AppBuilder {
     const assets = join(assetsStack, 'vue', 'modules', 'vite')
     const src = join(name, 'src')
 
+    await fse.copy(assetsCommon, src, {
+      recursive: true,
+      overwrite: true
+    })
     await fse.copy(assets, src, {
       recursive: true,
       overwrite: true

@@ -13,6 +13,8 @@ export default {
 </script>
 
 <style scoped>
+@import '../common.css';
+
 .rete {
   position: relative;
   width: 80vw;

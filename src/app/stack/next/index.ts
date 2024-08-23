@@ -4,7 +4,7 @@ import fse from 'fs-extra'
 import { dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
-import { assetsStack } from '../../consts'
+import { assetsCommon, assetsStack } from '../../consts'
 
 export class NextBuilder implements AppBuilder {
   public name = 'Next.js'
@@ -26,6 +26,10 @@ export class NextBuilder implements AppBuilder {
     const customization = join(assetsStack, 'react', 'modules', 'vite', 'customization')
     const src = join(name, 'src')
 
+    await fse.copy(assetsCommon, src, {
+      recursive: true,
+      overwrite: true
+    })
     await fse.copy(modules, src, {
       recursive: true,
       overwrite: true
