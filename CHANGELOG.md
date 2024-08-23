@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/retejs/rete-kit/compare/v1.9.0...v1.9.1) (2024-08-23)
+
+
+### Bug Fixes
+
+* **app:** customization background ([9edce2b](https://github.com/retejs/rete-kit/commit/9edce2bcd474c209c3bb8a8606f6f288428b8f63))
+
 # [1.9.0](https://github.com/retejs/rete-kit/compare/v1.8.3...v1.9.0) (2024-08-23)
 
 
