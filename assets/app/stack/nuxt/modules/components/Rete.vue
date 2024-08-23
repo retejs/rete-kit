@@ -14,6 +14,7 @@ export default {
 
 <style scoped>
 @import '../common.css';
+@import '../customization/background.css';
 
 .rete {
   position: relative;

@@ -34,6 +34,7 @@
 
 <style>
 	@import '../common.css';
+	@import '../customization/background.css';
 
 	section {
 		display: flex;

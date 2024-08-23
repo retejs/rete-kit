@@ -37,6 +37,7 @@ export class AngularBuilder implements AppBuilder {
       recursive: true,
       overwrite: true
     })
+    await fse.promises.rename(join(src, 'app', 'customization', 'background.css'), join(src, 'styles.css'))
     await fse.copy(assets, src, {
       recursive: true,
       overwrite: true,
