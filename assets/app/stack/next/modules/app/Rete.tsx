@@ -1,6 +1,7 @@
 'use client'
 
 import '../common.css'
+import '../customization/background.css'
 import './rete.css'
 
 import { useRete } from 'rete-react-plugin'

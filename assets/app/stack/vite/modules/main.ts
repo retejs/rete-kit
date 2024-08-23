@@ -1,4 +1,5 @@
 import './common.css';
+import './customization/background.css';
 import './style.css'
 import './rete.css'
 

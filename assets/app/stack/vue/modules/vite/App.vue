@@ -29,6 +29,7 @@ export default defineComponent({
 
 <style scoped>
 @import './common.css';
+@import './customization/background.css';
 
 header {
   line-height: 1.5;

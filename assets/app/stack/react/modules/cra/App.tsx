@@ -2,6 +2,7 @@ import React from 'react';
 import { useRete } from 'rete-react-plugin';
 import logo from './logo.svg';
 import './common.css'
+import './customization/background.css'
 import './App.css';
 import './rete.css';
 import { createEditor } from './rete';

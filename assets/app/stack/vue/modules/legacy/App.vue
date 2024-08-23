@@ -20,6 +20,7 @@ export default defineComponent({
 
 <style>
 @import './common.css';
+@import './customization/background.css';
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
