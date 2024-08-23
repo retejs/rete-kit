@@ -4,7 +4,7 @@ import fse from 'fs-extra'
 import { basename, dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
-import { assetsStack } from '../../consts'
+import { assetsCommon, assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
 import { removeBudgets } from './budgets'
 import { installCompatibleTS } from './compatibility'
@@ -33,6 +33,10 @@ export class AngularBuilder implements AppBuilder {
     const assets = join(assetsStack, 'angular', 'modules')
     const src = join(name, 'src')
 
+    await fse.copy(assetsCommon, join(src, 'app'), {
+      recursive: true,
+      overwrite: true
+    })
     await fse.copy(assets, src, {
       recursive: true,
       overwrite: true,

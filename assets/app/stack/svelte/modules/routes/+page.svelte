@@ -33,6 +33,8 @@
 </section>
 
 <style>
+	@import '../common.css';
+
 	section {
 		display: flex;
 		flex-direction: column;
@@ -62,7 +64,7 @@
 		display: block;
 	}
 
-	.rete {
+	:global(.rete) {
 		position: relative;
 		width: 80vw;
 		height: 90vh;

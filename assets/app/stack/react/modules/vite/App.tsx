@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import reteLogo from './assets/rete.svg'
 import viteLogo from '/vite.svg'
 import { createEditor } from './rete';
+import './common.css';
 import './App.css'
 import './rete.css';
 

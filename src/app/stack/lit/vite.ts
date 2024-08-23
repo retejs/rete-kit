@@ -4,7 +4,7 @@ import fse from 'fs-extra'
 import { dirname, join } from 'path'
 
 import { AppBuilder } from '../../app-builder'
-import { assetsStack } from '../../consts'
+import { assetsCommon, assetsStack } from '../../consts'
 
 export class LitViteBuilder implements AppBuilder {
   public name = 'Lit.js Vite'
@@ -28,6 +28,10 @@ export class LitViteBuilder implements AppBuilder {
     const modules = join(assetsStack, 'lit', 'modules')
     const src = join(name, 'src')
 
+    await fse.copy(assetsCommon, src, {
+      recursive: true,
+      overwrite: true
+    })
     await fse.copy(modules, src, {
       recursive: true,
       overwrite: true

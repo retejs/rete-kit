@@ -5,7 +5,7 @@ import { dirname, join } from 'path'
 
 import { getTSConfig, setTSConfig } from '../../../shared/ts-config'
 import { AppBuilder } from '../../app-builder'
-import { assetsStack } from '../../consts'
+import { assetsCommon, assetsStack } from '../../consts'
 
 export class SvelteBuilder implements AppBuilder {
   public name = 'Svelte'
@@ -47,6 +47,10 @@ export class SvelteBuilder implements AppBuilder {
     const modules = join(assetsStack, 'svelte', 'modules')
     const src = join(name, 'src')
 
+    await fse.copy(assetsCommon, src, {
+      recursive: true,
+      overwrite: true
+    })
     await fse.copy(modules, src, {
       recursive: true,
       overwrite: true
