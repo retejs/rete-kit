@@ -1,3 +1,10 @@
+## [1.9.3](https://github.com/retejs/rete-kit/compare/v1.9.2...v1.9.3) (2024-08-25)
+
+
+### Bug Fixes
+
+* **app,angular:** compatible with node.js 14 ([0deb90d](https://github.com/retejs/rete-kit/commit/0deb90d13f9a9a3a329d31638d22a46a14b23382))
+
 ## [1.9.2](https://github.com/retejs/rete-kit/compare/v1.9.1...v1.9.2) (2024-08-25)
 
 
