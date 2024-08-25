@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/retejs/rete-kit/compare/v1.9.1...v1.9.2) (2024-08-25)
+
+
+### Bug Fixes
+
+* size mismatch between stacks ([e53d980](https://github.com/retejs/rete-kit/commit/e53d9806280199c746d5eae1430ec13f5709be42))
+
 ## [1.9.1](https://github.com/retejs/rete-kit/compare/v1.9.0...v1.9.1) (2024-08-23)
 
 
