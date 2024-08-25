@@ -74,7 +74,9 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
     }
   }
 
-  /* [zoom-at] AreaExtensions.zoomAt(area, editor.getNodes()) [/zoom-at] */
+  /* [zoom-at] setTimeout(() => {
+    AreaExtensions.zoomAt(area, editor.getNodes());
+  }, 300); [/zoom-at] */
 
   /* [order-nodes] AreaExtensions.simpleNodesOrder(area) [/order-nodes] */
 
