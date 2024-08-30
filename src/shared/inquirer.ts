@@ -35,7 +35,9 @@ export async function select<T>(message: string, choices: Option<T>[], multi: tr
 export async function select<T>(message: string, choices: Option<T>[], multi?: boolean): Promise<T | T[]> {
   const { option } = await inquirer.prompt<{ option: T | T[] }>([
     {
-      type: multi ? 'checkbox' : 'list',
+      type: multi
+        ? 'checkbox'
+        : 'list',
       message,
       name: 'option',
       choices: choices

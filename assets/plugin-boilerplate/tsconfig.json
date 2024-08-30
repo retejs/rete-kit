@@ -1,6 +1,4 @@
 {
-    "compilerOptions": {
-        "strict": true
-    },
+	"extends": "rete-cli/configs/tsconfig.json",
     "include": ["src"]
 }

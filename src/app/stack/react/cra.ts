@@ -17,7 +17,9 @@ export class ReactBuilder implements AppBuilder {
       'i',
       `react@${version}`,
       `react-dom@${version}`,
-      version < 18 ? `@testing-library/react@12` : `@testing-library/react@13`
+      version < 18
+        ? `@testing-library/react@12`
+        : `@testing-library/react@13`
     ], { stdio: 'inherit', cwd: name })
   }
 

@@ -13,8 +13,7 @@ export class NextBuilder implements AppBuilder {
 
   public async create(name: string) {
     await execa('npx', ['create-next-app@latest', name,
-      '--ts', '--src-dir', '--no-eslint', '--no-tailwind', '--app', '--import-alias', '@/*'
-    ], { stdio: 'inherit' })
+      '--ts', '--src-dir', '--no-eslint', '--no-tailwind', '--app', '--import-alias', '@/*'], { stdio: 'inherit' })
 
     const eslintConfigName = '.eslintrc.json'
 

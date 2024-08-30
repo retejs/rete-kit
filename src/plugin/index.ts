@@ -16,7 +16,7 @@ async function createDir(folder: string) {
 
 export async function createPlugin(name: string) {
   const lowerCaseName = name.toLowerCase()
-  const pluginName = Case.capital(`${lowerCaseName}`)
+  const pluginName = Case.capital(lowerCaseName)
   const packageName = Case.kebab(`rete ${lowerCaseName} plugin`)
   const namespace = Case.pascal(`${lowerCaseName} plugin`)
   const bundleName = Case.kebab(`${lowerCaseName} plugin`)
@@ -25,7 +25,7 @@ export async function createPlugin(name: string) {
   const cliVersion = addConstraint('^', getCliVersion())
 
   await createDir(folderName)
-  await renderTemplates(folderName, {
+  renderTemplates(folderName, {
     pluginName,
     packageName,
     namespace,

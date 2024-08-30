@@ -3,7 +3,7 @@ import { describe, expect, it } from '@jest/globals'
 import { getDependencyTopo, PackageFile, PackageMeta } from './dependency-topo'
 
 describe('Dependency topology', () => {
-  it ('basic', () => {
+  it('basic', () => {
     const a: PackageFile = { name: 'a' }
     const b: PackageFile = { name: 'b', dependencies: { a: '', c: '' } }
     const c: PackageFile = { name: 'c', dependencies: { a: '' } }
@@ -46,7 +46,7 @@ describe('Dependency topology', () => {
     ])
   })
 
-  it ('no dependent', () => {
+  it('no dependent', () => {
     const packages: PackageMeta[] = [
       {
         folder: './pkgs/a',

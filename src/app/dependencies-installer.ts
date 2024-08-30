@@ -22,13 +22,19 @@ export async function install(cwd: string, dependencies: string[], aliases?: Dep
     ? resolvePaths(JSON.parse(await fs.promises.readFile(aliases, { encoding: 'utf-8' })), dirname(aliases))
     : aliases
 
-  const deps = aliasesMap ? dependencies.map(packageSpec => {
-    const name = npa(packageSpec).name
+  const deps = aliasesMap
+    ? dependencies.map(packageSpec => {
+      const name = npa(packageSpec).name
 
-    return (name ? aliasesMap[name] : null) || packageSpec
-  }) : dependencies
+      return (name
+        ? aliasesMap[name]
+        : null) || packageSpec
+    })
+    : dependencies
 
   console.log('Installing dependencies:', deps.map(dep => chalk.green(dep)).join(', '))
 
-  await execa('npm', ['i', ...(force ? ['-f'] : []), ...deps], { stdio: 'inherit', cwd })
+  await execa('npm', ['i', ...force
+    ? ['-f']
+    : [], ...deps], { stdio: 'inherit', cwd })
 }

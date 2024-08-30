@@ -1,4 +1,5 @@
 {
+	"extends": "rete-cli/configs/tsconfig.json",
 	"compilerOptions": {
 		"outDir": "bin",
 		"declaration": true,
@@ -6,13 +7,11 @@
 		"moduleResolution": "Node",
 		"module": "CommonJS",
 		"allowJs": true,
-		"strict": true,
 		"isolatedModules": true,
 		"esModuleInterop": true,
 		"noUnusedParameters": true,
 		"noUnusedLocals": true,
-		"noImplicitAny": false,
-		"skipLibCheck": true
+		"noImplicitAny": false
 	},
-	"include": ["src"],
+	"include": ["src", "test"],
 }

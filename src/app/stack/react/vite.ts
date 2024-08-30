@@ -34,8 +34,6 @@ export class ReactViteBuilder implements AppBuilder {
       recursive: true,
       overwrite: true,
       filter(source) {
-        version
-        source
         if (source.endsWith('main.tsx')) return version < 18
         return true
       }

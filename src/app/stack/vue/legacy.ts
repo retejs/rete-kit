@@ -15,7 +15,9 @@ export class VueBuilder implements AppBuilder {
 
   public async create(name: string, version: number) {
     const assets = join(assetsStack, 'vue')
-    const presetFolder = join(assets, version === 2 ? 'vue2' : 'vue3')
+    const presetFolder = join(assets, version === 2
+      ? 'vue2'
+      : 'vue3')
 
     await execa('npx', ['--package', `@vue/cli@`, 'vue', 'create', name, '--preset', presetFolder], { stdio: 'inherit' })
   }
