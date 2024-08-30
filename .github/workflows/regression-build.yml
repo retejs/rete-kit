@@ -239,7 +239,7 @@ jobs:
   linux-lit:
     name: "Ubuntu: Lit"
     if: ${{ always() && inputs.linux != '-' }}
-    uses: ./.github/workflows/test-build-lit.yml
+    uses: ./.github/workflows/test-build-lit-vite.yml
     with:
       os: ${{ inputs.linux }}
 
@@ -247,7 +247,7 @@ jobs:
     name: "Windows: Lit"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-lit
-    uses: ./.github/workflows/test-build-lit.yml
+    uses: ./.github/workflows/test-build-lit-vite.yml
     with:
       os: ${{ inputs.win }}
 
@@ -255,6 +255,6 @@ jobs:
     name: "MacOS: Lit"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-lit
-    uses: ./.github/workflows/test-build-lit.yml
+    uses: ./.github/workflows/test-build-lit-vite.yml
     with:
       os: ${{ inputs.mac }}
