@@ -1,3 +1,10 @@
+## [1.9.4](https://github.com/retejs/rete-kit/compare/v1.9.3...v1.9.4) (2024-08-30)
+
+
+### Bug Fixes
+
+* update cli and fix linting errors ([0e0fb40](https://github.com/retejs/rete-kit/commit/0e0fb407325f24b794d6616b61ce14ea4ac67e0d))
+
 ## [1.9.3](https://github.com/retejs/rete-kit/compare/v1.9.2...v1.9.3) (2024-08-25)
 
 
