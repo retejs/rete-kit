@@ -48,6 +48,6 @@
     "@types/npm-package-arg": "^6.1.1",
     "@types/toposort": "^2.0.3",
     "globals": "^15.9.0",
-    "rete-cli": "~2.0.0"
+    "rete-cli": "~2.0.1"
   }
 }
