@@ -31,7 +31,7 @@ export async function awaitedExec(command: string, args: string[], options: { cw
     })
 
     // reject on exit code !== 0
-    execaInstance.on('exit', code => {
+    void execaInstance.on('exit', code => {
       if (code !== 0) {
         reject(new Error(`Command failed with exit code ${code}`))
       }

@@ -1,10 +1,10 @@
-import chalk from 'chalk'
-
 import { AppStack } from '.'
 import { DefaultTemplateKey } from './template-builder'
 
 function ver(name: string, next: boolean) {
-  return `${name}@${next ? 'next' : 2}`
+  return `${name}@${next
+    ? 'next'
+    : 2}`
 }
 
 export interface Feature {
@@ -133,9 +133,7 @@ export class Arrange implements Feature {
   ]
 
   constructor(next: boolean) {
-    this.requiredDependencies.push(
-      ver('rete-auto-arrange-plugin', next)
-    )
+    this.requiredDependencies.push(ver('rete-auto-arrange-plugin', next))
   }
 }
 
@@ -145,9 +143,7 @@ export class Dataflow implements Feature {
   requiredDependencies: string[] = []
 
   constructor(next: boolean) {
-    this.requiredDependencies.push(
-      ver('rete-engine', next)
-    )
+    this.requiredDependencies.push(ver('rete-engine', next))
   }
 }
 
@@ -157,9 +153,7 @@ export class Readonly implements Feature {
   requiredDependencies: string[] = []
 
   constructor(next: boolean) {
-    this.requiredDependencies.push(
-      ver('rete-readonly-plugin', next)
-    )
+    this.requiredDependencies.push(ver('rete-readonly-plugin', next))
   }
 }
 
@@ -169,9 +163,7 @@ export class ContextMenu implements Feature {
   requiredDependencies: string[] = []
 
   constructor(next: boolean) {
-    this.requiredDependencies.push(
-      ver('rete-context-menu-plugin', next)
-    )
+    this.requiredDependencies.push(ver('rete-context-menu-plugin', next))
   }
 }
 
@@ -181,9 +173,7 @@ export class Minimap implements Feature {
   requiredDependencies: string[] = []
 
   constructor(next: boolean) {
-    this.requiredDependencies.push(
-      ver('rete-minimap-plugin', next)
-    )
+    this.requiredDependencies.push(ver('rete-minimap-plugin', next))
   }
 }
 
@@ -193,9 +183,7 @@ export class Reroute implements Feature {
   requiredDependencies: string[] = []
 
   constructor(next: boolean) {
-    this.requiredDependencies.push(
-      ver('rete-connection-reroute-plugin', next)
-    )
+    this.requiredDependencies.push(ver('rete-connection-reroute-plugin', next))
   }
 }
 
@@ -228,9 +216,7 @@ export class Scopes implements Feature {
   requiredDependencies: string[] = []
 
   constructor(next: boolean) {
-    this.requiredDependencies.push(
-      ver('rete-scopes-plugin', next)
-    )
+    this.requiredDependencies.push(ver('rete-scopes-plugin', next))
   }
 }
 
@@ -255,23 +241,6 @@ export function validateFeatures(features: Feature[], options: { stack: AppStack
   return {
     issue: null
   }
-}
-
-export function ensureFeatures(features: Feature[], all: Feature[]) {
-  features
-  all
-  chalk
-  // const enabledContextMenu = features.some(feature => feature instanceof ContextMenu)
-  // const enabledReact = features.some(feature => feature instanceof React)
-
-  // if (enabledContextMenu && !enabledReact) {
-  //   const reactRender = all.find(feature => feature instanceof React)
-
-  //   if (!reactRender) throw new Error('cannot find React feature')
-
-  //   console.log(chalk.yellow('Enabling React render plugin since it is required for Context menu..'))
-  //   features.push(reactRender)
-  // }
 }
 
 export function getDependencies(features: Feature[]) {

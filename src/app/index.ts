@@ -12,15 +12,15 @@ import {
 import { DefaultTemplateKey, TemplateBuilder } from './template-builder'
 
 export const builders = {
-  'angular': new AngularBuilder(),
-  'vue': new VueBuilder(),
+  angular: new AngularBuilder(),
+  vue: new VueBuilder(),
   'vue-vite': new VueViteBuilder(),
-  'react': new ReactBuilder(),
+  react: new ReactBuilder(),
   'react-vite': new ReactViteBuilder(),
-  'svelte': new SvelteBuilder(),
-  'vite': new ViteBuilder(),
-  'next': new NextBuilder(),
-  'nuxt': new NuxtBuilder(),
+  svelte: new SvelteBuilder(),
+  vite: new ViteBuilder(),
+  next: new NextBuilder(),
+  nuxt: new NuxtBuilder(),
   'lit-vite': new LitViteBuilder()
 }
 
@@ -60,11 +60,21 @@ export async function createApp({ name, stack, version, features, depsAlias, for
   const featuresList: Features.Feature[] = [
     new Features.Default(builder.foundation, next),
     new Features.Area3D(!(builder instanceof AngularBuilder && selectedVersion < 13), next),
-    new Features.Angular(builder.foundation === 'angular' ? selectedVersion as 12 | 13 | 14 | 15 | 16 | 17 : null, next),
-    new Features.React(builder.foundation === 'react' ? selectedVersion : 18, selectedStack, next),
-    new Features.Vue(builder.foundation === 'vue' ? selectedVersion as 2 : 3, next),
-    new Features.Svelte(builder.foundation === 'svelte' ? selectedVersion as 4 : 4, next),
-    new Features.Lit(builder.foundation === 'lit' ? selectedVersion as 3 : 3, next),
+    new Features.Angular(builder.foundation === 'angular'
+      ? selectedVersion as 12 | 13 | 14 | 15 | 16 | 17
+      : null, next),
+    new Features.React(builder.foundation === 'react'
+      ? selectedVersion
+      : 18, selectedStack, next),
+    new Features.Vue(builder.foundation === 'vue'
+      ? selectedVersion as 2
+      : 3, next),
+    new Features.Svelte(builder.foundation === 'svelte'
+      ? selectedVersion as 4
+      : 4, next),
+    new Features.Lit(builder.foundation === 'lit'
+      ? selectedVersion as 3
+      : 3, next),
     new Features.OrderNodes(),
     new Features.ZoomAt(),
     new Features.Arrange(next),
@@ -94,8 +104,6 @@ export async function createApp({ name, stack, version, features, depsAlias, for
   const { issue } = Features.validateFeatures(selectedFeatures, { stack: selectedStack })
 
   if (issue) throwError(issue)
-
-  Features.ensureFeatures(selectedFeatures, featuresList)
 
   const { exists } = await Patch.ensure(appName, selectedStack, selectedVersion)
 

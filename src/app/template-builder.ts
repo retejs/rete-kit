@@ -34,7 +34,7 @@ export class TemplateBuilder<Key extends string> {
     })
   }
 
-  async build(template: string, format = true) {
+  build(template: string, format = true) {
     const keep = (key: Key) => this.keys.includes(key)
     const code = this.replace(template, keep)
 

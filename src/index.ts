@@ -33,8 +33,8 @@ program
   .command('plugin')
   .description('Create plugin boilerplate')
   .requiredOption('-n --name <name>')
-  .action((options: { name: string }) => {
-    createPlugin(options.name)
+  .action(async (options: { name: string }) => {
+    await createPlugin(options.name)
   })
 
 program
@@ -57,7 +57,7 @@ program
     forceInstall?: boolean
     next?: boolean
   }) => {
-    createApp({
+    await createApp({
       name: options.name,
       stack: options.stack,
       version: options.stackVersion,
@@ -72,7 +72,7 @@ program
   .command('update-cli')
   .description('Update Rete CLI in several packages')
   .action(async () => {
-    updateCli(process.cwd())
+    await updateCli(process.cwd())
   })
 
 program.parse(process.argv)

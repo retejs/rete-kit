@@ -11,7 +11,7 @@ async function isRetePackage(folder: string) {
       const { name, scripts = {}, peerDependencies = {} } = config
 
       if (name === 'rete') return true
-      if (scripts['build'] && Object.keys(peerDependencies).includes('rete')) {
+      if (scripts.build && Object.keys(peerDependencies).includes('rete')) {
         return true
       }
     }
@@ -44,7 +44,9 @@ async function findRetePackages(folder: string, depth = 0): Promise<Package[]> {
 function getSortedPackages(packages: Package[]): Package[] {
   const copy = [...packages]
 
-  copy.sort((a) => a.name.match('render-plugin') ? -1 : 0)
+  copy.sort(a => (/render-plugin/).exec(a.name)
+    ? -1
+    : 0)
 
   const dependencyTopology = getDependencyTopo(copy.map(({ folder }) => {
     return {

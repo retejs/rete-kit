@@ -42,8 +42,7 @@ export class SvelteBuilder implements AppBuilder {
     await execa('npm', ['i', `@sveltejs/adapter-static@2`], { stdio: 'inherit', cwd: name })
   }
 
-  async putAssets(name: string, version: number) {
-    version
+  async putAssets(name: string) {
     const modules = join(assetsStack, 'svelte', 'modules')
     const src = join(name, 'src')
 

@@ -19,7 +19,7 @@ async function exists(name: string) {
   try {
     await fs.promises.access(name)
     return true
-  } catch (e) {
+  } catch (_error) {
     return false
   }
 }
