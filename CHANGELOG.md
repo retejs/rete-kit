@@ -1,3 +1,10 @@
+## [1.9.5](https://github.com/retejs/rete-kit/compare/v1.9.4...v1.9.5) (2024-08-30)
+
+
+### Bug Fixes
+
+* build ([c307e83](https://github.com/retejs/rete-kit/commit/c307e831494f12ebdad3d55f279466fb511a0ad8))
+
 ## [1.9.4](https://github.com/retejs/rete-kit/compare/v1.9.3...v1.9.4) (2024-08-30)
 
 
