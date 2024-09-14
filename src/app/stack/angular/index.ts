@@ -9,17 +9,17 @@ import { TemplateBuilder } from '../../template-builder'
 import { removeBudgets } from './budgets'
 import { installCompatibleTS } from './compatibility'
 
-export type AngularVersion = 12 | 13 | 14 | 15 | 16 | 17
+export type AngularVersion = 12 | 13 | 14 | 15 | 16 | 17 | 18
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
-  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17]
+  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17, 18]
   public foundation = 'angular' as const
 
   public async create(name: string, version: number) {
     const options = ['--defaults']
 
-    if (version === 17) options.push('--no-standalone')
+    if ([17, 18].includes(version)) options.push('--no-standalone')
 
     await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, ...options], { stdio: 'inherit' })
     await execa('npx', [
@@ -70,7 +70,7 @@ export class AngularBuilder implements AppBuilder {
   }
 
   getStaticPath(name: string, version?: number) {
-    if (version === 17) return join('dist', name, 'browser')
+    if (version && [17, 18].includes(version)) return join('dist', name, 'browser')
     return join('dist', name)
   }
 
