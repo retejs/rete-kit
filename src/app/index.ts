@@ -9,6 +9,7 @@ import {
   ReactBuilder, ReactViteBuilder, SvelteBuilder,
   ViteBuilder, VueBuilder, VueViteBuilder
 } from './stack'
+import { AngularVersion } from './stack/angular'
 import { DefaultTemplateKey, TemplateBuilder } from './template-builder'
 
 export const builders = {
@@ -61,7 +62,7 @@ export async function createApp({ name, stack, version, features, depsAlias, for
     new Features.Default(builder.foundation, next),
     new Features.Area3D(!(builder instanceof AngularBuilder && selectedVersion < 13), next),
     new Features.Angular(builder.foundation === 'angular'
-      ? selectedVersion as 12 | 13 | 14 | 15 | 16 | 17
+      ? selectedVersion as AngularVersion
       : null, next),
     new Features.React(builder.foundation === 'react'
       ? selectedVersion

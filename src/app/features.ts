@@ -1,4 +1,5 @@
 import { AppStack } from '.'
+import { AngularVersion } from './stack/angular'
 import { DefaultTemplateKey } from './template-builder'
 
 function ver(name: string, next: boolean) {
@@ -35,7 +36,7 @@ export class Angular implements Feature {
   templateKeys: DefaultTemplateKey[] = ['angular-render']
   requiredDependencies: string[] = []
 
-  constructor(version: 12 | 13 | 14 | 15 | 16 | 17 | null, next: boolean) {
+  constructor(version: AngularVersion | null, next: boolean) {
     if (version !== null) this.templateKeys.push(`angular${version}`)
 
     this.requiredDependencies.push(
