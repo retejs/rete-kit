@@ -9,9 +9,11 @@ import { TemplateBuilder } from '../../template-builder'
 import { removeBudgets } from './budgets'
 import { installCompatibleTS } from './compatibility'
 
+export type AngularVersion = 12 | 13 | 14 | 15 | 16 | 17
+
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
-  public versions = [12, 13, 14, 15, 16, 17]
+  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17]
   public foundation = 'angular' as const
 
   public async create(name: string, version: number) {
