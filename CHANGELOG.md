@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/retejs/rete-kit/compare/v1.9.5...v1.10.0) (2024-09-14)
+
+
+### Features
+
+* angular 18 ([4dcf3f5](https://github.com/retejs/rete-kit/commit/4dcf3f5a28d37bb249c496726f40755c5c6e63b0))
+
 ## [1.9.5](https://github.com/retejs/rete-kit/compare/v1.9.4...v1.9.5) (2024-08-30)
 
 
