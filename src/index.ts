@@ -4,6 +4,7 @@ import { createCommand, Option } from 'commander'
 
 import { AppStack, appStacks, createApp } from './app'
 import { build } from './build'
+import { graph, GraphSource } from './graph'
 import { createPlugin } from './plugin'
 import { getReteDependenciesFor } from './scan'
 import { throwError } from './shared/throw'
@@ -73,6 +74,32 @@ program
   .description('Update Rete CLI in several packages')
   .action(async () => {
     await updateCli(process.cwd())
+  })
+
+program
+  .command('graph')
+  .description('Generate dependency graph')
+  .addOption(new Option('-s --source <type>')
+    .choices(['code', 'packages'] satisfies GraphSource[])
+    .makeOptionMandatory())
+  .addOption(new Option('-o --output <output>'))
+  .addOption(new Option('-t --type <type>')
+    .default('mermaid')
+    .choices(['mermaid', 'cytoscape']))
+  .action(async (options: {
+    source: GraphSource
+  } & ({
+    output: undefined
+    type: 'cytoscape'
+  } | {
+    output: string
+    type: 'mermaid'
+  })) => {
+    if (options.type === 'mermaid' && !options.output) {
+      return throwError('--output option required')
+    }
+
+    await graph(options)
   })
 
 program.parse(process.argv)
