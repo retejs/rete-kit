@@ -11,8 +11,12 @@ export class NextBuilder implements AppBuilder {
   public versions = [18]
   public foundation = 'react' as const
 
-  public async create(name: string) {
-    await execa('npx', ['create-next-app@latest', name,
+  public async create(name: string, version: number) {
+    if (version !== 18) throw new Error('Unsupported version')
+
+    const createNextVersion = 14
+
+    await execa('npx', [`create-next-app@${createNextVersion}`, name,
       '--ts', '--src-dir', '--no-eslint', '--no-tailwind', '--app', '--import-alias', '@/*'], { stdio: 'inherit' })
 
     const eslintConfigName = '.eslintrc.json'
