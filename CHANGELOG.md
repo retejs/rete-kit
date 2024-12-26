@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/retejs/rete-kit/compare/v1.10.0...v1.10.1) (2024-12-26)
+
+
+### Bug Fixes
+
+* **next:** build ([da74ef7](https://github.com/retejs/rete-kit/commit/da74ef76a2b3799b9c9878050539509f4ec6de4c))
+
 # [1.10.0](https://github.com/retejs/rete-kit/compare/v1.9.5...v1.10.0) (2024-09-14)
 
 
