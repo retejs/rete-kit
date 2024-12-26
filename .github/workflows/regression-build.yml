@@ -15,7 +15,7 @@ on:
 
 
   schedule:
-    - cron: '0 2 */2 * *'
+    - cron: '0 2 */5 * *'
 
 jobs:
 # Angular
