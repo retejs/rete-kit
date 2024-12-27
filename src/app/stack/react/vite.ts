@@ -48,7 +48,7 @@ export class ReactViteBuilder implements AppBuilder {
   }
 
   getStaticPath() {
-    return 'build'
+    return 'dist'
   }
 
   getBuildCommand(): string {
