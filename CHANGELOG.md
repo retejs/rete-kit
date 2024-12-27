@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/retejs/rete-kit/compare/v1.10.1...v1.10.2) (2024-12-27)
+
+
+### Bug Fixes
+
+* **react:** dist folder ([ce86cd7](https://github.com/retejs/rete-kit/commit/ce86cd7db56439f3b14608b8d1a434b6c6b53c5c))
+
 ## [1.10.1](https://github.com/retejs/rete-kit/compare/v1.10.0...v1.10.1) (2024-12-26)
 
 
