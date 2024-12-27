@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ClassicScheme } from "rete-svelte-plugin";
+  import type { ClassicScheme } from "rete-svelte-plugin/* [svelte5] /5 [/svelte5] */";
   type Position = { x: number; y: number };
 
   // svelte-ignore unused-export-let

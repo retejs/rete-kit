@@ -3,6 +3,8 @@
 	import welcome_fallback from "$lib/images/svelte-welcome.png";
 
 	import "./styles.css";
+	import "../common.css";
+	import "../customization/background.css";
 	import { onMount } from "svelte";
 	let el: HTMLElement;
 
@@ -33,9 +35,6 @@
 </section>
 
 <style>
-	@import '../common.css';
-	@import '../customization/background.css';
-
 	section {
 		display: flex;
 		flex-direction: column;

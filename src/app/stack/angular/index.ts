@@ -6,6 +6,7 @@ import { basename, dirname, join } from 'path'
 import { AppBuilder } from '../../app-builder'
 import { assetsCommon, assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
+import { FileTemplate } from '../../template-builder-helpers'
 import { removeBudgets } from './budgets'
 import { installCompatibleTS } from './compatibility'
 
@@ -56,10 +57,11 @@ export class AngularBuilder implements AppBuilder {
       }
     })
 
-    const appModulePath = join(src, 'app', 'app.module.ts')
-    const appFile = await fs.promises.readFile(appModulePath, { encoding: 'utf-8' })
+    const fileTemplate = new FileTemplate(template)
 
-    await fs.promises.writeFile(appModulePath, await template.build(appFile))
+    await fileTemplate.apply([
+      join(src, 'app', 'app.module.ts')
+    ])
   }
 
   async putScript(name: string, path: string, code: string): Promise<void> {

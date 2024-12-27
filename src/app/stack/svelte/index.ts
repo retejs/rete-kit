@@ -6,20 +6,26 @@ import { dirname, join } from 'path'
 import { getTSConfig, setTSConfig } from '../../../shared/ts-config'
 import { AppBuilder } from '../../app-builder'
 import { assetsCommon, assetsStack } from '../../consts'
+import { TemplateBuilder } from '../../template-builder'
+import { FileTemplate } from '../../template-builder-helpers'
+import { getConfigFor, getToolsFor } from './compatibility'
 
 export class SvelteBuilder implements AppBuilder {
   public name = 'Svelte'
-  public versions = [3, 4]
+  public versions = [3, 4, 5]
   public foundation = 'svelte' as const
 
   public async create(name: string, version: number) {
+    const tools = getToolsFor(version)
+
     await execa('npm', [
-      'create', `svelte-with-args@4`, '-y',
+      'create', `svelte-with-args@${tools.create.version}`, '-y',
       '--',
       '--name', name,
       '--template', 'default',
       '--types', 'typescript',
-      '--no-prettier', '--no-eslint', '--no-playwright', '--no-vitest'
+      '--no-prettier', '--no-eslint', '--no-playwright', '--no-vitest',
+      ...tools.create.flags ?? []
     ], { stdio: 'inherit' })
     await execa('npm', ['i'], { cwd: join(process.cwd(), name), stdio: 'inherit' })
 
@@ -27,22 +33,24 @@ export class SvelteBuilder implements AppBuilder {
 
     tsConfig.compilerOptions.preserveValueImports = false
     tsConfig.compilerOptions.importsNotUsedAsValues = 'preserve'
+    tsConfig.compilerOptions.verbatimModuleSyntax = false
 
     await setTSConfig(name, tsConfig)
 
     await execa('npm', [
       'i',
       `svelte@${version}`,
-      `@sveltejs/kit@1`
+      `@sveltejs/kit@${tools.kit.version}`
     ], { stdio: 'inherit', cwd: name })
 
-    const configName = 'svelte.config.js'
+    const { name: configName, source } = getConfigFor(version)
 
-    await fse.copy(join(assetsStack, 'svelte', configName), join(name, configName), { overwrite: true })
-    await execa('npm', ['i', `@sveltejs/adapter-static@2`], { stdio: 'inherit', cwd: name })
+    await fse.copy(join(assetsStack, 'svelte', source), join(name, configName), { overwrite: true })
+    await execa('npm', ['i', `@sveltejs/adapter-static@${tools.adapter.version}`], { stdio: 'inherit', cwd: name })
   }
 
-  async putAssets(name: string) {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  async putAssets<K extends string>(name: string, _version: number, template: TemplateBuilder<K>) {
     const modules = join(assetsStack, 'svelte', 'modules')
     const src = join(name, 'src')
 
@@ -54,6 +62,13 @@ export class SvelteBuilder implements AppBuilder {
       recursive: true,
       overwrite: true
     })
+
+    const fileTemplate = new FileTemplate(template)
+
+    await fileTemplate.apply([
+      join(src, 'customization', 'CustomConnection.svelte'),
+      join(src, 'customization', 'CustomNode.svelte')
+    ], false)
   }
 
   async putScript(name: string, path: string, code: string) {
