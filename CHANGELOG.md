@@ -1,3 +1,17 @@
+# [1.11.0](https://github.com/retejs/rete-kit/compare/v1.10.2...v1.11.0) (2024-12-28)
+
+
+### Bug Fixes
+
+* imports for svelte 5 ([65c5290](https://github.com/retejs/rete-kit/commit/65c52907c9642526f47e5b113464052ffd2bd05e))
+* issue with loading wrong create-svelte-with-args version ([45734f6](https://github.com/retejs/rete-kit/commit/45734f636edddc030a3e3a58911c00859b8ed4d0))
+
+
+### Features
+
+* support svelte 5 ([2f2c92e](https://github.com/retejs/rete-kit/commit/2f2c92eca2670ad174703b0a8ec53d3a3630e165))
+* verbose exec in svelte builder ([dce36f2](https://github.com/retejs/rete-kit/commit/dce36f2f7242b50493493acfb35b0abea082ef8d))
+
 ## [1.10.2](https://github.com/retejs/rete-kit/compare/v1.10.1...v1.10.2) (2024-12-27)
 
 
