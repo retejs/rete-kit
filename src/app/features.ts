@@ -1,5 +1,6 @@
 import { AppStack } from '.'
 import { AngularVersion } from './stack/angular'
+import { SvelteVersion } from './stack/svelte'
 import { DefaultTemplateKey } from './template-builder'
 
 function ver(name: string, next: boolean) {
@@ -92,7 +93,7 @@ export class Svelte implements Feature {
   templateKeys: DefaultTemplateKey[] = ['svelte-render']
   requiredDependencies: string[] = ['sass']
 
-  constructor(version: 3 | 4, next: boolean) {
+  constructor(version: SvelteVersion, next: boolean) {
     this.templateKeys.push(`svelte${version}`)
     this.requiredDependencies.push(
       ver('rete-render-utils', next),

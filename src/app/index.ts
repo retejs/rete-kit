@@ -10,6 +10,7 @@ import {
   ViteBuilder, VueBuilder, VueViteBuilder
 } from './stack'
 import { AngularVersion } from './stack/angular'
+import { SvelteVersion } from './stack/svelte'
 import { DefaultTemplateKey, TemplateBuilder } from './template-builder'
 
 export const builders = {
@@ -51,12 +52,15 @@ export async function createApp({ name, stack, version, features, depsAlias, for
   if (!appStacks.includes(selectedStack)) throwError('unknown stack')
 
   const builder = builders[selectedStack]
-  const selectedVersion = version || await select('Version', builder.versions.map(value => ({
+  const builderVersions = builder.versions as number[]
+  const selectedVersion = version || await select<number>('Version', builderVersions.map(value => ({
     name: String(value),
     value: value
   })))
 
-  if (!builder.versions.includes(selectedVersion)) throwError('specified version is not available for selected stack')
+  if (!builderVersions.includes(selectedVersion)) {
+    throwError('specified version is not available for selected stack')
+  }
 
   const featuresList: Features.Feature[] = [
     new Features.Default(builder.foundation, next),
@@ -71,7 +75,7 @@ export async function createApp({ name, stack, version, features, depsAlias, for
       ? selectedVersion as 2
       : 3, next),
     new Features.Svelte(builder.foundation === 'svelte'
-      ? selectedVersion as 4
+      ? selectedVersion as SvelteVersion
       : 4, next),
     new Features.Lit(builder.foundation === 'lit'
       ? selectedVersion as 3

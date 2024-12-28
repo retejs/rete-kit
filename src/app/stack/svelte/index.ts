@@ -10,9 +10,11 @@ import { TemplateBuilder } from '../../template-builder'
 import { FileTemplate } from '../../template-builder-helpers'
 import { getConfigFor, getToolsFor } from './compatibility'
 
+export type SvelteVersion = 3 | 4 | 5
+
 export class SvelteBuilder implements AppBuilder {
   public name = 'Svelte'
-  public versions = [3, 4, 5]
+  public versions: SvelteVersion[] = [3, 4, 5]
   public foundation = 'svelte' as const
 
   public async create(name: string, version: number) {
