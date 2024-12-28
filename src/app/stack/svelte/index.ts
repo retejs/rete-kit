@@ -1,8 +1,8 @@
-import execa from 'execa'
 import fs from 'fs'
 import fse from 'fs-extra'
 import { dirname, join } from 'path'
 
+import { exec } from '../../../shared/exec'
 import { getTSConfig, setTSConfig } from '../../../shared/ts-config'
 import { AppBuilder } from '../../app-builder'
 import { assetsCommon, assetsStack } from '../../consts'
@@ -20,7 +20,7 @@ export class SvelteBuilder implements AppBuilder {
   public async create(name: string, version: number) {
     const tools = getToolsFor(version)
 
-    await execa('npm', [
+    await exec('npm', [
       'create', `svelte-with-args@${tools.create.version}`, '-y',
       '--',
       '--name', name,
@@ -29,7 +29,7 @@ export class SvelteBuilder implements AppBuilder {
       '--no-prettier', '--no-eslint', '--no-playwright', '--no-vitest',
       ...tools.create.flags ?? []
     ], { stdio: 'inherit' })
-    await execa('npm', ['i'], { cwd: join(process.cwd(), name), stdio: 'inherit' })
+    await exec('npm', ['i'], { cwd: join(process.cwd(), name), stdio: 'inherit' })
 
     const tsConfig = await getTSConfig(name)
 
@@ -39,7 +39,7 @@ export class SvelteBuilder implements AppBuilder {
 
     await setTSConfig(name, tsConfig)
 
-    await execa('npm', [
+    await exec('npm', [
       'i',
       `svelte@${version}`,
       `@sveltejs/kit@${tools.kit.version}`
@@ -48,7 +48,7 @@ export class SvelteBuilder implements AppBuilder {
     const { name: configName, source } = getConfigFor(version)
 
     await fse.copy(join(assetsStack, 'svelte', source), join(name, configName), { overwrite: true })
-    await execa('npm', ['i', `@sveltejs/adapter-static@${tools.adapter.version}`], { stdio: 'inherit', cwd: name })
+    await exec('npm', ['i', `@sveltejs/adapter-static@${tools.adapter.version}`], { stdio: 'inherit', cwd: name })
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
