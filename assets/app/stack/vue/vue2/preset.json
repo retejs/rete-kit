@@ -1,0 +1,7 @@
+{
+  "useConfigFiles": true,
+  "plugins": {
+    "@vue/cli-plugin-typescript": {}
+  },
+  "vueVersion": "2"
+}
