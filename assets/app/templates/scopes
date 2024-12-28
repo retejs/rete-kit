@@ -1,0 +1,183 @@
+import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
+/* [stack-angular] import { Injector } from '@angular/core' [/stack-angular] */
+import { Area2D, /* [import-area-extensions] AreaExtensions, [/import-area-extensions] */ AreaPlugin } from 'rete-area-plugin'
+/* [!readonly] import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin' [/!readonly] */
+/* [react-render] import { ReactPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-plugin' [/react-render] */
+/* [react18] import { createRoot } from 'react-dom/client' [/react18] */
+/* [vue-render] import { VuePlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
+/* [angular-render] import { AngularPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] *//* [angular17] /17 [/angular17] *//* [angular18] /18 [/angular18] */' [/angular-render] */
+/* [svelte-render] import { SveltePlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin/* [svelte5] /5 [/svelte5] */' [/svelte-render] */
+/* [lit-render] import { LitPlugin, LitArea2D, Presets as LitPresets } from '@retejs/lit-plugin' [/lit-render] */
+import { ScopesPlugin, Presets as ScopesPresets } from "rete-scopes-plugin";
+/* [context-menu] import { ContextMenuPlugin, ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
+/* [arrange] import { AutoArrangePlugin, Presets as ArrangePresets } from 'rete-auto-arrange-plugin' [/arrange] */
+
+const socket = new Classic.Socket("socket");
+
+class Node extends Classic.Node {
+  width = 180
+  height = 120
+  parent?: string;
+}
+
+class NodeA extends Node {
+  constructor() {
+    super("A");
+
+    this.addControl(
+      "a",
+      new Classic.InputControl("text", { initial: "a" })
+    );
+    this.addOutput("port", new Classic.Output(socket));
+  }
+}
+
+class NodeB extends Node {
+  constructor() {
+    super("B");
+
+    this.addControl(
+      "b",
+      new Classic.InputControl("text", { initial: "b" })
+    );
+    this.addInput("port", new Classic.Input(socket));
+  }
+}
+
+class NodeParent extends Node {
+  constructor() {
+    super("Parent");
+
+    this.addInput("port", new Classic.Input(socket));
+    this.addOutput("port", new Classic.Output(socket));
+  }
+}
+
+class Connection<
+  A extends Node,
+  B extends Node
+> extends Classic.Connection<A, B> {}
+
+type Schemes = GetSchemes<Node, Connection<Node, Node>>;
+type AreaExtra =
+  | Area2D<Schemes>
+  /* [react-render] | ReactArea2D<Schemes> [/react-render] */
+  /* [vue-render] | VueArea2D<Schemes> [/vue-render] */
+  /* [angular-render] | AngularArea2D<Schemes> [/angular-render] */
+  /* [svelte-render] | SvelteArea2D<Schemes> [/svelte-render] */
+  /* [lit-render] | LitArea2D<Schemes> [/lit-render] */
+  /* [context-menu] | ContextMenuExtra [/context-menu] */
+
+export async function createEditor(container: HTMLElement/* [stack-angular] , injector: Injector [/stack-angular] */) {
+  const editor = new NodeEditor<Schemes>();
+  const area = new AreaPlugin<Schemes, AreaExtra>(container);
+  /* [!readonly] const connection = new ConnectionPlugin<Schemes, AreaExtra>() [/!readonly] */
+  /* [react-render] const reactRender = new ReactPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/react-render] */
+  /* [vue-render] const vueRender = new VuePlugin<Schemes, AreaExtra>() [/vue-render] */
+  /* [angular-render] const angularRender = new AngularPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
+  /* [svelte-render] const svelteRender = new SveltePlugin<Schemes, AreaExtra>() [/svelte-render] */
+  /* [lit-render] const litRender = new LitPlugin<Schemes, AreaExtra>() [/lit-render] */
+  /* [readonly] const readonly = new ReadonlyPlugin<Schemes>() [/readonly] */
+  const scopes = new ScopesPlugin<Schemes>();
+  /* [context-menu] const contextMenu = new ContextMenuPlugin<Schemes>({
+    items: ContextMenuPresets.classic.setup([
+      ["A", () => new NodeA()],
+      ["B", () => new NodeB()],
+      ["Parent", () => new NodeParent()]
+    ])
+  })[/context-menu] */
+
+  /* [selectable]
+  AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
+    accumulating: AreaExtensions.accumulateOnCtrl()
+  });
+  [/selectable] */
+
+  /* [react-render]
+  reactRender.addPreset(ReactPresets.classic.setup())
+  /* [context-menu] reactRender.addPreset(ReactPresets.contextMenu.setup()) [/context-menu] */
+  [/react-render] */
+
+  /* [vue-render]
+  vueRender.addPreset(VuePresets.classic.setup())
+  /* [context-menu] vueRender.addPreset(VuePresets.contextMenu.setup()) [/context-menu] */
+  [/vue-render] */
+
+  /* [angular-render]
+  angularRender.addPreset(AngularPresets.classic.setup())
+  /* [context-menu] angularRender.addPreset(AngularPresets.contextMenu.setup()) [/context-menu] */
+  [/angular-render] */
+
+
+  /* [svelte-render]
+  svelteRender.addPreset(SveltePresets.classic.setup())
+  /* [context-menu] svelteRender.addPreset(SveltePresets.contextMenu.setup()) [/context-menu] */
+  [/svelte-render] */
+
+  /* [lit-render]
+  litRender.addPreset(LitPresets.classic.setup())
+  /* [context-menu] litRender.addPreset(LitPresets.contextMenu.setup()) [/context-menu] */
+  [/lit-render] */
+
+  /* [!readonly] connection.addPreset(ConnectionPresets.classic.setup()) [/!readonly] */
+
+  scopes.addPreset(ScopesPresets.classic.setup());
+
+  /* [readonly] editor.use(readonly.root) [/readonly] */
+  editor.use(area);
+  /* [readonly] area.use(readonly.area) [/readonly] */
+  /* [!readonly] area.use(connection) [/!readonly] */
+  /* [react-render] area.use(reactRender) [/react-render] */
+  /* [vue-render] area.use(vueRender) [/vue-render] */
+  /* [angular-render] area.use(angularRender) [/angular-render] */
+  /* [svelte-render] area.use(svelteRender) [/svelte-render] */
+  /* [lit-render] area.use(litRender) [/lit-render] */
+  area.use(scopes);
+  /* [context-menu] area.use(contextMenu) [/context-menu] */
+
+  const parent1 = new NodeParent();
+  const b2 = new NodeB();
+  const parent3 = new NodeParent();
+  const a = new NodeA();
+  const b = new NodeB();
+
+  a.parent = parent1.id;
+  b.parent = parent1.id;
+  parent1.parent = parent3.id;
+  b2.parent = parent3.id;
+
+  await editor.addNode(parent3);
+  await editor.addNode(parent1);
+  await editor.addNode(b2);
+  await editor.addNode(a);
+  await editor.addNode(b);
+
+  await editor.addConnection(
+    new Classic.Connection(a, "port", b, "port")
+  );
+  await editor.addConnection(
+    new Classic.Connection(parent1, "port", b2, "port")
+  );
+
+/* [!arrange]
+await area.translate(a.id, { x: 66, y: 106 })
+await area.translate(b.id, { x: 296, y: 71 })
+await area.translate(b2.id, { x: 538, y: 24 })
+[/!arrange] */
+
+  /* [arrange]
+  const arrange = new AutoArrangePlugin<Schemes>()
+
+  arrange.addPreset(ArrangePresets.classic.setup());
+
+  area.use(arrange)
+
+  await arrange.layout()
+  [/arrange] */
+
+  /* [zoom-at] AreaExtensions.zoomAt(area, editor.getNodes()) [/zoom-at] */
+
+  return {
+    destroy: () => area.destroy()
+  };
+}

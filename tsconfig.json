@@ -1,0 +1,17 @@
+{
+	"extends": "rete-cli/configs/tsconfig.json",
+	"compilerOptions": {
+		"outDir": "bin",
+		"declaration": true,
+		"target": "ES2018",
+		"moduleResolution": "Node",
+		"module": "CommonJS",
+		"allowJs": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"noUnusedParameters": true,
+		"noUnusedLocals": true,
+		"noImplicitAny": false
+	},
+	"include": ["src", "test"],
+}
