@@ -20,9 +20,8 @@ export class SvelteBuilder implements AppBuilder {
   public async create(name: string, version: number) {
     const tools = getToolsFor(version)
 
-    await exec('npm', [
-      'create', `svelte-with-args@${tools.create.version}`, '-y',
-      '--',
+    await exec('npx', [
+      `create-svelte-with-args@${tools.create.version}`,
       '--name', name,
       '--template', 'default',
       '--types', 'typescript',
