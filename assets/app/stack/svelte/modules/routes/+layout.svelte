@@ -1,6 +1,7 @@
 <script>
 	import Header from "./Header.svelte";
-	import "./styles.css";
+	/* [!svelte5] import "./styles.css"; [/!svelte5] */
+	/* [svelte5] import "../app.css"; [/svelte5] */
 </script>
 
 <div class="app">

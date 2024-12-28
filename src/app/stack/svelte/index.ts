@@ -68,7 +68,9 @@ export class SvelteBuilder implements AppBuilder {
 
     await fileTemplate.apply([
       join(src, 'customization', 'CustomConnection.svelte'),
-      join(src, 'customization', 'CustomNode.svelte')
+      join(src, 'customization', 'CustomNode.svelte'),
+      join(src, 'routes', '+layout.svelte'),
+      join(src, 'routes', '+page.svelte')
     ], false)
   }
 
