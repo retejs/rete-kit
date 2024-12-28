@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { ClassicScheme, SvelteArea2D } from "rete-svelte-plugin";
-  import { Ref } from "rete-svelte-plugin";
+  import type { ClassicScheme, SvelteArea2D } from "rete-svelte-plugin/* [svelte5] /5 [/svelte5] */";
+  import { Ref } from "rete-svelte-plugin/* [svelte5] /5 [/svelte5] */";
   type NodeExtraData = { width?: number; height?: number };
 
   function sortByIndex<K, I extends undefined | { index?: number }>(

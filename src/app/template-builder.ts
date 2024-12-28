@@ -5,12 +5,13 @@ import prettier from 'prettier'
 
 import { assets as assetsRoot } from '../consts'
 import { AngularVersion } from './stack/angular'
+import { SvelteVersion } from './stack/svelte'
 
 export const templatesPath = join(assetsRoot, 'app', 'templates')
 export const entryScriptPath = join(assetsRoot, 'app', 'entry_ts')
 export type DefaultTemplateKey = 'zoom-at' | 'react-render' | 'react18' | 'vue-render'
   | `vue${2 | 3}` | 'angular-render' | `angular${AngularVersion}`
-  | 'svelte-render' | `svelte${3 | 4}` | 'lit-render' | `lit${3}`
+  | 'svelte-render' | `svelte${SvelteVersion}` | 'lit-render' | `lit${3}`
   | 'dataflow' | 'arrange' | 'sizes' | 'readonly' | 'order-nodes' | 'selectable'
   | 'context-menu' | 'import-area-extensions' | 'minimap' | 'reroute' | `stack-${string}`
 
