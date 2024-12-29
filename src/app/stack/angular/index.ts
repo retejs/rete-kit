@@ -10,11 +10,11 @@ import { FileTemplate } from '../../template-builder-helpers'
 import { removeBudgets } from './budgets'
 import { installCompatibleTS } from './compatibility'
 
-export type AngularVersion = 12 | 13 | 14 | 15 | 16 | 17 | 18
+export type AngularVersion = 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
-  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17, 18]
+  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17, 18, 19]
   public foundation = 'angular' as const
 
   public async create(name: string, version: number) {
@@ -60,7 +60,8 @@ export class AngularBuilder implements AppBuilder {
     const fileTemplate = new FileTemplate(template)
 
     await fileTemplate.apply([
-      join(src, 'app', 'app.module.ts')
+      join(src, 'app', 'app.module.ts'),
+      join(src, 'app', 'customization', 'custom-node', 'custom-node.component.ts'),
     ])
   }
 
@@ -72,7 +73,7 @@ export class AngularBuilder implements AppBuilder {
   }
 
   getStaticPath(name: string, version?: number) {
-    if (version && [17, 18].includes(version)) return join('dist', name, 'browser')
+    if (version && [17, 18, 19].includes(version)) return join('dist', name, 'browser')
     return join('dist', name)
   }
 

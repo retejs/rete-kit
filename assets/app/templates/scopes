@@ -5,7 +5,7 @@ import { Area2D, /* [import-area-extensions] AreaExtensions, [/import-area-exten
 /* [react-render] import { ReactPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-plugin' [/react-render] */
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
 /* [vue-render] import { VuePlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
-/* [angular-render] import { AngularPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] *//* [angular17] /17 [/angular17] *//* [angular18] /18 [/angular18] */' [/angular-render] */
+/* [angular-render] import { AngularPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] *//* [angular17] /17 [/angular17] *//* [angular18] /18 [/angular18] *//* [angular19] /19 [/angular19] */' [/angular-render] */
 /* [svelte-render] import { SveltePlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin/* [svelte5] /5 [/svelte5] */' [/svelte-render] */
 /* [lit-render] import { LitPlugin, LitArea2D, Presets as LitPresets } from '@retejs/lit-plugin' [/lit-render] */
 import { ScopesPlugin, Presets as ScopesPresets } from "rete-scopes-plugin";
