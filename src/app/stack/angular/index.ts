@@ -1,8 +1,8 @@
-import execa from 'execa'
 import fs from 'fs'
 import fse from 'fs-extra'
 import { basename, dirname, join } from 'path'
 
+import { exec } from '../../../shared/exec'
 import { AppBuilder } from '../../app-builder'
 import { assetsCommon, assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
@@ -22,8 +22,8 @@ export class AngularBuilder implements AppBuilder {
 
     if ([17, 18].includes(version)) options.push('--no-standalone')
 
-    await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, ...options], { stdio: 'inherit' })
-    await execa('npx', [
+    await exec('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, ...options], { stdio: 'inherit' })
+    await exec('npx', [
       'npm-check-updates@16',
       '--upgrade',
       '--target',
@@ -31,7 +31,7 @@ export class AngularBuilder implements AppBuilder {
       '--filter',
       '/@angular.*/'
     ], { stdio: 'inherit', cwd: name })
-    await execa('npm', ['i'], { cwd: name })
+    await exec('npm', ['i'], { cwd: name })
 
     if (version < 13) {
       await installCompatibleTS(name, '4.7')
