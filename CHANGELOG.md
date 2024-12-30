@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/retejs/rete-kit/compare/v1.11.0...v1.12.0) (2024-12-30)
+
+
+### Features
+
+* addd angular 19 ([f54927a](https://github.com/retejs/rete-kit/commit/f54927ade8d499d5c83da68c9488013466092463))
+
 # [1.11.0](https://github.com/retejs/rete-kit/compare/v1.10.2...v1.11.0) (2024-12-28)
 
 
