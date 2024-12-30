@@ -1,8 +1,8 @@
-import execa from 'execa'
 import fs from 'fs'
 import fse from 'fs-extra'
 import { basename, dirname, join } from 'path'
 
+import { exec } from '../../../shared/exec'
 import { AppBuilder } from '../../app-builder'
 import { assetsCommon, assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
@@ -10,11 +10,11 @@ import { FileTemplate } from '../../template-builder-helpers'
 import { removeBudgets } from './budgets'
 import { installCompatibleTS } from './compatibility'
 
-export type AngularVersion = 12 | 13 | 14 | 15 | 16 | 17 | 18
+export type AngularVersion = 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
-  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17, 18]
+  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17, 18, 19]
   public foundation = 'angular' as const
 
   public async create(name: string, version: number) {
@@ -22,8 +22,8 @@ export class AngularBuilder implements AppBuilder {
 
     if ([17, 18].includes(version)) options.push('--no-standalone')
 
-    await execa('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, ...options], { stdio: 'inherit' })
-    await execa('npx', [
+    await exec('npx', ['--package', `@angular/cli@${version}`, 'ng', 'new', name, ...options], { stdio: 'inherit' })
+    await exec('npx', [
       'npm-check-updates@16',
       '--upgrade',
       '--target',
@@ -31,7 +31,7 @@ export class AngularBuilder implements AppBuilder {
       '--filter',
       '/@angular.*/'
     ], { stdio: 'inherit', cwd: name })
-    await execa('npm', ['i'], { cwd: name })
+    await exec('npm', ['i'], { cwd: name })
 
     if (version < 13) {
       await installCompatibleTS(name, '4.7')
@@ -60,7 +60,8 @@ export class AngularBuilder implements AppBuilder {
     const fileTemplate = new FileTemplate(template)
 
     await fileTemplate.apply([
-      join(src, 'app', 'app.module.ts')
+      join(src, 'app', 'app.module.ts'),
+      join(src, 'app', 'customization', 'custom-node', 'custom-node.component.ts'),
     ])
   }
 
@@ -72,7 +73,7 @@ export class AngularBuilder implements AppBuilder {
   }
 
   getStaticPath(name: string, version?: number) {
-    if (version && [17, 18].includes(version)) return join('dist', name, 'browser')
+    if (version && [17, 18, 19].includes(version)) return join('dist', name, 'browser')
     return join('dist', name)
   }
 

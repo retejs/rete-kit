@@ -6,8 +6,13 @@ import {
   OnChanges
 } from "@angular/core";
 import { ClassicPreset } from "rete";
+/* [angular19]
+import { CommonModule } from '@angular/common';
+import { RefDirective } from 'rete-angular-plugin/19';
+[/angular19] */
 
 @Component({
+  /* [angular19] imports: [CommonModule, RefDirective], [/angular19] */
   templateUrl: "./custom-node.component.html",
   styleUrls: ["./custom-node.component.sass"],
   host: {
