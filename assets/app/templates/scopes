@@ -10,6 +10,7 @@ import { Area2D, /* [import-area-extensions] AreaExtensions, [/import-area-exten
 /* [lit-render] import { LitPlugin, LitArea2D, Presets as LitPresets } from '@retejs/lit-plugin' [/lit-render] */
 import { ScopesPlugin, Presets as ScopesPresets } from "rete-scopes-plugin";
 /* [context-menu] import { ContextMenuPlugin, ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
+/* [readonly] import { ReadonlyPlugin } from 'rete-readonly-plugin' [/readonly] */
 /* [arrange] import { AutoArrangePlugin, Presets as ArrangePresets } from 'rete-auto-arrange-plugin' [/arrange] */
 
 const socket = new Classic.Socket("socket");
@@ -176,6 +177,7 @@ await area.translate(b2.id, { x: 538, y: 24 })
   [/arrange] */
 
   /* [zoom-at] AreaExtensions.zoomAt(area, editor.getNodes()) [/zoom-at] */
+  /* [readonly] readonly.enable() [/readonly] */
 
   return {
     destroy: () => area.destroy()
