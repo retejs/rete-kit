@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/retejs/rete-kit/compare/v1.12.0...v1.12.1) (2025-03-19)
+
+
+### Bug Fixes
+
+* scopes readonly ([8cc3089](https://github.com/retejs/rete-kit/commit/8cc30895bfe0473bb855089b4b057c08595bcd60))
+
 # [1.12.0](https://github.com/retejs/rete-kit/compare/v1.11.0...v1.12.0) (2024-12-30)
 
 
