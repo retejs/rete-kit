@@ -9,8 +9,11 @@ import { TemplateBuilder } from '../../template-builder'
 import { FileTemplate } from '../../template-builder-helpers'
 import { removeBudgets } from './budgets'
 import { installCompatibleTS } from './compatibility'
+import { AngularVersion } from './types'
 
-export type AngularVersion = 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19
+export type {
+  AngularVersion
+}
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
@@ -61,7 +64,7 @@ export class AngularBuilder implements AppBuilder {
 
     await fileTemplate.apply([
       join(src, 'app', 'app.module.ts'),
-      join(src, 'app', 'customization', 'custom-node', 'custom-node.component.ts'),
+      join(src, 'app', 'customization', 'custom-node', 'custom-node.component.ts')
     ])
   }
 
