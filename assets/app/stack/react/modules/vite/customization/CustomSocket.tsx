@@ -1,4 +1,4 @@
-import { ClassicPreset } from "rete";
+import { type ClassicPreset } from "rete";
 import styled from "styled-components";
 import { $socketsize } from "./vars";
 

@@ -4,6 +4,7 @@ import execa from 'execa'
 
 import { getPackageConfig, setPackageConfig } from '../../../shared/npm'
 import { getTSConfig, setTSConfig } from '../../../shared/ts-config'
+import type { AngularTSConfig } from './types'
 
 export async function installCompatibleTS(path: string, version: string) {
   console.log(chalk.bgGreen(' INFO '), chalk.green(`Enforcing the installation of TypeScript ${version} for the specified Angular version (adding "overrides" and "disableTypeScriptVersionCheck")`))
@@ -21,7 +22,7 @@ export async function installCompatibleTS(path: string, version: string) {
   await setPackageConfig(path, config)
   await execa('npm', ['i', `typescript@${version}`], { cwd: path })
 
-  const tsConfig = await getTSConfig(path)
+  const tsConfig = await getTSConfig<AngularTSConfig>(path)
 
   tsConfig.angularCompilerOptions.disableTypeScriptVersionCheck = true
 

@@ -24,9 +24,6 @@ export class VueViteBuilder implements AppBuilder {
     const tsConfig = await getTSConfig(name, configName)
 
     tsConfig.compilerOptions.allowJs = true
-    tsConfig.compilerOptions.preserveValueImports = false
-    tsConfig.compilerOptions.importsNotUsedAsValues = 'remove'
-    tsConfig.compilerOptions.verbatimModuleSyntax = false
 
     await setTSConfig(name, tsConfig, configName)
   }

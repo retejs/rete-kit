@@ -1,4 +1,4 @@
-import { ClassicScheme, RenderEmit, Presets } from "rete-react-plugin";
+import { type ClassicScheme, type RenderEmit, Presets } from "rete-react-plugin";
 import styled, { css } from "styled-components";
 import { $nodewidth, $socketmargin, $socketsize } from "./vars";
 

@@ -1,5 +1,5 @@
-import { Position } from '@retejs/lit-plugin'
-import { css, html, LitElement, PropertyDeclarations } from 'lit'
+import { type Position } from '@retejs/lit-plugin'
+import { css, html, LitElement, type PropertyDeclarations } from 'lit'
 
 export class CustomConnectionElement extends LitElement {
   static get properties(): PropertyDeclarations {

@@ -5,7 +5,7 @@ import {
   ChangeDetectorRef,
   OnChanges
 } from "@angular/core";
-import { ClassicPreset } from "rete";
+import { type ClassicPreset } from "rete";
 /* [angular19]
 import { CommonModule } from '@angular/common';
 import { RefDirective } from 'rete-angular-plugin/19';
