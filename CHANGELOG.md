@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/retejs/rete-kit/compare/v1.12.1...v1.12.2) (2025-06-06)
+
+
+### Bug Fixes
+
+* add type annotations to imports instead of  verbatimModuleSyntax ([fb8d828](https://github.com/retejs/rete-kit/commit/fb8d82821a55be4f9a24f49d5575a7c81c4bb1d5))
+
 ## [1.12.1](https://github.com/retejs/rete-kit/compare/v1.12.0...v1.12.1) (2025-03-19)
 
 
