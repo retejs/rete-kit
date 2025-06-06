@@ -1,18 +1,18 @@
-import { ClassicPreset as Classic, GetSchemes, NodeEditor } from 'rete'
-/* [stack-angular] import { Injector } from '@angular/core' [/stack-angular] */
+import { ClassicPreset as Classic, type GetSchemes, NodeEditor } from 'rete'
+/* [stack-angular] import { type Injector } from '@angular/core' [/stack-angular] */
 /* [import-area-extensions] import { AreaExtensions } from 'rete-area-plugin' [/import-area-extensions] */
-import { Area3D, Area3DExtensions, Area3DPlugin } from 'rete-area-3d-plugin'
+import { type Area3D, Area3DExtensions, Area3DPlugin } from 'rete-area-3d-plugin'
 import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin'
-/* [react-render] import { ReactPlugin, ReactArea2D, Presets as ReactPresets } from 'rete-react-plugin' [/react-render] */
+/* [react-render] import { ReactPlugin, type ReactArea2D, Presets as ReactPresets } from 'rete-react-plugin' [/react-render] */
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
-/* [vue-render] import { VuePlugin, VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
-/* [angular-render] import { AngularPlugin, AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] *//* [angular17] /17 [/angular17] *//* [angular18] /18 [/angular18] *//* [angular19] /19 [/angular19] */' [/angular-render] */
-/* [svelte-render] import { SveltePlugin, SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin/* [svelte5] /5 [/svelte5] */' [/svelte-render] */
-/* [lit-render] import { LitPlugin, LitArea2D, Presets as LitPresets } from '@retejs/lit-plugin' [/lit-render] */
-/* [dataflow] import { DataflowEngine, DataflowNode } from 'rete-engine' [/dataflow] */
+/* [vue-render] import { VuePlugin, type VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
+/* [angular-render] import { AngularPlugin, type AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] *//* [angular17] /17 [/angular17] *//* [angular18] /18 [/angular18] *//* [angular19] /19 [/angular19] */' [/angular-render] */
+/* [svelte-render] import { SveltePlugin, type SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin/* [svelte5] /5 [/svelte5] */' [/svelte-render] */
+/* [lit-render] import { LitPlugin, type LitArea2D, Presets as LitPresets } from '@retejs/lit-plugin' [/lit-render] */
+/* [dataflow] import { DataflowEngine, type DataflowNode } from 'rete-engine' [/dataflow] */
 /* [arrange] import { AutoArrangePlugin, Presets as ArrangePresets } from 'rete-auto-arrange-plugin' [/arrange] */
-/* [context-menu] import { ContextMenuPlugin, ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
-/* [reroute] import { ReroutePlugin, RerouteExtra /* [selectable] , RerouteExtensions [/selectable] */ } from "rete-connection-reroute-plugin";[/reroute] */
+/* [context-menu] import { ContextMenuPlugin, type ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
+/* [reroute] import { ReroutePlugin, type RerouteExtra /* [selectable] , RerouteExtensions [/selectable] */ } from "rete-connection-reroute-plugin";[/reroute] */
 /* [angular12] // @ts-ignore [/angular12] *//* [angular13] // @ts-ignore [/angular13] */
 import * as THREE from 'three';
 

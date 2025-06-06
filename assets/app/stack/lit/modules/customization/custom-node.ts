@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit'
-import { ClassicScheme } from '@retejs/lit-plugin'
+import { type ClassicScheme } from '@retejs/lit-plugin'
 
 type NodeExtraData = { width?: number, height?: number }
 

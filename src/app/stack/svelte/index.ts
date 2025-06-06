@@ -3,7 +3,6 @@ import fse from 'fs-extra'
 import { dirname, join } from 'path'
 
 import { exec } from '../../../shared/exec'
-import { getTSConfig, setTSConfig } from '../../../shared/ts-config'
 import { AppBuilder } from '../../app-builder'
 import { assetsCommon, assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
@@ -29,14 +28,6 @@ export class SvelteBuilder implements AppBuilder {
       ...tools.create.flags ?? []
     ], { stdio: 'inherit' })
     await exec('npm', ['i'], { cwd: join(process.cwd(), name), stdio: 'inherit' })
-
-    const tsConfig = await getTSConfig(name)
-
-    tsConfig.compilerOptions.preserveValueImports = false
-    tsConfig.compilerOptions.importsNotUsedAsValues = 'preserve'
-    tsConfig.compilerOptions.verbatimModuleSyntax = false
-
-    await setTSConfig(name, tsConfig)
 
     await exec('npm', [
       'i',

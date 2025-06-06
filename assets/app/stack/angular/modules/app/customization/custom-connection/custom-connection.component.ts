@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { ClassicPreset } from "rete";
+import { type ClassicPreset } from "rete";
 
 @Component({
   selector: "connection",

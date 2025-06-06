@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { ClassicScheme, Presets } from "rete-react-plugin";
+import { type ClassicScheme, Presets } from "rete-react-plugin";
 
 const { useConnection } = Presets.classic;
 
