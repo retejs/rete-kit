@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/retejs/rete-kit/compare/v1.12.2...v1.13.0) (2025-06-30)
+
+
+### Features
+
+* include devDependencies in build ([f5563d7](https://github.com/retejs/rete-kit/commit/f5563d7d10e38f8b9f746b06ac7c2e48c7479558))
+
 ## [1.12.2](https://github.com/retejs/rete-kit/compare/v1.12.1...v1.12.2) (2025-06-06)
 
 
