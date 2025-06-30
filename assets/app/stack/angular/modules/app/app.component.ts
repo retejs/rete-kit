@@ -4,10 +4,16 @@ import { createEditor } from './rete'
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css', './common.css']
+  templateUrl:
+    /* [!angular20] './app.component.html', [/!angular20] */
+    /* [angular20] './app.html', [/angular20] */
+  styleUrls: [
+    /* [!angular20] './app.component.css', [/!angular20] */
+    /* [angular20] './app.css', [/angular20] */
+    './common.css'
+  ]
 })
-export class AppComponent implements AfterViewInit {
+export class /* [!angular20] AppComponent [/!angular20] *//* [angular20] App [/angular20] */ implements AfterViewInit {
   title = 'angular'
   @ViewChild('rete') container!: ElementRef<HTMLElement>
 

@@ -17,7 +17,7 @@ export type {
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
-  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17, 18, 19]
+  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17, 18, 19, 20]
   public foundation = 'angular' as const
 
   public async create(name: string, version: number) {
@@ -59,13 +59,18 @@ export class AngularBuilder implements AppBuilder {
         return true
       }
     })
-
     const fileTemplate = new FileTemplate(template)
 
     await fileTemplate.apply([
       join(src, 'app', 'app.module.ts'),
-      join(src, 'app', 'customization', 'custom-node', 'custom-node.component.ts')
+      join(src, 'app', 'customization', 'custom-node', 'custom-node.component.ts'),
+      join(src, 'app', 'app.component.ts')
     ])
+
+    if (version >= 20) {
+      await fse.promises.rename(join(src, 'app', 'app.component.ts'), join(src, 'app', 'app.ts'))
+      await fse.promises.rename(join(src, 'app', 'app.component.html'), join(src, 'app', 'app.html'))
+    }
   }
 
   async putScript(name: string, path: string, code: string): Promise<void> {
@@ -76,7 +81,7 @@ export class AngularBuilder implements AppBuilder {
   }
 
   getStaticPath(name: string, version?: number) {
-    if (version && [17, 18, 19].includes(version)) return join('dist', name, 'browser')
+    if (version && [17, 18, 19, 20].includes(version)) return join('dist', name, 'browser')
     return join('dist', name)
   }
 
