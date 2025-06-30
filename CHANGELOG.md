@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/retejs/rete-kit/compare/v1.13.0...v1.14.0) (2025-06-30)
+
+
+### Features
+
+* update angular 20 support ([43e1e6a](https://github.com/retejs/rete-kit/commit/43e1e6a205aff3d284d7c17e50ff7fbc697413f3))
+
 # [1.13.0](https://github.com/retejs/rete-kit/compare/v1.12.2...v1.13.0) (2025-06-30)
 
 
