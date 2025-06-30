@@ -61,4 +61,47 @@ describe('Dependency topology', () => {
 
     expect(dirs).toEqual([])
   })
+
+  it('includes devDependencies in topology', () => {
+    const a: PackageFile = { name: 'a' }
+    const b: PackageFile = { name: 'b', devDependencies: { a: '' } }
+    const c: PackageFile = { name: 'c', dependencies: { a: '' }, devDependencies: { b: '' } }
+
+    const packages: PackageMeta[] = [
+      {
+        folder: './pkgs/a',
+        config: a
+      },
+      {
+        folder: './pkgs/b',
+        config: b
+      },
+      {
+        folder: './pkgs/c',
+        config: c
+      }
+    ]
+    const dirs = getDependencyTopo(packages)
+
+    expect(dirs).toEqual([
+      {
+        dependencies: [],
+        dependent: ['b', 'c'],
+        folder: './pkgs/a',
+        config: a
+      },
+      {
+        dependencies: ['a'],
+        dependent: ['c'],
+        folder: './pkgs/b',
+        config: b
+      },
+      {
+        dependencies: ['a', 'b'],
+        dependent: [],
+        folder: './pkgs/c',
+        config: c
+      }
+    ])
+  })
 })
