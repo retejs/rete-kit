@@ -32,5 +32,5 @@ jobs:
       os: ${{ inputs.os }}
       stack: angular
       version: ${{ matrix.version }}
-      node: ${{ matrix.version < 14 && 14 || (matrix.version >=20 && 22) || (matrix.version >=17 && 18) || 16 }}
+      node: ${{ (matrix.version >=20 && 22) || (matrix.version >=17 && 18) || 16 }}
       features: "Angular render,${{ vars.FEATURES }}"
