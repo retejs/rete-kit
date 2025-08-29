@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/retejs/rete-kit/compare/v1.14.2...v1.15.0) (2025-08-29)
+
+
+### Features
+
+* add react 19 ([5aace15](https://github.com/retejs/rete-kit/commit/5aace15c7e145e0315b63a4191a55c63ad1f39cc))
+
 ## [1.14.2](https://github.com/retejs/rete-kit/compare/v1.14.1...v1.14.2) (2025-08-29)
 
 
