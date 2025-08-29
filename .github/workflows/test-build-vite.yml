@@ -32,5 +32,5 @@ jobs:
       os: ${{ inputs.os }}
       stack: vite
       version: ${{ matrix.version }}
-      node: 18
+      node: 20
       features: "React render,${{ vars.FEATURES }}"
