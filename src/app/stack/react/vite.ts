@@ -12,7 +12,7 @@ export class ReactViteBuilder implements AppBuilder {
   public foundation = 'react' as const
 
   public async create(name: string, version: number) {
-    await execa('npm', ['create', 'vite@latest', name, '--', '--template', 'react-ts'], { stdio: 'inherit' })
+    await execa('npm', ['create', 'vite@7', name, '--', '--template', 'react-ts'], { stdio: 'inherit' })
     await execa('npm', [
       'i',
       `react@${version}`,
