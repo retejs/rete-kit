@@ -32,6 +32,6 @@ jobs:
       os: ${{ inputs.os }}
       stack: nuxt
       version: ${{ matrix.version }}
-      node: 18
+      node: 20
       features: "Vue render,${{ vars.FEATURES }}"
           
