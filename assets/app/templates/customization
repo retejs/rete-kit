@@ -7,6 +7,7 @@ import {
 } from "rete-connection-plugin";
 /* [stack-react] import { ReactPlugin, type ReactArea2D, Presets as ReactPresets } from 'rete-react-plugin' [/stack-react] */
 /* [react18] import { createRoot } from 'react-dom/client' [/react18] */
+/* [react19] import { createRoot } from 'react-dom/client' [/react19] */
 /* [stack-vue] import { VuePlugin, type VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/stack-vue] */
 /* [stack-angular] import { AngularPlugin, type AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] *//* [angular17] /17 [/angular17] *//* [angular18] /18 [/angular18] *//* [angular19] /19 [/angular19] *//* [angular20] /20 [/angular20] */' [/stack-angular] */
 /* [stack-svelte] import { SveltePlugin, type SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin/* [svelte5] /5 [/svelte5] */' [/stack-svelte] */
@@ -54,7 +55,7 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   const editor = new NodeEditor<Schemes>();
   const area = new AreaPlugin<Schemes, AreaExtra>(container);
   const connection = new ConnectionPlugin<Schemes, AreaExtra>();
-  /* [stack-react] const reactRender = new ReactPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] */)[/stack-react] */
+  /* [stack-react] const reactRender = new ReactPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] *//* [react19] { createRoot } [/react19] */)[/stack-react] */
   /* [stack-vue] const vueRender = new VuePlugin<Schemes, AreaExtra>() [/stack-vue] */
   /* [stack-angular] const angularRender = new AngularPlugin<Schemes, AreaExtra>({ injector }) [/stack-angular] */
   /* [stack-svelte] const svelteRender = new SveltePlugin<Schemes, AreaExtra>() [/stack-svelte] */
