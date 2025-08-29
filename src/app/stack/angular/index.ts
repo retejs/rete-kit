@@ -8,7 +8,7 @@ import { assetsCommon, assetsStack } from '../../consts'
 import { TemplateBuilder } from '../../template-builder'
 import { FileTemplate } from '../../template-builder-helpers'
 import { removeBudgets } from './budgets'
-import { installCompatibleTS } from './compatibility'
+import { installCompatibleTS, installCompatibleTypes } from './compatibility'
 import { AngularVersion } from './types'
 
 export type {
@@ -38,6 +38,9 @@ export class AngularBuilder implements AppBuilder {
 
     if (version < 13) {
       await installCompatibleTS(name, '4.7')
+    }
+    if (version === 14) {
+      await installCompatibleTypes(name, { node: '^16.18.0' })
     }
     await removeBudgets(name)
   }
