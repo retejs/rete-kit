@@ -1,3 +1,10 @@
+## [1.14.2](https://github.com/retejs/rete-kit/compare/v1.14.1...v1.14.2) (2025-08-29)
+
+
+### Bug Fixes
+
+* **angular:** node typing for v14 ([722800a](https://github.com/retejs/rete-kit/commit/722800ac8af8c2440ef69b8556ad91a2cad952b5))
+
 ## [1.14.1](https://github.com/retejs/rete-kit/compare/v1.14.0...v1.14.1) (2025-08-29)
 
 
