@@ -1,3 +1,12 @@
+## [1.14.1](https://github.com/retejs/rete-kit/compare/v1.14.0...v1.14.1) (2025-08-29)
+
+
+### Bug Fixes
+
+* **assets:** correct import statements to use 'type' syntax ([2e5cd3a](https://github.com/retejs/rete-kit/commit/2e5cd3a7cb26ac0066e2760be2e3de0b73395cd1))
+* **cra:** react types ([148e1fd](https://github.com/retejs/rete-kit/commit/148e1fda9fe64a3da5acc1798e12017542d79c46))
+* **react-vite:** specify vite 7 ([e7cd160](https://github.com/retejs/rete-kit/commit/e7cd160be0b2c72737607213ebb7da052ae3566c))
+
 # [1.14.0](https://github.com/retejs/rete-kit/compare/v1.13.0...v1.14.0) (2025-06-30)
 
 
