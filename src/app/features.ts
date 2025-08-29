@@ -57,7 +57,7 @@ export class React implements Feature {
   ]
 
   constructor(version: number, stack: AppStack, next: boolean) {
-    if (version === 18) this.templateKeys.push('react18')
+    this.templateKeys.push(`react${version}`)
 
     this.requiredDependencies.push(
       ver('rete-render-utils', next),

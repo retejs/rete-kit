@@ -9,7 +9,7 @@ import { SvelteVersion } from './stack/svelte'
 
 export const templatesPath = join(assetsRoot, 'app', 'templates')
 export const entryScriptPath = join(assetsRoot, 'app', 'entry_ts')
-export type DefaultTemplateKey = 'zoom-at' | 'react-render' | 'react18' | 'vue-render'
+export type DefaultTemplateKey = 'zoom-at' | 'react-render' | `react${number}` | 'vue-render'
   | `vue${2 | 3}` | 'angular-render' | `angular${AngularVersion}`
   | 'svelte-render' | `svelte${SvelteVersion}` | 'lit-render' | `lit${3}`
   | 'dataflow' | 'arrange' | 'sizes' | 'readonly' | 'order-nodes' | 'selectable'

@@ -8,7 +8,7 @@ import { assetsCommon, assetsStack } from '../../consts'
 
 export class ReactViteBuilder implements AppBuilder {
   public name = 'React.js Vite'
-  public versions = [16, 17, 18]
+  public versions = [16, 17, 18, 19]
   public foundation = 'react' as const
 
   public async create(name: string, version: number) {
