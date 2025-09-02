@@ -8,16 +8,16 @@ import {
 import { type ClassicPreset } from "rete";
 /* [angular19]
 import { CommonModule } from '@angular/common';
-import { RefDirective } from 'rete-angular-plugin/19';
+import { RefDirective, ImpureKeyvaluePipe } from 'rete-angular-plugin/19';
 [/angular19] */
 /* [angular20]
 import { CommonModule } from '@angular/common';
-import { RefDirective } from 'rete-angular-plugin/20';
+import { RefDirective, ImpureKeyvaluePipe } from 'rete-angular-plugin/20';
 [/angular20] */
 
 @Component({
-  /* [angular19] imports: [CommonModule, RefDirective], [/angular19] */
-  /* [angular20] imports: [CommonModule, RefDirective], [/angular20] */
+  /* [angular19] imports: [CommonModule, RefDirective, ImpureKeyvaluePipe], [/angular19] */
+  /* [angular20] imports: [CommonModule, RefDirective, ImpureKeyvaluePipe], [/angular20] */
   templateUrl: "./custom-node.component.html",
   styleUrls: ["./custom-node.component.sass"],
   host: {
