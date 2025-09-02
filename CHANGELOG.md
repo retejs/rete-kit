@@ -1,3 +1,10 @@
+## [1.15.1](https://github.com/retejs/rete-kit/compare/v1.15.0...v1.15.1) (2025-09-02)
+
+
+### Bug Fixes
+
+* **angular:** impure pipe ([4425264](https://github.com/retejs/rete-kit/commit/44252644a0d40847d9427f7141a696d4c58a34be))
+
 # [1.15.0](https://github.com/retejs/rete-kit/compare/v1.14.2...v1.15.0) (2025-08-29)
 
 
