@@ -46,3 +46,16 @@ export async function select<T>(message: string, choices: Option<T>[], multi?: b
 
   return option
 }
+
+export async function confirm(message: string, initial = true) {
+  const { result } = await inquirer.prompt<{ result: boolean }>([
+    {
+      type: 'confirm',
+      name: 'result',
+      message,
+      default: initial
+    }
+  ])
+
+  return result
+}
