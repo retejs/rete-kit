@@ -2,6 +2,20 @@
 
 Guide users through **developing and debugging Rete.js plugins** using the Scope-based architecture.
 
+## 🚨 READ THIS FIRST: Complete Coverage Protocol
+**Before responding to ANY query, LLMs MUST:**
+1. **📖 Review ALL 7 sections** listed in the validation checklist (see bottom of document)
+2. **🔗 Check cross-references** between related concepts 
+3. **⚠️ Prioritize SDLC requirements** (linting, testing, quality gates)
+4. **📚 Consult official documentation** sources before finalizing response
+5. **✅ Use the verification protocol** to ensure comprehensive coverage
+
+**Common LLM Oversights to Avoid:**
+- Skipping SDLC workflows (lines 80-118) when discussing development
+- Missing type safety requirements when explaining architecture  
+- Overlooking linting/testing steps in implementation guidance
+- Ignoring cross-framework testing considerations
+
 ## Core Architecture
 
 **Scope System Fundamentals:**
@@ -10,7 +24,7 @@ Guide users through **developing and debugging Rete.js plugins** using the Scope
 - Type safety: TypeScript validates signal compatibility between parent-child relationships at compile time
 - Context processing: Use `addPipe(context => context)` to process or modify signals
 
-**Signal Processing Patterns:**
+**Signal Processing Patterns:** *(See Debugging & Optimization section for monitoring)*
 ```ts
 // Basic signal handling
 scope.addPipe(context => {
@@ -43,7 +57,7 @@ scope.addPipe(context => {
 
 ## Integration Patterns
 
-**Plugin Registration:**
+**Plugin Registration:** *(See Core Architecture for signal flow details)*
 - Register plugins with appropriate parents using `use()` method
 - Core plugins → editor, area plugins → area component, render plugins → renderer
 - Hierarchical registration ensures proper signal flow and lifecycle management
@@ -89,32 +103,54 @@ scope.addPipe(context => {
   - **Documentation as Code**: Tests act as living documentation of plugin functionality
 - **Automated Quality Gates**: Use CI/CD pipelines with comprehensive validation
 
-**Core Development Commands:**
+**Linting:** *(Critical for Type Safety - see Debugging & Optimization section)*
+Running the linter (`rete lint --fix`) is crucial after making changes to ensure code quality and consistency. It helps identify current issues in the codebase before proceeding with fixes or further development. Additionally, it performs type checking to catch type-related issues early. Always prioritize linting as part of your workflow.
+
+**Setup tests:**
+Unit tests are executed using Jest, which is integrated via `rete-cli` - `rete test`. No manual setup is required—just use the provided CLI commands for testing.
+
+**🔧 Core Development Commands:** *(ESSENTIAL - Use Frequently)*
 ```bash
 rete build  # --config rete.config.ts, see Rete CLI docs
-rete lint  # Independent linting
+rete lint   # ⚠️ CRITICAL: Run after every change
 rete-kit build --for ./my-project,../local-plugin  # Watch mode, see Rete Kit docs
 ```
 
-**Quality Assurance Process:**
+**🧪 Quality Assurance Process:** *(Required for Production)*
 ```bash
 rete-qa test  # --deps-alias dependencies.json, see Quality Assurance docs
 ```
 
 
 
-**Best Practices:**
-- **Incremental Development**: Build, lint and test after each significant change
-- **Cross-Framework Testing**: Use Rete QA to validate across React, Vue, Angular, Svelte
-- **Dependency Management**: Use `rete-kit build` for local development with watch mode
-- **Documentation Sync**: Keep API docs (JSDoc) updated with code changes
-- **Quality Gates**: Use conventional commits, automated testing, and semantic versioning
+**📋 Best Practices:** *(Follow These Always)*
+- **🔄 Incremental Development**: Build, lint and test after each significant change
+- **🌐 Cross-Framework Testing**: Use Rete QA to validate across React, Vue, Angular, Svelte  
+- **📦 Dependency Management**: Use `rete-kit build` for local development with watch mode
+- **📖 Documentation Sync**: Keep API docs (JSDoc) updated with code changes
+- **✅ Quality Gates**: Use conventional commits, automated testing, and semantic versioning
 
 ## Documentation Reference
 **ALWAYS consult official Rete.js documentation before responding:**
 - Context7 MCP: `/retejs/retejs.org` or `/llmstxt/retejs-llms-full.txt`
 - LLM-optimized: `https://retejs.org/llms-full.txt`
 - Official site: `https://retejs.org`
+
+## ⚠️ CRITICAL: Systematic Coverage Requirements
+
+**MANDATORY VALIDATION CHECKLIST - Review ALL sections before responding:**
+1. ✅ **Core Architecture** (lines 5-29) - Scope system, signals, parent-child communication
+2. ✅ **Plugin Development Patterns** (lines 30-42) - Basic structure, components, extensions
+3. ✅ **Integration Patterns** (lines 44-55) - Registration, multi-plugin coordination
+4. ✅ **Debugging & Optimization** (lines 56-67) - Signal flow, type safety
+5. ✅ **Advanced Patterns** (lines 69-79) - Custom signals, dependencies
+6. ✅ **Development Lifecycle (SDLC)** (lines 80-118) - Workflow, linting, testing, QA
+7. ✅ **Development Tools** - CLI commands and quality assurance
+
+**Cross-Section Dependencies:**
+- Architecture → Integration → Debugging (signal flow understanding)
+- SDLC → All sections (quality gates apply throughout)
+- Development Tools → SDLC (commands support workflow)
 
 **Focus Areas:**
 - Plugin architecture and signal system implementation
@@ -127,5 +163,12 @@ rete-qa test  # --deps-alias dependencies.json, see Quality Assurance docs
 - `rete-cli` for building, linting, and testing
 - `rete-kit plugin --name <name>` for rapid plugin creation
 - `rete-qa` for E2E testing across frameworks
+
+**VERIFICATION PROTOCOL:**
+1. Consult official documentation sources listed above
+2. Check ALL sections of this guide against the validation checklist
+3. Verify cross-references between related concepts
+4. Ensure development workflow (SDLC) considerations are included
+5. Validate with current Rete.js terminology and capabilities
 
 Verify current terminology, capabilities, and examples. Guide users to official resources and encourage deep technical exploration.

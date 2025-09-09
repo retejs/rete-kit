@@ -1,8 +1,9 @@
 import { copyFileSync, existsSync, mkdirSync } from 'fs'
 import { dirname, join, relative } from 'path'
 
+import { assetsAI } from '../consts'
 import { confirm, select } from '../shared/inquirer'
-import { getDefaultContext, isValidContext } from './contexts'
+import { getContextNames, isValidContext } from './contexts'
 import { createContextNotFoundError } from './errors'
 import { logger } from './logger'
 import { createToolNotFoundError, createToolSelectionError, getTool, getToolNames, type Tool } from './tools'
@@ -84,6 +85,13 @@ async function promptForTool(): Promise<Tool> {
   return tool
 }
 
+async function promptForContext(): Promise<string> {
+  const contextNames = getContextNames()
+  const choices = contextNames.map(name => ({ name, value: name }))
+
+  return await select('Select a context:', choices)
+}
+
 async function selectToolIfNotProvided(selectedTool?: string): Promise<Tool> {
   if (selectedTool) {
     return validateTool(selectedTool)
@@ -92,9 +100,9 @@ async function selectToolIfNotProvided(selectedTool?: string): Promise<Tool> {
   return await promptForTool()
 }
 
-function validateContext(context?: string): string {
+async function validateContext(context?: string): Promise<string> {
   if (!context) {
-    return getDefaultContext().name
+    return await promptForContext()
   }
 
   if (!isValidContext(context)) {
@@ -107,13 +115,13 @@ function validateContext(context?: string): string {
 export async function buildInstructions(selectedTool?: string, context?: string, force?: boolean) {
   logger.warn('This command is experimental. Use with caution.')
 
-  const sourceDir = join(process.cwd(), 'assets/ai')
+  const sourceDir = assetsAI
 
   if (!existsSync(sourceDir)) {
     throw new Error(`Source directory not found at ${sourceDir}`)
   }
 
-  const validatedContext = validateContext(context)
+  const validatedContext = await validateContext(context)
   const tool = await selectToolIfNotProvided(selectedTool)
 
   logger.info(`Building instructions using context: "${validatedContext}"`)

@@ -3,7 +3,7 @@
 import { createCommand, Option } from 'commander'
 
 import { buildInstructions } from './ai'
-import { getContextNames, getDefaultContext } from './ai/contexts'
+import { getContextNames } from './ai/contexts'
 import { AppStack, appStacks, createApp } from './app'
 import { build } from './build'
 import { createPlugin } from './plugin'
@@ -78,13 +78,12 @@ program
   })
 
 const availableContexts = getContextNames().join(', ')
-const defaultContext = getDefaultContext().name
 
 program
   .command('ai')
   .description('Create AI instructions for GitHub and Cursor')
   .option('-t, --tool <tool>', 'Tool to generate instructions for (cursor, github)')
-  .option('-c, --context <context>', `Context for instructions (${availableContexts})`, defaultContext)
+  .option('-c, --context <context>', `Context for instructions (${availableContexts})`)
   .option('-f, --force', 'Force overwrite existing files without confirmation')
   .action(async (options: { tool?: string, context?: string, force?: boolean }) => {
     await buildInstructions(options.tool, options.context, options.force)

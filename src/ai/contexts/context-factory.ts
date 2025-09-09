@@ -26,12 +26,3 @@ export function getContext(name: string): Context | undefined {
 export function isValidContext(name: string): boolean {
   return contexts.has(name)
 }
-
-export function getDefaultContext(): Context {
-  const defaultContext = contexts.get('onboard')
-
-  if (!defaultContext) {
-    throw new Error('Default context "onboard" not found')
-  }
-  return defaultContext
-}

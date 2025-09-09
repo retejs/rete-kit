@@ -3,7 +3,6 @@ export {
   getAvailableContexts,
   getContext,
   getContextNames,
-  getDefaultContext,
   isValidContext
 } from './context-factory'
 export { OnboardContext } from './onboard'
