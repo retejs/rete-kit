@@ -3,7 +3,7 @@ import { dirname, join, relative } from 'path'
 
 import { assetsAI } from '../consts'
 import { confirm, select } from '../shared/inquirer'
-import { getContextNames, isValidContext } from './contexts'
+import { getContext, getContextNames, isValidContext } from './contexts'
 import { createContextNotFoundError } from './errors'
 import { logger } from './logger'
 import { createToolNotFoundError, createToolSelectionError, getTool, getToolNames, type Tool } from './tools'
@@ -44,18 +44,35 @@ async function copyFileWithConfirm(sourceFile: string, targetFile: string, force
 async function processTool(
   sourceDir: string,
   tool: Tool,
-  context?: string,
+  contextName?: string,
   force?: boolean
 ): Promise<void> {
-  const sourceFile = join(sourceDir, context ?? 'onboard', 'instructions.md')
+  const contextObj = getContext(contextName ?? 'onboard')
+  
+  if (!contextObj) {
+    logger.warn(`Context "${contextName ?? 'onboard'}" not found, skipping...`)
+    return
+  }
+
+  const instructions = contextObj.getInstructions()
   const targetDir = join(process.cwd(), tool.getAssetPath())
+
+  if (instructions.length === 0) {
+    logger.warn(`No instruction files found for context "${contextObj.name}", skipping...`)
+    return
+  }
+
+  // For now, use the first instruction file to maintain backward compatibility
+  // In the future, this could be extended to handle multiple files
+  const instruction = instructions[0]
+  const sourceFile = join(sourceDir, contextObj.name, instruction.filename)
   const targetFile = join(targetDir, tool.getTargetFilePath())
 
   if (existsSync(sourceFile)) {
     await copyFileWithConfirm(sourceFile, targetFile, force)
   } else {
-    const contextInfo = context
-      ? ` for context "${context}"`
+    const contextInfo = contextName
+      ? ` for context "${contextName}"`
       : ''
 
     logger.warn(`Source file ${sourceFile}${contextInfo} not found, skipping...`)

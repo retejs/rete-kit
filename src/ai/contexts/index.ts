@@ -1,4 +1,4 @@
-export type { Context } from './base'
+export type { Context, InstructionFile } from './base'
 export {
   getAvailableContexts,
   getContext,
