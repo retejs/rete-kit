@@ -1,12 +1,9 @@
-import type { Context, InstructionFile } from '../base'
+import { Context, type InstructionFile } from '../base'
 
-export class OnboardContext implements Context {
+export class OnboardContext extends Context {
   readonly name = 'onboard'
   readonly description = 'Learning & Concepts - Help users new to Rete.js understand fundamentals'
-
-  getInstructions(): InstructionFile[] {
-    return [
-      { filename: 'instructions.md', title: 'Onboard Context - Learning & Concepts' }
-    ]
-  }
+  readonly instructions: InstructionFile[] = [
+    { file: 'instructions.md', title: 'Onboard Context - Learning & Concepts' }
+  ]
 }

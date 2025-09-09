@@ -1,10 +1,25 @@
+import { join } from 'path'
+import { assetsAI } from '../../consts'
+
 export interface InstructionFile {
-  filename: string
+  file: string
   title: string
 }
 
-export interface Context {
-  name: string
-  description: string
-  getInstructions(): InstructionFile[]
+export abstract class Context {
+  abstract readonly name: string
+  abstract readonly description: string
+  abstract readonly instructions: InstructionFile[]
+
+  getName(): string {
+    return this.name
+  }
+
+  getInstructions(): (InstructionFile & { path: string })[] {
+    const instructionsPath = join(assetsAI, this.name)
+    return this.instructions.map(instruction => ({
+      ...instruction,
+      path: join(instructionsPath, instruction.file),
+    }))
+  }
 }
