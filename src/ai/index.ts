@@ -2,7 +2,7 @@ import { BootContext, DevContext, OnboardContext, PluginContext } from './contex
 import { AIAssets } from './filesystem'
 import { logger } from './logger'
 import { Repository } from './repository'
-import { AmazonQTool, CodexTool, CursorTool, GithubTool, WindsurfTool } from './tools'
+import { AmazonQTool, ClaudeTool, CodexTool, ContinueTool, CursorTool, GithubTool, WindsurfTool } from './tools'
 
 // eslint-disable-next-line max-statements
 export async function buildInstructions(selectedTool?: string, contextId?: string, force?: boolean) {
@@ -19,7 +19,9 @@ export async function buildInstructions(selectedTool?: string, contextId?: strin
     new GithubTool(),
     new AmazonQTool(),
     new WindsurfTool(),
-    new CodexTool()
+    new CodexTool(),
+    new ClaudeTool(),
+    new ContinueTool()
   ])
   const context = await contexts.select(contextId)
   const tool = await tools.select(selectedTool)
