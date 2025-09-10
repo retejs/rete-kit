@@ -1,4 +1,4 @@
-import { writeFileSync, existsSync, mkdirSync, readFileSync } from 'fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { dirname, relative } from 'path'
 
 import { confirm } from '../shared/inquirer'
@@ -11,32 +11,22 @@ export interface InstructionData {
 }
 
 export class AIAssets {
-  constructor(
-    private readonly assetsAI: string,
-    private readonly workingDirectory: string
-  ) {}
+  constructor(private readonly workingDirectory: string) {}
 
-  validateSourceDirectory(): void {
-    if (!existsSync(this.assetsAI)) {
-      throw new Error(`Source directory not found at ${this.assetsAI}`)
-    }
-  }
-
-
-  getInstructionForContext(instructionFile: { file: string; path: string }): InstructionData | null {
+  getInstructionForContext(instructionFile: { file: string, path: string }): InstructionData | null {
     const sourceFile = instructionFile.path // use the path property for absolute path
-    
+
     if (existsSync(sourceFile)) {
       const content = readFileSync(sourceFile, 'utf-8')
+
       return {
         path: sourceFile,
         content,
         file: instructionFile.file // keep original filename
       }
-    } else {
-      logger.warn(`Source file ${sourceFile} not found, skipping...`)
-      return null
     }
+    logger.warn(`Source file ${sourceFile} not found, skipping...`)
+    return null
   }
 
   protected async handleFileOverwrite(existingFile: string, force?: boolean): Promise<boolean> {

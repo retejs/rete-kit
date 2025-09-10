@@ -22,10 +22,8 @@ export async function buildInstructions(selectedTool?: string, contextId?: strin
   ])
   const context = await contexts.select(contextId)
   const tool = await tools.select(selectedTool)
-  const assets = new AIAssets(assetsAI, process.cwd())
+  const assets = new AIAssets(process.cwd())
   
-  assets.validateSourceDirectory()
-
   logger.info(`Building instructions using context: "${context.getName()}"`)
 
   const instructionFiles = context.getInstructions()
