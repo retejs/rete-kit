@@ -1,4 +1,5 @@
 import { join } from 'path'
+
 import { assetsAI } from '../../consts'
 
 export interface InstructionFile {
@@ -17,9 +18,10 @@ export abstract class Context {
 
   getInstructions(): (InstructionFile & { path: string })[] {
     const instructionsPath = join(assetsAI, this.name)
+
     return this.instructions.map(instruction => ({
       ...instruction,
-      path: join(instructionsPath, instruction.file),
+      path: join(instructionsPath, instruction.file)
     }))
   }
 }

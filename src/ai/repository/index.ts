@@ -56,6 +56,7 @@ export class Repository<T extends Identifiable> {
 
   private createNotFoundError(itemName: string): Error {
     const available = this.items.map(item => item.getName()).join(', ')
+
     return new Error(`Invalid ${this.type} "${itemName}". Available ${this.type}s: ${available}`)
   }
 }

@@ -43,6 +43,7 @@ export abstract class BaseTool implements Tool {
 
     for (const instruction of instructions) {
       const targetFile = join(targetDir, instruction.file)
+
       await aiAssets.copyFileWithConfirm(instruction.content, targetFile, force)
     }
   }

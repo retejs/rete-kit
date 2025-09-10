@@ -1,14 +1,13 @@
-import { BaseTool } from '../base'
-import { AIAssets } from '../../filesystem'
 import { InstructionFile } from '../../contexts/base'
-import { TransformFunction } from '../base'
+import { AIAssets } from '../../filesystem'
+import { BaseTool } from '../base'
 
 export class GithubTool extends BaseTool {
   constructor() {
     super('github', '.github')
   }
 
-  async apply(aiAssets: AIAssets, instructionFiles: (InstructionFile & { path: string })[], force?: boolean, _transform?: TransformFunction): Promise<void> {
+  async apply(aiAssets: AIAssets, instructionFiles: (InstructionFile & { path: string })[], force?: boolean): Promise<void> {
     return super.apply(aiAssets, instructionFiles, force, instructions => {
       if (instructions.length === 0) {
         return instructions

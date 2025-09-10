@@ -1,3 +1,6 @@
+export { AmazonQTool } from './amazonq'
 export type { Tool } from './base'
+export { CodexTool } from './codex'
 export { CursorTool } from './cursor'
 export { GithubTool } from './github'
+export { WindsurfTool } from './windsurf'

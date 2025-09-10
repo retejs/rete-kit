@@ -1,13 +1,11 @@
-
-import { assetsAI } from '../consts'
 import { BootContext, DevContext, OnboardContext, PluginContext } from './contexts'
 import { AIAssets } from './filesystem'
 import { logger } from './logger'
 import { Repository } from './repository'
-import { CursorTool, GithubTool } from './tools'
-import { TransformFunction } from './tools/base'
+import { AmazonQTool, CodexTool, CursorTool, GithubTool, WindsurfTool } from './tools'
 
-export async function buildInstructions(selectedTool?: string, contextId?: string, force?: boolean, transform?: TransformFunction) {
+// eslint-disable-next-line max-statements
+export async function buildInstructions(selectedTool?: string, contextId?: string, force?: boolean) {
   logger.warn('This command is experimental. Use with caution.')
 
   const contexts = new Repository('context', [
@@ -18,12 +16,15 @@ export async function buildInstructions(selectedTool?: string, contextId?: strin
   ])
   const tools = new Repository('tool', [
     new CursorTool(),
-    new GithubTool()
+    new GithubTool(),
+    new AmazonQTool(),
+    new WindsurfTool(),
+    new CodexTool()
   ])
   const context = await contexts.select(contextId)
   const tool = await tools.select(selectedTool)
   const assets = new AIAssets(process.cwd())
-  
+
   logger.info(`Building instructions using context: "${context.getName()}"`)
 
   const instructionFiles = context.getInstructions()
@@ -34,7 +35,7 @@ export async function buildInstructions(selectedTool?: string, contextId?: strin
   }
 
   // Process instructions using the tool
-  await tool.apply(assets, instructionFiles, force, transform)
+  await tool.apply(assets, instructionFiles, force)
 
   logger.ready('Done.')
 }
