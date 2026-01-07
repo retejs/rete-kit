@@ -1,5 +1,10 @@
 import { BaseTool } from '../base'
-import { MultiFileStrategy, InstructionStrategy } from '../../strategies'
+import {
+  MultiFileStrategy,
+  InstructionStrategy,
+  AddPathPrefixTransformer,
+  AddYamlFrontmatterTransformer
+} from '../../strategies'
 
 export class WindsurfTool extends BaseTool {
   constructor() {
@@ -8,10 +13,8 @@ export class WindsurfTool extends BaseTool {
 
   protected getStrategy(): InstructionStrategy {
     return new MultiFileStrategy(
-      (file) => `rules/${file}`,
-      (content) => `---
-trigger: always_on
----\n${content}`
+      [new AddPathPrefixTransformer('rules')],
+      [new AddYamlFrontmatterTransformer({ trigger: 'always_on' })]
     )
   }
 }

@@ -1,5 +1,11 @@
 import { BaseTool } from '../base'
-import { MultiFileStrategy, InstructionStrategy } from '../../strategies'
+import {
+  MultiFileStrategy,
+  InstructionStrategy,
+  AddPathPrefixTransformer,
+  ReplaceExtensionTransformer,
+  AddYamlFrontmatterTransformer
+} from '../../strategies'
 
 export class CursorTool extends BaseTool {
   constructor() {
@@ -8,11 +14,13 @@ export class CursorTool extends BaseTool {
 
   protected getStrategy(): InstructionStrategy {
     return new MultiFileStrategy(
-      (file) => `rules/${file.replace(/\.[^.]+$/, '.mdc')}`,
-      (content) => `---
-alwaysApply: true
----
-${content}`
+      [
+        new AddPathPrefixTransformer('rules'),
+        new ReplaceExtensionTransformer('.mdc')
+      ],
+      [
+        new AddYamlFrontmatterTransformer({ alwaysApply: true })
+      ]
     )
   }
 }

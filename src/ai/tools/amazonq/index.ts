@@ -1,5 +1,9 @@
 import { BaseTool } from '../base'
-import { MultiFileStrategy, InstructionStrategy } from '../../strategies'
+import {
+  MultiFileStrategy,
+  InstructionStrategy,
+  AddPathPrefixTransformer
+} from '../../strategies'
 
 export class AmazonQTool extends BaseTool {
   constructor() {
@@ -7,8 +11,6 @@ export class AmazonQTool extends BaseTool {
   }
 
   protected getStrategy(): InstructionStrategy {
-    return new MultiFileStrategy(
-      (file) => `rules/${file}`
-    )
+    return new MultiFileStrategy([new AddPathPrefixTransformer('rules')])
   }
 }
