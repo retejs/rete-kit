@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { dirname, relative } from 'path'
 
+import { isTTY } from '../shared/tty'
 import { confirm } from '../shared/inquirer'
 import { logger } from './logger'
 
@@ -32,6 +33,12 @@ export class AIAssets {
   protected async handleFileOverwrite(existingFile: string, force?: boolean): Promise<boolean> {
     if (force) {
       return true
+    }
+
+    // In non-interactive mode (no TTY), skip prompting and default to not overwriting
+    if (!isTTY()) {
+      logger.warn(`Found existing file: ${existingFile}. Skipping (use --force to overwrite in non-interactive mode)`)
+      return false
     }
 
     logger.warn(`Found existing file: ${existingFile}`)

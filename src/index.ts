@@ -8,6 +8,7 @@ import { AppStack, appStacks, createApp } from './app'
 import { build } from './build'
 import { createPlugin } from './plugin'
 import { getReteDependenciesFor } from './scan'
+import { isTTY } from './shared/tty'
 import { throwError } from './shared/throw'
 import { updateCli } from './update-cli'
 
@@ -78,13 +79,22 @@ program
   })
 
 const availableContexts = getContextNames().join(', ')
+const isInteractive = isTTY()
+
+const toolOption = new Option('-t, --tool <tool>', 'Tool to generate instructions for (cursor, github)')
+const contextOption = new Option('-c, --context <context>', `Context for instructions (${availableContexts})`)
+
+if (!isInteractive) {
+  toolOption.makeOptionMandatory()
+  contextOption.makeOptionMandatory()
+}
 
 program
   .command('ai')
   .description('Create AI instructions for GitHub and Cursor')
-  .option('-t, --tool <tool>', 'Tool to generate instructions for (cursor, github)')
-  .option('-c, --context <context>', `Context for instructions (${availableContexts})`)
   .option('-f, --force', 'Force overwrite existing files without confirmation')
+  .addOption(toolOption)
+  .addOption(contextOption)
   .action(async (options: { tool?: string, context?: string, force?: boolean }) => {
     await buildInstructions(options.tool, options.context, options.force)
   })

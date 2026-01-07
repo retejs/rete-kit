@@ -1,3 +1,4 @@
+import { isTTY } from '../../shared/tty'
 import { select } from '../../shared/inquirer'
 
 export interface SelectionChoice<T> {
@@ -24,6 +25,12 @@ export class Repository<T extends Identifiable> {
   async select(selectedName?: string): Promise<T> {
     if (selectedName) {
       return this.validate(selectedName)
+    }
+
+    // In non-interactive mode (no TTY), require the selection to be provided
+    if (!isTTY()) {
+      const available = this.items.map(item => item.getName()).join(', ')
+      throw new Error(`No ${this.type} specified. Available ${this.type}s: ${available}. Use --${this.type} option in non-interactive mode.`)
     }
 
     return await this.prompt()
