@@ -37,6 +37,22 @@ rete-qa test  # --deps-alias dependencies.json, see Quality Assurance docs
 - **📖 Documentation Sync**: Keep API docs (JSDoc) updated with code changes
 - **✅ Quality Gates**: Use conventional commits, automated testing, and semantic versioning
 
+**📝 Commit Guidelines:** *(Required for All Commits)*
+- **Semantic Commit Format**: Follow conventional commit message format:
+  ```
+  <type>(<scope>): <subject>
+  
+  <body>
+  
+  <footer>
+  ```
+- **Commit Types**: Use standard types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `ci`, `build`, `revert`
+- **Message Length**: Keep commit message subject line to **maximum 100 characters**
+- **Examples**:
+  - `feat(plugin): add signal processing pipe for custom events`
+  - `fix(area): resolve signal propagation issue in nested scopes`
+  - `docs(api): update JSDoc comments for Scope class methods`
+
 ## Documentation Reference
 **ALWAYS consult official Rete.js documentation before responding:**
 - Context7 MCP: `/retejs/retejs.org` or `/llmstxt/retejs-llms-full.txt`
