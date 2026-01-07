@@ -3,7 +3,7 @@ import { AIAssets } from './filesystem'
 import { GuidanceError } from './guidance'
 import { logger } from './logger'
 import { Repository } from './repository'
-import { AmazonQTool, ClaudeTool, CodexTool, ContinueTool, CursorTool, GithubTool, WindsurfTool } from './tools'
+import { AmazonQTool, AntigravityTool, ClaudeTool, CodexTool, ContinueTool, CursorTool, GithubTool, WindsurfTool } from './tools'
 
 const contexts = new Repository('context', [
   new OnboardContext(),
@@ -19,7 +19,8 @@ const tools = new Repository('tool', [
   new WindsurfTool(),
   new CodexTool(),
   new ClaudeTool(),
-  new ContinueTool()
+  new ContinueTool(),
+  new AntigravityTool()
 ])
 
 export function getToolNames(): string[] {
