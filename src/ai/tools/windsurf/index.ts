@@ -4,7 +4,9 @@ import {
   InstructionStrategy,
   AddPathPrefixTransformer,
   AddYamlFrontmatterTransformer,
-  AddFilenamePrefixTransformer
+  AddFilenamePrefixTransformer,
+  PrefixedHeadingTransformer,
+  F
 } from '../../strategies'
 
 export class WindsurfTool extends BaseTool {
@@ -12,13 +14,20 @@ export class WindsurfTool extends BaseTool {
     super('windsurf', '.windsurf')
   }
 
-  protected getStrategy(): InstructionStrategy {
+  protected getStrategy(): InstructionStrategy | undefined {
     return new MultiFileStrategy(
-      [
-        new AddPathPrefixTransformer('rules'),
-        new AddFilenamePrefixTransformer('rete-')
-      ],
-      [new AddYamlFrontmatterTransformer({ trigger: 'always_on' })]
+      (instruction: F) => {
+        const contextId = instruction.contextId
+        return [
+          new AddPathPrefixTransformer('rules'),
+          new AddFilenamePrefixTransformer(`${contextId}-`),
+          new AddFilenamePrefixTransformer(`rete-`)
+        ]
+      },
+      (instruction: F) => [
+        new PrefixedHeadingTransformer(instruction, '[Rete.js]'),
+        new AddYamlFrontmatterTransformer({ trigger: 'always_on' })
+      ]
     )
   }
 }

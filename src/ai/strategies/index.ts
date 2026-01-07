@@ -1,5 +1,5 @@
 export type { InstructionStrategy, F } from './types'
-export { SingleFileStrategy, type SingleFileTransformer } from './single-file'
+export { SingleFileStrategy } from './single-file'
 export { MultiFileStrategy } from './multi-file'
 export type { PathTransformer, ContentTransformer } from './transformers'
 export {

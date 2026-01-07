@@ -3,7 +3,9 @@ import {
   MultiFileStrategy,
   InstructionStrategy,
   AddPathPrefixTransformer,
-  AddFilenamePrefixTransformer
+  AddFilenamePrefixTransformer,
+  PrefixedHeadingTransformer,
+  F
 } from '../../strategies'
 
 export class ContinueTool extends BaseTool {
@@ -11,10 +13,19 @@ export class ContinueTool extends BaseTool {
     super('continue', '.continue')
   }
 
-  protected getStrategy(): InstructionStrategy {
-    return new MultiFileStrategy([
-      new AddPathPrefixTransformer('rules'),
-      new AddFilenamePrefixTransformer('rete-')
-    ])
+  protected getStrategy(): InstructionStrategy | undefined {
+    return new MultiFileStrategy(
+      (instruction: F) => {
+        const contextId = instruction.contextId
+        return [
+          new AddPathPrefixTransformer('rules'),
+          new AddFilenamePrefixTransformer(`${contextId}-`),
+          new AddFilenamePrefixTransformer(`rete-`)
+        ]
+      },
+      (instruction: F) => [
+        new PrefixedHeadingTransformer(instruction, '[Rete.js]')
+      ]
+    )
   }
 }

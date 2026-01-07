@@ -3,7 +3,9 @@ import {
   MultiFileStrategy,
   InstructionStrategy,
   AddPathPrefixTransformer,
-  AddFilenamePrefixTransformer
+  AddFilenamePrefixTransformer,
+  PrefixedHeadingTransformer,
+  F
 } from '../../strategies'
 
 export class AntigravityTool extends BaseTool {
@@ -11,10 +13,19 @@ export class AntigravityTool extends BaseTool {
     super('antigravity', '.')
   }
 
-  protected getStrategy(): InstructionStrategy {
-    return new MultiFileStrategy([
-      new AddPathPrefixTransformer('.agent/rules'),
-      new AddFilenamePrefixTransformer('rete-')
-    ])
+  protected getStrategy(): InstructionStrategy | undefined {
+    return new MultiFileStrategy(
+      (instruction: F) => {
+        const contextId = instruction.contextId
+        return [
+          new AddPathPrefixTransformer('.agent/rules'),
+          new AddFilenamePrefixTransformer(`${contextId}-`),
+          new AddFilenamePrefixTransformer(`rete-`)
+        ]
+      },
+      (instruction: F) => [
+        new PrefixedHeadingTransformer(instruction, '[Rete.js]')
+      ]
+    )
   }
 }

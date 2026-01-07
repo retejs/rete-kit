@@ -1,5 +1,3 @@
-# Onboard Context - Learning & Concepts
-
 ## Purpose
 Help users completely new to Rete.js understand fundamentals and core concepts.
 

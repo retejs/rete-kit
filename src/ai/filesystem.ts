@@ -8,6 +8,8 @@ export interface InstructionData {
   path: string
   content: string
   file: string
+  contextId: string
+  title: string
 }
 
 export class AIAssets {
@@ -16,7 +18,7 @@ export class AIAssets {
     private readonly interactive: boolean = false
   ) {}
 
-  getInstructionForContext(instructionFile: { file: string, path: string }): InstructionData | null {
+  getInstructionForContext(instructionFile: { file: string, path: string, contextId: string, title: string }): InstructionData | null {
     const sourceFile = instructionFile.path // use the path property for absolute path
 
     if (existsSync(sourceFile)) {
@@ -25,7 +27,9 @@ export class AIAssets {
       return {
         path: sourceFile,
         content,
-        file: instructionFile.file // keep original filename
+        file: instructionFile.file, // keep original filename
+        contextId: instructionFile.contextId,
+        title: instructionFile.title
       }
     }
     logger.warn(`Source file ${sourceFile} not found, skipping...`)

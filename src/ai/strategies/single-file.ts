@@ -1,11 +1,5 @@
 import { InstructionStrategy, F } from './types'
-
-/**
- * Transformer for single file strategy that accepts both content and instruction
- */
-export interface SingleFileTransformer {
-  transform(content: string, instruction: F): string
-}
+import { ContentTransformer } from './transformers'
 
 /**
  * Strategy for merging all instructions into a single file
@@ -13,7 +7,7 @@ export interface SingleFileTransformer {
 export class SingleFileStrategy implements InstructionStrategy {
   constructor(
     private readonly outputFileName: string,
-    private readonly transformers: SingleFileTransformer[] = []
+    private readonly contentTransformerFactory?: (instruction: F) => ContentTransformer[]
   ) {}
 
   transform(instructions: F[]): F[] {
@@ -21,23 +15,27 @@ export class SingleFileStrategy implements InstructionStrategy {
       return instructions
     }
 
-    const combinedContent = instructions
-      .map(instruction => {
-        let content = instruction.content
+    // Process each instruction individually (apply transformers), then merge them
+    const processedContents = instructions.map(instruction => {
+      const contentTransformers = this.contentTransformerFactory ? this.contentTransformerFactory(instruction) : []
+      
+      let content = instruction.content
+      for (const transformer of contentTransformers) {
+        content = transformer.transform(content)
+      }
+      
+      return content
+    })
 
-        // Apply transformers in sequence
-        for (const transformer of this.transformers) {
-          content = transformer.transform(content, instruction)
-        }
-
-        return content
-      })
-      .join('\n\n')
+    // Combine all processed instruction contents
+    const finalContent = processedContents.join('\n\n')
 
     return [
       {
-        content: combinedContent,
-        file: this.outputFileName
+        content: finalContent,
+        file: this.outputFileName,
+        contextId: instructions[0].contextId,
+        title: instructions[0].title
       }
     ]
   }

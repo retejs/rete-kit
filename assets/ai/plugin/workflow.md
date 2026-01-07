@@ -1,5 +1,3 @@
-# Development Workflow
-
 ## Development Lifecycle (SDLC)
 
 **Continuous Development Workflow:**

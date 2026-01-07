@@ -1,5 +1,3 @@
-# Dev Context - Rete.js Integration & Development
-
 ## Primary Directive: Automatic Scenario Detection
 
 **Before engaging with the user, automatically determine which scenario applies:**

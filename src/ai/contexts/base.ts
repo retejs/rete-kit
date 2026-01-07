@@ -16,12 +16,13 @@ export abstract class Context {
     return this.name
   }
 
-  getInstructions(): (InstructionFile & { path: string })[] {
+  getInstructions(): (InstructionFile & { path: string; contextId: string })[] {
     const instructionsPath = join(assetsAI, this.name)
 
     return this.instructions.map(instruction => ({
       ...instruction,
-      path: join(instructionsPath, instruction.file)
+      path: join(instructionsPath, instruction.file),
+      contextId: this.name
     }))
   }
 }

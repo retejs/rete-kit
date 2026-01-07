@@ -1,16 +1,21 @@
 import { F } from '../../types'
-import { SingleFileTransformer } from '../../single-file'
+import { ContentTransformer } from '../types'
 
 /**
- * Transformer that adds a heading with optional prefix to content
+ * Transformer that adds a first-level heading with optional prefix
+ * Can be used for both single-file and multi-file strategies
  */
-export class PrefixedHeadingTransformer implements SingleFileTransformer {
-  constructor(private readonly prefix?: string) {}
+export class PrefixedHeadingTransformer implements ContentTransformer {
+  constructor(
+    private readonly instruction: F,
+    private readonly prefix?: string
+  ) {}
 
-  transform(content: string, instruction: F): string {
-    // Extract filename from path (handle both relative and absolute paths)
-    const name = instruction.file.split('/').pop() || instruction.file
-    const heading = this.prefix ? `## ${this.prefix} ${name}` : `## ${name}`
+  transform(content: string): string {
+    // Add first-level heading with prefix and instruction title
+    const title = this.instruction.title || this.instruction.file.split('/').pop() || this.instruction.file
+    const heading = this.prefix ? `# ${this.prefix} ${title}` : `# ${title}`
+    
     return `${heading}\n\n${content}`
   }
 }

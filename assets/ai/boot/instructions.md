@@ -1,5 +1,3 @@
-# Boot Context - New App Creation
-
 Guide users through creating **brand new Rete.js applications from scratch** using rete-kit. Focus on step-by-step guidance, framework selection, and getting to "Hello World" quickly with sensible defaults.
 
 ## Default Strategy

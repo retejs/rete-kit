@@ -1,5 +1,3 @@
-# Plugin Architecture
-
 Guide users through **developing and debugging Rete.js plugins** using the Scope-based architecture.
 
 ## Core Architecture

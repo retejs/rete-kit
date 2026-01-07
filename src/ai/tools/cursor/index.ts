@@ -5,7 +5,9 @@ import {
   AddPathPrefixTransformer,
   ReplaceExtensionTransformer,
   AddYamlFrontmatterTransformer,
-  AddFilenamePrefixTransformer
+  AddFilenamePrefixTransformer,
+  PrefixedHeadingTransformer,
+  F
 } from '../../strategies'
 
 export class CursorTool extends BaseTool {
@@ -13,14 +15,19 @@ export class CursorTool extends BaseTool {
     super('cursor', '.cursor')
   }
 
-  protected getStrategy(): InstructionStrategy {
+  protected getStrategy(): InstructionStrategy | undefined {
     return new MultiFileStrategy(
-      [
-        new AddPathPrefixTransformer('rules'),
-        new AddFilenamePrefixTransformer('rete-'),
-        new ReplaceExtensionTransformer('.mdc')
-      ],
-      [
+      (instruction: F) => {
+        const contextId = instruction.contextId
+        return [
+          new AddPathPrefixTransformer('rules'),
+          new AddFilenamePrefixTransformer(`${contextId}-`),
+          new AddFilenamePrefixTransformer(`rete-`),
+          new ReplaceExtensionTransformer('.mdc')
+        ]
+      },
+      (instruction: F) => [
+        new PrefixedHeadingTransformer(instruction, '[Rete.js]'),
         new AddYamlFrontmatterTransformer({ alwaysApply: true })
       ]
     )
