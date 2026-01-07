@@ -5,6 +5,8 @@ export class PluginContext extends Context {
   readonly description = 'Plugin Development & Debugging - Support advanced users developing, debugging, '
   + 'or customizing plugins'
   readonly instructions: InstructionFile[] = [
-    { file: 'instructions.md', title: 'Plugin Context - Development & Debugging' }
+    { file: 'architecture.md', title: 'Plugin Architecture' },
+    { file: 'workflow.md', title: 'Development Workflow' },
+    { file: 'protocol.md', title: 'Complete Coverage Protocol' }
   ]
 }
