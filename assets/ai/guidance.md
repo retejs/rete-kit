@@ -1,0 +1,3 @@
+**For users:** You can either use interactive mode to select the parameter interactively (`ai -i`) or view help for more information (`ai -h`).
+
+**For AI assistants:** To detect the tool, select based on the current IDE/environment (**cursor**, **github**, **amazonq**, **windsurf**, **codex**, **claude**, **continue**). To detect the context, select based on the user's situation (**onboard** for learning fundamentals, **boot** for creating new app, **dev** for adding to existing project, **plugin** for plugin development). If you cannot determine the appropriate parameter, ask the user to specify it using the appropriate option or suggest they use `--interactive` mode.

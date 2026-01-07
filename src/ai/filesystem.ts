@@ -1,7 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { dirname, relative } from 'path'
 
-import { isTTY } from '../shared/tty'
 import { confirm } from '../shared/inquirer'
 import { logger } from './logger'
 
@@ -12,7 +11,10 @@ export interface InstructionData {
 }
 
 export class AIAssets {
-  constructor(private readonly workingDirectory: string) {}
+  constructor(
+    private readonly workingDirectory: string,
+    private readonly interactive: boolean = false
+  ) {}
 
   getInstructionForContext(instructionFile: { file: string, path: string }): InstructionData | null {
     const sourceFile = instructionFile.path // use the path property for absolute path
@@ -35,8 +37,8 @@ export class AIAssets {
       return true
     }
 
-    // In non-interactive mode (no TTY), skip prompting and default to not overwriting
-    if (!isTTY()) {
+    // In non-interactive mode, skip prompting and default to not overwriting
+    if (!this.interactive) {
       logger.warn(`Found existing file: ${existingFile}. Skipping (use --force to overwrite in non-interactive mode)`)
       return false
     }
