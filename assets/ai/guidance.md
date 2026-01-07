@@ -1,3 +1,16 @@
-**For users:** You can either use interactive mode to select the parameter interactively (`ai -i`) or view help for more information (`ai -h`).
+## User Instructions (not for AI assistants)
+- Interactive mode: `ai -i`
+- View help: `ai -h`
 
-**For AI assistants:** To detect the tool, select based on the current IDE/environment (**cursor**, **github**, **amazonq**, **windsurf**, **codex**, **claude**, **continue**). To detect the context, select based on the user's situation (**onboard** for learning fundamentals, **boot** for creating new app, **dev** for adding to existing project, **plugin** for plugin development). If you cannot determine the appropriate parameter, ask the user to specify it using the appropriate option or suggest they use `--interactive` mode.
+## AI Assistant Instructions
+
+### Initialization
+1. Run `ai --help` to discover available tools and contexts
+2. Detect tool from IDE/environment signals
+3. Detect context from user's situation/query or workspace structure
+
+### Decision Flow
+- **High confidence**: Execute command directly
+- **Low confidence or detection failure**: Ask user before proceeding
+- **Communication**: Be concise when asking; prefer action over questions only when certain of intent
+- **Non-interactive mode**: don't run the command with `-i --interactive` flag
