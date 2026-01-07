@@ -1,22 +1,18 @@
 import { BaseTool } from '../base'
-import { AIAssets } from '../../filesystem'
-import { InstructionFile } from '../../contexts/base'
+import { MultiFileStrategy, InstructionStrategy } from '../../strategies'
 
 export class CursorTool extends BaseTool {
   constructor() {
     super('cursor', '.cursor')
   }
 
-  async apply(aiAssets: AIAssets, instructionFiles: (InstructionFile & { path: string })[], force?: boolean): Promise<void> {
-    return super.apply(aiAssets, instructionFiles, force, instructions => {
-      return instructions.map(instruction => ({
-        ...instruction,
-        content: `---
+  protected getStrategy(): InstructionStrategy {
+    return new MultiFileStrategy(
+      (file) => `rules/${file.replace(/\.[^.]+$/, '.mdc')}`,
+      (content) => `---
 alwaysApply: true
 ---
-${instruction.content}`,
-        file: `rules/${instruction.file.replace(/\.[^.]+$/, '.mdc')}`
-      }))
-    })
+${content}`
+    )
   }
 }
