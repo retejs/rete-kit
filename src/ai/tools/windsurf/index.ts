@@ -3,7 +3,8 @@ import {
   MultiFileStrategy,
   InstructionStrategy,
   AddPathPrefixTransformer,
-  AddYamlFrontmatterTransformer
+  AddYamlFrontmatterTransformer,
+  AddFilenamePrefixTransformer
 } from '../../strategies'
 
 export class WindsurfTool extends BaseTool {
@@ -13,7 +14,10 @@ export class WindsurfTool extends BaseTool {
 
   protected getStrategy(): InstructionStrategy {
     return new MultiFileStrategy(
-      [new AddPathPrefixTransformer('rules')],
+      [
+        new AddPathPrefixTransformer('rules'),
+        new AddFilenamePrefixTransformer('rete-')
+      ],
       [new AddYamlFrontmatterTransformer({ trigger: 'always_on' })]
     )
   }

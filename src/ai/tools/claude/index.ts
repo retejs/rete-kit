@@ -1,5 +1,5 @@
 import { BaseTool } from '../base'
-import { SingleFileStrategy, InstructionStrategy } from '../../strategies'
+import { SingleFileStrategy, InstructionStrategy, PrefixedHeadingTransformer } from '../../strategies'
 
 export class ClaudeTool extends BaseTool {
   constructor() {
@@ -7,6 +7,8 @@ export class ClaudeTool extends BaseTool {
   }
 
   protected getStrategy(): InstructionStrategy {
-    return new SingleFileStrategy('CLAUDE.md')
+    return new SingleFileStrategy('CLAUDE.md', [
+      new PrefixedHeadingTransformer('[Rete]')
+    ])
   }
 }

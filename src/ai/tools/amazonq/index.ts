@@ -2,7 +2,8 @@ import { BaseTool } from '../base'
 import {
   MultiFileStrategy,
   InstructionStrategy,
-  AddPathPrefixTransformer
+  AddPathPrefixTransformer,
+  AddFilenamePrefixTransformer
 } from '../../strategies'
 
 export class AmazonQTool extends BaseTool {
@@ -11,6 +12,9 @@ export class AmazonQTool extends BaseTool {
   }
 
   protected getStrategy(): InstructionStrategy {
-    return new MultiFileStrategy([new AddPathPrefixTransformer('rules')])
+    return new MultiFileStrategy([
+      new AddPathPrefixTransformer('rules'),
+      new AddFilenamePrefixTransformer('rete-')
+    ])
   }
 }

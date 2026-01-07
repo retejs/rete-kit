@@ -1,5 +1,5 @@
 import { BaseTool } from '../base'
-import { SingleFileStrategy, InstructionStrategy } from '../../strategies'
+import { SingleFileStrategy, InstructionStrategy, PrefixedHeadingTransformer } from '../../strategies'
 
 export class GithubTool extends BaseTool {
   constructor() {
@@ -7,6 +7,8 @@ export class GithubTool extends BaseTool {
   }
 
   protected getStrategy(): InstructionStrategy {
-    return new SingleFileStrategy('copilot-instructions.md')
+    return new SingleFileStrategy('copilot-instructions.md', [
+      new PrefixedHeadingTransformer('[Rete]')
+    ])
   }
 }

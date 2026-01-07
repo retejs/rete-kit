@@ -1,5 +1,5 @@
 import { BaseTool } from '../base'
-import { SingleFileStrategy, InstructionStrategy } from '../../strategies'
+import { SingleFileStrategy, InstructionStrategy, PrefixedHeadingTransformer } from '../../strategies'
 
 export class CodexTool extends BaseTool {
   constructor() {
@@ -7,6 +7,8 @@ export class CodexTool extends BaseTool {
   }
 
   protected getStrategy(): InstructionStrategy {
-    return new SingleFileStrategy('AGENTS.md')
+    return new SingleFileStrategy('AGENTS.md', [
+      new PrefixedHeadingTransformer('[Rete]')
+    ])
   }
 }

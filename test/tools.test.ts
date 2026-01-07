@@ -98,7 +98,7 @@ describe('Tools', () => {
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
-      expect(content).toBe('Content from instruction 1\n\nContent from instruction 2')
+      expect(content).toBe('## [Rete] instruction1.md\n\nContent from instruction 1\n\n## [Rete] instruction2.md\n\nContent from instruction 2')
     })
 
     it('should merge multiple instruction files into single file', async () => {
@@ -119,7 +119,7 @@ describe('Tools', () => {
 
       const targetFile = join(testDir, '.github', 'copilot-instructions.md')
       const content = readFileSync(targetFile, 'utf-8')
-      expect(content).toBe('Rule 1\n\nRule 2\n\nRule 3')
+      expect(content).toBe('## [Rete] rule1.md\n\nRule 1\n\n## [Rete] rule2.md\n\nRule 2\n\n## [Rete] rule3.md\n\nRule 3')
     })
 
     it('should handle empty instruction files array', async () => {
@@ -166,7 +166,7 @@ describe('Tools', () => {
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
-      expect(content).toBe('Rule 1 content\n\nRule 2 content')
+      expect(content).toBe('## [Rete] rule1.md\n\nRule 1 content\n\n## [Rete] rule2.md\n\nRule 2 content')
     })
 
     it('should merge multiple files into single AGENTS.md', async () => {
@@ -183,7 +183,7 @@ describe('Tools', () => {
 
       const targetFile = join(testDir, 'AGENTS.md')
       expect(existsSync(targetFile)).toBe(true)
-      expect(readFileSync(targetFile, 'utf-8')).toBe('Guide content')
+      expect(readFileSync(targetFile, 'utf-8')).toBe('## [Rete] guide.md\n\nGuide content')
     })
   })
 
@@ -204,7 +204,7 @@ describe('Tools', () => {
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
-      expect(content).toBe('Guide content')
+      expect(content).toBe('## [Rete] guide.md\n\nGuide content')
     })
 
     it('should merge multiple files into single CLAUDE.md', async () => {
@@ -223,7 +223,7 @@ describe('Tools', () => {
 
       const targetFile = join(testDir, 'CLAUDE.md')
       const content = readFileSync(targetFile, 'utf-8')
-      expect(content).toBe('Part 1\n\nPart 2')
+      expect(content).toBe('## [Rete] part1.md\n\nPart 1\n\n## [Rete] part2.md\n\nPart 2')
     })
   })
 
@@ -242,11 +242,11 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile1 = join(testDir, '.cursor', 'rules', 'rule1.mdc')
+      const targetFile1 = join(testDir, '.cursor', 'rules', 'rete-rule1.mdc')
       expect(existsSync(targetFile1)).toBe(true)
       expect(readFileSync(targetFile1, 'utf-8')).toContain('Rule 1 content')
 
-      const targetFile2 = join(testDir, '.cursor', 'rules', 'rule2.mdc')
+      const targetFile2 = join(testDir, '.cursor', 'rules', 'rete-rule2.mdc')
       expect(existsSync(targetFile2)).toBe(true)
       expect(readFileSync(targetFile2, 'utf-8')).toContain('Rule 2 content')
     })
@@ -263,7 +263,7 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile = join(testDir, '.cursor', 'rules', 'rule.mdc')
+      const targetFile = join(testDir, '.cursor', 'rules', 'rete-rule.mdc')
       const content = readFileSync(targetFile, 'utf-8')
       expect(content).toContain('---')
       expect(content).toContain('alwaysApply: true')
@@ -287,11 +287,11 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      expect(existsSync(join(testDir, '.cursor', 'rules', 'file1.mdc'))).toBe(true)
-      expect(existsSync(join(testDir, '.cursor', 'rules', 'file2.mdc'))).toBe(true)
-      expect(existsSync(join(testDir, '.cursor', 'rules', 'file3.mdc'))).toBe(true)
+      expect(existsSync(join(testDir, '.cursor', 'rules', 'rete-file1.mdc'))).toBe(true)
+      expect(existsSync(join(testDir, '.cursor', 'rules', 'rete-file2.mdc'))).toBe(true)
+      expect(existsSync(join(testDir, '.cursor', 'rules', 'rete-file3.mdc'))).toBe(true)
 
-      const content1 = readFileSync(join(testDir, '.cursor', 'rules', 'file1.mdc'), 'utf-8')
+      const content1 = readFileSync(join(testDir, '.cursor', 'rules', 'rete-file1.mdc'), 'utf-8')
       expect(content1).toContain('---')
       expect(content1).toContain('alwaysApply: true')
       expect(content1).toContain('Content 1')
@@ -311,7 +311,7 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile = join(testDir, '.windsurf', 'rules', 'guide.md')
+      const targetFile = join(testDir, '.windsurf', 'rules', 'rete-guide.md')
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
@@ -330,7 +330,7 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile = join(testDir, '.windsurf', 'rules', 'rule.md')
+      const targetFile = join(testDir, '.windsurf', 'rules', 'rete-rule.md')
       const content = readFileSync(targetFile, 'utf-8')
       expect(content).toContain('---')
       expect(content).toContain('trigger: always_on')
@@ -349,7 +349,7 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile = join(testDir, '.windsurf', 'rules', 'guide.md')
+      const targetFile = join(testDir, '.windsurf', 'rules', 'rete-guide.md')
       expect(existsSync(targetFile)).toBe(true)
     })
   })
@@ -367,7 +367,7 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile = join(testDir, '.agent', 'rules', 'rule.md')
+      const targetFile = join(testDir, '.agent', 'rules', 'rete-rule.md')
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
@@ -386,7 +386,7 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile = join(testDir, '.agent', 'rules', 'guide.md')
+      const targetFile = join(testDir, '.agent', 'rules', 'rete-guide.md')
       const content = readFileSync(targetFile, 'utf-8')
       expect(content).toBe('Original content')
       expect(content).not.toContain('---')
@@ -406,7 +406,7 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile = join(testDir, '.continue', 'rules', 'instruction.md')
+      const targetFile = join(testDir, '.continue', 'rules', 'rete-instruction.md')
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
@@ -425,7 +425,7 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile = join(testDir, '.continue', 'rules', 'rule.md')
+      const targetFile = join(testDir, '.continue', 'rules', 'rete-rule.md')
       const content = readFileSync(targetFile, 'utf-8')
       expect(content).toBe('Rule content')
       expect(content).not.toContain('---')
@@ -445,7 +445,7 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile = join(testDir, '.amazonq', 'rules', 'rule.md')
+      const targetFile = join(testDir, '.amazonq', 'rules', 'rete-rule.md')
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
@@ -464,7 +464,7 @@ describe('Tools', () => {
 
       await tool.apply(aiAssets, instructionFiles, true)
 
-      const targetFile = join(testDir, '.amazonq', 'rules', 'guide.md')
+      const targetFile = join(testDir, '.amazonq', 'rules', 'rete-guide.md')
       const content = readFileSync(targetFile, 'utf-8')
       expect(content).toBe('Guide content')
       expect(content).not.toContain('---')

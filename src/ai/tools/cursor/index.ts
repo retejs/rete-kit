@@ -4,7 +4,8 @@ import {
   InstructionStrategy,
   AddPathPrefixTransformer,
   ReplaceExtensionTransformer,
-  AddYamlFrontmatterTransformer
+  AddYamlFrontmatterTransformer,
+  AddFilenamePrefixTransformer
 } from '../../strategies'
 
 export class CursorTool extends BaseTool {
@@ -16,6 +17,7 @@ export class CursorTool extends BaseTool {
     return new MultiFileStrategy(
       [
         new AddPathPrefixTransformer('rules'),
+        new AddFilenamePrefixTransformer('rete-'),
         new ReplaceExtensionTransformer('.mdc')
       ],
       [
