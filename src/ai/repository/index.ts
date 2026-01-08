@@ -33,6 +33,7 @@ export class Repository<T extends Identifiable> {
 
     // Otherwise, throw an error
     const available = this.items.map(item => item.getName()).join(', ')
+
     throw new Error(`No ${this.type} specified. Available ${this.type}s: ${available}`)
   }
 

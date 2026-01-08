@@ -3,5 +3,5 @@
  * @returns true if running in an interactive terminal, false otherwise
  */
 export function isTTY(): boolean {
-  return process.stdin.isTTY === true && process.stdout.isTTY === true
+  return process.stdin.isTTY && process.stdout.isTTY
 }

@@ -1,5 +1,5 @@
-import { InstructionStrategy, F } from './types'
 import { ContentTransformer } from './transformers'
+import { F, InstructionStrategy } from './types'
 
 /**
  * Strategy for merging all instructions into a single file
@@ -17,13 +17,16 @@ export class SingleFileStrategy implements InstructionStrategy {
 
     // Process each instruction individually (apply transformers), then merge them
     const processedContents = instructions.map(instruction => {
-      const contentTransformers = this.contentTransformerFactory ? this.contentTransformerFactory(instruction) : []
-      
+      const contentTransformers = this.contentTransformerFactory
+        ? this.contentTransformerFactory(instruction)
+        : []
+
       let content = instruction.content
+
       for (const transformer of contentTransformers) {
         content = transformer.transform(content)
       }
-      
+
       return content
     })
 

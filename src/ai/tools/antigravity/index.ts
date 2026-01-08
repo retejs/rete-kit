@@ -1,12 +1,10 @@
-import { BaseTool } from '../base'
-import {
-  MultiFileStrategy,
-  InstructionStrategy,
+import { AddFilenamePrefixTransformer,
   AddPathPrefixTransformer,
-  AddFilenamePrefixTransformer,
-  PrefixedHeadingTransformer,
-  F
-} from '../../strategies'
+  F,
+  InstructionStrategy,
+  MultiFileStrategy,
+  PrefixedHeadingTransformer } from '../../strategies'
+import { BaseTool } from '../base'
 
 export class AntigravityTool extends BaseTool {
   constructor() {
@@ -17,6 +15,7 @@ export class AntigravityTool extends BaseTool {
     return new MultiFileStrategy(
       (instruction: F) => {
         const contextId = instruction.contextId
+
         return [
           new AddPathPrefixTransformer('.agent/rules'),
           new AddFilenamePrefixTransformer(`${contextId}-`),

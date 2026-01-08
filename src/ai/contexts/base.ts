@@ -16,7 +16,7 @@ export abstract class Context {
     return this.name
   }
 
-  getInstructions(): (InstructionFile & { path: string; contextId: string })[] {
+  getInstructions(): (InstructionFile & { path: string, contextId: string })[] {
     const instructionsPath = join(assetsAI, this.name)
 
     return this.instructions.map(instruction => ({

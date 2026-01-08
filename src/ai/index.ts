@@ -38,7 +38,6 @@ function validateParameters(contextId: string | undefined, selectedTool: string 
   }
 }
 
-// eslint-disable-next-line max-statements
 export async function buildInstructions(selectedTool?: string, contextId?: string, force?: boolean, interactive = false) {
   logger.warn('This command is experimental. Use with caution.')
 

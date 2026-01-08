@@ -7,7 +7,10 @@ export class AddPathPrefixTransformer implements PathTransformer {
   constructor(private readonly prefix: string) {}
 
   transform(file: string): string {
-    const normalizedPrefix = this.prefix.endsWith('/') ? this.prefix : `${this.prefix}/`
+    const normalizedPrefix = this.prefix.endsWith('/')
+      ? this.prefix
+      : `${this.prefix}/`
+
     return `${normalizedPrefix}${file}`
   }
 }

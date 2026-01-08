@@ -3,15 +3,15 @@
 import { createCommand, Option } from 'commander'
 
 import { buildInstructions, getToolNames } from './ai'
-import { GuidanceError } from './ai/guidance'
 import { getContextNames } from './ai/contexts'
+import { GuidanceError } from './ai/guidance'
 import { logger } from './ai/logger'
 import { AppStack, appStacks, createApp } from './app'
 import { build } from './build'
 import { createPlugin } from './plugin'
 import { getReteDependenciesFor } from './scan'
-import { isTTY } from './shared/tty'
 import { throwError } from './shared/throw'
+import { isTTY } from './shared/tty'
 import { updateCli } from './update-cli'
 
 const program = createCommand()
@@ -93,14 +93,15 @@ program
   .action(async (options: { tool?: string, context?: string, force?: boolean, interactive?: boolean }) => {
     // Check TTY once - interactive mode can only be enabled when TTY is available
     const hasTTY = isTTY()
+
     if (options.interactive && !hasTTY) {
       console.error('\nError: --interactive option requires an interactive terminal (TTY).\n')
       process.exit(1)
     }
-    
+
     // Interactive mode is only enabled if --interactive flag is explicitly provided AND TTY is available
     const interactive = options.interactive === true && hasTTY
-    
+
     try {
       await buildInstructions(options.tool, options.context, options.force, interactive)
     } catch (error) {

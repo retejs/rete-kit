@@ -1,11 +1,9 @@
-export type { InstructionStrategy, F } from './types'
-export { SingleFileStrategy } from './single-file'
 export { MultiFileStrategy } from './multi-file'
-export type { PathTransformer, ContentTransformer } from './transformers'
-export {
-  ReplaceExtensionTransformer,
+export { SingleFileStrategy } from './single-file'
+export type { ContentTransformer, PathTransformer } from './transformers'
+export { AddFilenamePrefixTransformer,
   AddPathPrefixTransformer,
-  AddFilenamePrefixTransformer,
-  AddYamlFrontmatterTransformer
-} from './transformers'
+  AddYamlFrontmatterTransformer,
+  ReplaceExtensionTransformer } from './transformers'
 export { PrefixedHeadingTransformer } from './transformers/content/add-heading'
+export type { F, InstructionStrategy } from './types'

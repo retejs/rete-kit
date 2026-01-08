@@ -1,6 +1,6 @@
-import { describe, expect, it, beforeEach, afterEach, jest } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
+import { existsSync, mkdirSync, readFileSync, rmSync } from 'fs'
 import { join } from 'path'
-import { existsSync, readFileSync, mkdirSync, rmSync } from 'fs'
 
 // Mock logger to silence console output during tests
 jest.mock('../src/ai/logger', () => ({
@@ -12,6 +12,7 @@ jest.mock('../src/ai/logger', () => ({
   }
 }))
 
+import { InstructionFile } from '../src/ai/contexts/base'
 import { AIAssets } from '../src/ai/filesystem'
 import {
   AmazonQTool,
@@ -23,13 +24,13 @@ import {
   GithubTool,
   WindsurfTool
 } from '../src/ai/tools'
-import { InstructionFile } from '../src/ai/contexts/base'
 
 const mockWorkingDir = '/tmp/rete-kit-test'
 
 // Helper to create a temporary directory for testing
 function setupTestDir(): string {
   const testDir = join(mockWorkingDir, `test-${Date.now()}`)
+
   if (existsSync(testDir)) {
     rmSync(testDir, { recursive: true, force: true })
   }
@@ -39,9 +40,9 @@ function setupTestDir(): string {
 
 // Mock AIAssets class
 class MockAIAssets extends AIAssets {
-  private mockInstructions: Map<string, string> = new Map()
+  private mockInstructions = new Map<string, string>()
 
-  constructor(workingDirectory: string, interactive: boolean = false) {
+  constructor(workingDirectory: string, interactive = false) {
     super(workingDirectory, interactive)
   }
 
@@ -51,6 +52,7 @@ class MockAIAssets extends AIAssets {
 
   getInstructionForContext(instructionFile: { file: string, path: string, contextId: string, title: string }): { path: string, content: string, file: string, contextId: string, title: string } | null {
     const content = this.mockInstructions.get(instructionFile.file)
+
     if (content) {
       return {
         path: instructionFile.path,
@@ -65,8 +67,8 @@ class MockAIAssets extends AIAssets {
 }
 
 describe('Tools', () => {
-  let testDir: string
-  let originalCwd: string
+  let testDir = ''
+  let originalCwd = ''
 
   beforeEach(() => {
     testDir = setupTestDir()
@@ -89,7 +91,7 @@ describe('Tools', () => {
       aiAssets.setMockInstruction('instruction1.md', 'Content from instruction 1')
       aiAssets.setMockInstruction('instruction2.md', 'Content from instruction 2')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'instruction1.md', title: 'Instruction 1', path: '/mock/path/instruction1.md', contextId: 'test' },
         { file: 'instruction2.md', title: 'Instruction 2', path: '/mock/path/instruction2.md', contextId: 'test' }
       ]
@@ -97,9 +99,11 @@ describe('Tools', () => {
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile = join(testDir, '.github', 'copilot-instructions.md')
+
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toBe('# [Rete.js] Instruction 1\n\nContent from instruction 1\n\n# [Rete.js] Instruction 2\n\nContent from instruction 2')
     })
 
@@ -111,7 +115,7 @@ describe('Tools', () => {
       aiAssets.setMockInstruction('rule2.md', 'Rule 2')
       aiAssets.setMockInstruction('rule3.md', 'Rule 3')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'rule1.md', title: 'Rule 1', path: '/mock/path/rule1.md', contextId: 'test' },
         { file: 'rule2.md', title: 'Rule 2', path: '/mock/path/rule2.md', contextId: 'test' },
         { file: 'rule3.md', title: 'Rule 3', path: '/mock/path/rule3.md', contextId: 'test' }
@@ -121,6 +125,7 @@ describe('Tools', () => {
 
       const targetFile = join(testDir, '.github', 'copilot-instructions.md')
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toBe('# [Rete.js] Rule 1\n\nRule 1\n\n# [Rete.js] Rule 2\n\nRule 2\n\n# [Rete.js] Rule 3\n\nRule 3')
     })
 
@@ -131,6 +136,7 @@ describe('Tools', () => {
       await tool.apply(aiAssets, [], true)
 
       const targetFile = join(testDir, '.github', 'copilot-instructions.md')
+
       expect(existsSync(targetFile)).toBe(false)
     })
 
@@ -138,13 +144,14 @@ describe('Tools', () => {
       const tool = new GithubTool()
       const aiAssets = new MockAIAssets(testDir, false)
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'missing.md', title: 'Missing', path: '/mock/path/missing.md', contextId: 'test' }
       ]
 
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile = join(testDir, '.github', 'copilot-instructions.md')
+
       expect(existsSync(targetFile)).toBe(false)
     })
   })
@@ -157,7 +164,7 @@ describe('Tools', () => {
       aiAssets.setMockInstruction('rule1.md', 'Rule 1 content')
       aiAssets.setMockInstruction('rule2.md', 'Rule 2 content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'rule1.md', title: 'Rule 1', path: '/mock/path/rule1.md', contextId: 'test' },
         { file: 'rule2.md', title: 'Rule 2', path: '/mock/path/rule2.md', contextId: 'test' }
       ]
@@ -165,9 +172,11 @@ describe('Tools', () => {
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile = join(testDir, 'AGENTS.md')
+
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toBe('# [Rete.js] Rule 1\n\nRule 1 content\n\n# [Rete.js] Rule 2\n\nRule 2 content')
     })
 
@@ -177,13 +186,14 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('guide.md', 'Guide content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'guide.md', title: 'Guide', path: '/mock/path/guide.md', contextId: 'test' }
       ]
 
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile = join(testDir, 'AGENTS.md')
+
       expect(existsSync(targetFile)).toBe(true)
       expect(readFileSync(targetFile, 'utf-8')).toBe('# [Rete.js] Guide\n\nGuide content')
     })
@@ -196,16 +206,18 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('guide.md', 'Guide content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'guide.md', title: 'Guide', path: '/mock/path/guide.md', contextId: 'test' }
       ]
 
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile = join(testDir, 'CLAUDE.md')
+
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toBe('# [Rete.js] Guide\n\nGuide content')
     })
 
@@ -216,7 +228,7 @@ describe('Tools', () => {
       aiAssets.setMockInstruction('part1.md', 'Part 1')
       aiAssets.setMockInstruction('part2.md', 'Part 2')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'part1.md', title: 'Part 1', path: '/mock/path/part1.md', contextId: 'test' },
         { file: 'part2.md', title: 'Part 2', path: '/mock/path/part2.md', contextId: 'test' }
       ]
@@ -225,6 +237,7 @@ describe('Tools', () => {
 
       const targetFile = join(testDir, 'CLAUDE.md')
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toBe('# [Rete.js] Part 1\n\nPart 1\n\n# [Rete.js] Part 2\n\nPart 2')
     })
   })
@@ -237,7 +250,7 @@ describe('Tools', () => {
       aiAssets.setMockInstruction('rule1.md', 'Rule 1 content')
       aiAssets.setMockInstruction('rule2.md', 'Rule 2 content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'rule1.md', title: 'Rule 1', path: '/mock/path/rule1.md', contextId: 'test' },
         { file: 'rule2.md', title: 'Rule 2', path: '/mock/path/rule2.md', contextId: 'test' }
       ]
@@ -245,14 +258,18 @@ describe('Tools', () => {
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile1 = join(testDir, '.cursor', 'rules', 'rete-test-rule1.mdc')
+
       expect(existsSync(targetFile1)).toBe(true)
       const content1 = readFileSync(targetFile1, 'utf-8')
+
       expect(content1).toContain('# [Rete.js] Rule 1')
       expect(content1).toContain('Rule 1 content')
 
       const targetFile2 = join(testDir, '.cursor', 'rules', 'rete-test-rule2.mdc')
+
       expect(existsSync(targetFile2)).toBe(true)
       const content2 = readFileSync(targetFile2, 'utf-8')
+
       expect(content2).toContain('# [Rete.js] Rule 2')
       expect(content2).toContain('Rule 2 content')
     })
@@ -263,7 +280,7 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('rule.md', 'Rule content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'rule.md', title: 'Rule', path: '/mock/path/rule.md', contextId: 'test' }
       ]
 
@@ -271,6 +288,7 @@ describe('Tools', () => {
 
       const targetFile = join(testDir, '.cursor', 'rules', 'rete-test-rule.mdc')
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toContain('---')
       expect(content).toContain('alwaysApply: true')
       expect(content).toContain('# [Rete.js] Rule')
@@ -286,7 +304,7 @@ describe('Tools', () => {
       aiAssets.setMockInstruction('file2.md', 'Content 2')
       aiAssets.setMockInstruction('file3.md', 'Content 3')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'file1.md', title: 'File 1', path: '/mock/path/file1.md', contextId: 'test' },
         { file: 'file2.md', title: 'File 2', path: '/mock/path/file2.md', contextId: 'test' },
         { file: 'file3.md', title: 'File 3', path: '/mock/path/file3.md', contextId: 'test' }
@@ -299,16 +317,19 @@ describe('Tools', () => {
       expect(existsSync(join(testDir, '.cursor', 'rules', 'rete-test-file3.mdc'))).toBe(true)
 
       const content1 = readFileSync(join(testDir, '.cursor', 'rules', 'rete-test-file1.mdc'), 'utf-8')
+
       expect(content1).toContain('---')
       expect(content1).toContain('alwaysApply: true')
       expect(content1).toContain('# [Rete.js] File 1')
       expect(content1).toContain('Content 1')
 
       const content2 = readFileSync(join(testDir, '.cursor', 'rules', 'rete-test-file2.mdc'), 'utf-8')
+
       expect(content2).toContain('# [Rete.js] File 2')
       expect(content2).toContain('Content 2')
 
       const content3 = readFileSync(join(testDir, '.cursor', 'rules', 'rete-test-file3.mdc'), 'utf-8')
+
       expect(content3).toContain('# [Rete.js] File 3')
       expect(content3).toContain('Content 3')
     })
@@ -321,16 +342,18 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('guide.md', 'Guide content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'guide.md', title: 'Guide', path: '/mock/path/guide.md', contextId: 'test' }
       ]
 
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile = join(testDir, '.windsurf', 'rules', 'rete-test-guide.md')
+
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toContain('# [Rete.js] Guide')
       expect(content).toContain('Guide content')
     })
@@ -341,7 +364,7 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('rule.md', 'Rule content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'rule.md', title: 'Rule', path: '/mock/path/rule.md', contextId: 'test' }
       ]
 
@@ -349,6 +372,7 @@ describe('Tools', () => {
 
       const targetFile = join(testDir, '.windsurf', 'rules', 'rete-test-rule.md')
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toContain('---')
       expect(content).toContain('trigger: always_on')
       expect(content).toContain('# [Rete.js] Rule')
@@ -361,13 +385,14 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('guide.md', 'Guide content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'guide.md', title: 'Guide', path: '/mock/path/guide.md', contextId: 'test' }
       ]
 
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile = join(testDir, '.windsurf', 'rules', 'rete-test-guide.md')
+
       expect(existsSync(targetFile)).toBe(true)
     })
   })
@@ -379,16 +404,18 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('rule.md', 'Rule content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'rule.md', title: 'Rule', path: '/mock/path/rule.md', contextId: 'test' }
       ]
 
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile = join(testDir, '.agent', 'rules', 'rete-test-rule.md')
+
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toContain('# [Rete.js] Rule')
       expect(content).toContain('Rule content')
     })
@@ -399,7 +426,7 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('guide.md', 'Original content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'guide.md', title: 'Guide', path: '/mock/path/guide.md', contextId: 'test' }
       ]
 
@@ -407,6 +434,7 @@ describe('Tools', () => {
 
       const targetFile = join(testDir, '.agent', 'rules', 'rete-test-guide.md')
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toContain('# [Rete.js] Guide')
       expect(content).toContain('Original content')
       expect(content).not.toContain('---')
@@ -420,16 +448,18 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('instruction.md', 'Instruction content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'instruction.md', title: 'Instruction', path: '/mock/path/instruction.md', contextId: 'test' }
       ]
 
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile = join(testDir, '.continue', 'rules', 'rete-test-instruction.md')
+
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toContain('# [Rete.js] Instruction')
       expect(content).toContain('Instruction content')
     })
@@ -440,7 +470,7 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('rule.md', 'Rule content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'rule.md', title: 'Rule', path: '/mock/path/rule.md', contextId: 'test' }
       ]
 
@@ -448,6 +478,7 @@ describe('Tools', () => {
 
       const targetFile = join(testDir, '.continue', 'rules', 'rete-test-rule.md')
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toContain('# [Rete.js] Rule')
       expect(content).toContain('Rule content')
       expect(content).not.toContain('---')
@@ -461,16 +492,18 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('rule.md', 'Amazon Q rule content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'rule.md', title: 'Rule', path: '/mock/path/rule.md', contextId: 'test' }
       ]
 
       await tool.apply(aiAssets, instructionFiles, true)
 
       const targetFile = join(testDir, '.amazonq', 'rules', 'rete-test-rule.md')
+
       expect(existsSync(targetFile)).toBe(true)
 
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toContain('# [Rete.js] Rule')
       expect(content).toContain('Amazon Q rule content')
     })
@@ -481,7 +514,7 @@ describe('Tools', () => {
 
       aiAssets.setMockInstruction('guide.md', 'Guide content')
 
-      const instructionFiles: (InstructionFile & { path: string; contextId: string })[] = [
+      const instructionFiles: (InstructionFile & { path: string, contextId: string })[] = [
         { file: 'guide.md', title: 'Guide', path: '/mock/path/guide.md', contextId: 'test' }
       ]
 
@@ -489,6 +522,7 @@ describe('Tools', () => {
 
       const targetFile = join(testDir, '.amazonq', 'rules', 'rete-test-guide.md')
       const content = readFileSync(targetFile, 'utf-8')
+
       expect(content).toContain('# [Rete.js] Guide')
       expect(content).toContain('Guide content')
       expect(content).not.toContain('---')

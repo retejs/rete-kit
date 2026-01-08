@@ -1,5 +1,5 @@
-import { InstructionStrategy, F } from './types'
-import { PathTransformer, ContentTransformer } from './transformers'
+import { ContentTransformer, PathTransformer } from './transformers'
+import { F, InstructionStrategy } from './types'
 
 /**
  * Strategy for keeping instructions as separate files
@@ -12,8 +12,12 @@ export class MultiFileStrategy implements InstructionStrategy {
 
   transform(instructions: F[]): F[] {
     return instructions.map(instruction => {
-      const pathTransformers = this.pathTransformerFactory ? this.pathTransformerFactory(instruction) : []
-      const contentTransformers = this.contentTransformerFactory ? this.contentTransformerFactory(instruction) : []
+      const pathTransformers = this.pathTransformerFactory
+        ? this.pathTransformerFactory(instruction)
+        : []
+      const contentTransformers = this.contentTransformerFactory
+        ? this.contentTransformerFactory(instruction)
+        : []
 
       let file = instruction.file
       let content = instruction.content

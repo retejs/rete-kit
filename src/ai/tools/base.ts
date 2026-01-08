@@ -1,13 +1,13 @@
 import { join } from 'path'
 
-import { AIAssets, InstructionData } from '../filesystem'
 import { InstructionFile } from '../contexts/base'
-import { InstructionStrategy, F } from '../strategies'
+import { AIAssets, InstructionData } from '../filesystem'
+import { F, InstructionStrategy } from '../strategies'
 
 export interface Tool {
   getName(): string
   getAssetPath(): string
-  apply(aiAssets: AIAssets, instructionFiles: (InstructionFile & { path: string; contextId: string })[], force?: boolean): Promise<void>
+  apply(aiAssets: AIAssets, instructionFiles: (InstructionFile & { path: string, contextId: string })[], force?: boolean): Promise<void>
 }
 
 export abstract class BaseTool implements Tool {
@@ -22,10 +22,10 @@ export abstract class BaseTool implements Tool {
   }
 
   protected getStrategy(): InstructionStrategy | undefined {
-    return undefined
+    return
   }
 
-  async apply(aiAssets: AIAssets, instructionFiles: (InstructionFile & { path: string; contextId: string })[], force?: boolean): Promise<void> {
+  async apply(aiAssets: AIAssets, instructionFiles: (InstructionFile & { path: string, contextId: string })[], force?: boolean): Promise<void> {
     if (instructionFiles.length === 0) {
       return
     }
@@ -45,6 +45,7 @@ export abstract class BaseTool implements Tool {
 
     // Apply strategy transformation if provided
     const strategy = this.getStrategy()
+
     if (strategy) {
       instructions = strategy.transform(instructions)
     }

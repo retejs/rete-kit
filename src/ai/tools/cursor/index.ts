@@ -1,14 +1,12 @@
-import { BaseTool } from '../base'
-import {
-  MultiFileStrategy,
-  InstructionStrategy,
+import { AddFilenamePrefixTransformer,
   AddPathPrefixTransformer,
-  ReplaceExtensionTransformer,
   AddYamlFrontmatterTransformer,
-  AddFilenamePrefixTransformer,
+  F,
+  InstructionStrategy,
+  MultiFileStrategy,
   PrefixedHeadingTransformer,
-  F
-} from '../../strategies'
+  ReplaceExtensionTransformer } from '../../strategies'
+import { BaseTool } from '../base'
 
 export class CursorTool extends BaseTool {
   constructor() {
@@ -19,6 +17,7 @@ export class CursorTool extends BaseTool {
     return new MultiFileStrategy(
       (instruction: F) => {
         const contextId = instruction.contextId
+
         return [
           new AddPathPrefixTransformer('rules'),
           new AddFilenamePrefixTransformer(`${contextId}-`),

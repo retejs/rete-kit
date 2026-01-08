@@ -7,6 +7,8 @@ export class ReplaceExtensionTransformer implements PathTransformer {
   constructor(private readonly newExtension: string) {}
 
   transform(file: string): string {
-    return file.replace(/\.[^.]+$/, this.newExtension.startsWith('.') ? this.newExtension : `.${this.newExtension}`)
+    return file.replace(/\.[^.]+$/, this.newExtension.startsWith('.')
+      ? this.newExtension
+      : `.${this.newExtension}`)
   }
 }

@@ -1,12 +1,10 @@
-import { BaseTool } from '../base'
-import {
-  MultiFileStrategy,
-  InstructionStrategy,
+import { AddFilenamePrefixTransformer,
   AddPathPrefixTransformer,
-  AddFilenamePrefixTransformer,
-  PrefixedHeadingTransformer,
-  F
-} from '../../strategies'
+  F,
+  InstructionStrategy,
+  MultiFileStrategy,
+  PrefixedHeadingTransformer } from '../../strategies'
+import { BaseTool } from '../base'
 
 export class AmazonQTool extends BaseTool {
   constructor() {
@@ -17,10 +15,11 @@ export class AmazonQTool extends BaseTool {
     return new MultiFileStrategy(
       (instruction: F) => {
         const contextId = instruction.contextId
+
         return [
           new AddPathPrefixTransformer('rules'),
           new AddFilenamePrefixTransformer(`${contextId}-`),
-          new AddFilenamePrefixTransformer(`rete-`),
+          new AddFilenamePrefixTransformer(`rete-`)
         ]
       },
       (instruction: F) => [

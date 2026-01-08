@@ -14,8 +14,10 @@ export class PrefixedHeadingTransformer implements ContentTransformer {
   transform(content: string): string {
     // Add first-level heading with prefix and instruction title
     const title = this.instruction.title || this.instruction.file.split('/').pop() || this.instruction.file
-    const heading = this.prefix ? `# ${this.prefix} ${title}` : `# ${title}`
-    
+    const heading = this.prefix
+      ? `# ${this.prefix} ${title}`
+      : `# ${title}`
+
     return `${heading}\n\n${content}`
   }
 }

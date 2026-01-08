@@ -15,7 +15,7 @@ export interface InstructionData {
 export class AIAssets {
   constructor(
     private readonly workingDirectory: string,
-    private readonly interactive: boolean = false
+    private readonly interactive = false
   ) {}
 
   getInstructionForContext(instructionFile: { file: string, path: string, contextId: string, title: string }): InstructionData | null {

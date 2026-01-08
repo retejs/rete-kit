@@ -1,5 +1,5 @@
+import { F, InstructionStrategy, PrefixedHeadingTransformer, SingleFileStrategy } from '../../strategies'
 import { BaseTool } from '../base'
-import { SingleFileStrategy, InstructionStrategy, PrefixedHeadingTransformer, F } from '../../strategies'
 
 export class ClaudeTool extends BaseTool {
   constructor() {
