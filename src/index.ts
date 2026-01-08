@@ -85,7 +85,7 @@ const contextOption = new Option('-c, --context <context>', 'Context for instruc
 
 program
   .command('ai')
-  .description('Create AI instructions for GitHub and Cursor')
+  .description('Create AI instructions for code editors')
   .option('-f, --force', 'Force overwrite existing files without confirmation')
   .option('-i, --interactive', 'Enable interactive mode to specify parameters interactively (requires TTY)')
   .addOption(toolOption)
