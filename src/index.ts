@@ -106,9 +106,10 @@ program
       await buildInstructions(options.tool, options.context, options.force, interactive)
     } catch (error) {
       if (error instanceof GuidanceError) {
-        if (error.guidance) {
+        const guidance = await error.guidance
+        if (guidance) {
           console.log() // Add spacing before guidance
-          logger.info(error.guidance)
+          logger.info(guidance)
         }
         throwError(error.message)
       }
