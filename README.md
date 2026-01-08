@@ -10,6 +10,7 @@ Rete.js Kit
 - **Create an application**: create an application with Rete.js and its features for UI framework of your choice
 - **Create a plugin**: create a basic plugin without setting up a build system, linter, or test runner
 - **Batch build**: streamline the development process by building multiple plugins from source code
+- **AI tooling** (experimental): generate context-aware AI instructions for code editors with specialized contexts for different development scenarios
 
 ## Getting Started
 
