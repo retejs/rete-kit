@@ -17,7 +17,7 @@ export type {
 
 export class AngularBuilder implements AppBuilder {
   public name = 'Angular'
-  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17, 18, 19, 20]
+  public versions: AngularVersion[] = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
   public foundation = 'angular' as const
 
   public async create(name: string, version: number) {
@@ -84,7 +84,7 @@ export class AngularBuilder implements AppBuilder {
   }
 
   getStaticPath(name: string, version?: number) {
-    if (version && [17, 18, 19, 20].includes(version)) return join('dist', name, 'browser')
+    if (version && [17, 18, 19, 20, 21].includes(version)) return join('dist', name, 'browser')
     return join('dist', name)
   }
 
