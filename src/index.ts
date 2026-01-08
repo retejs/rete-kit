@@ -107,6 +107,7 @@ program
     } catch (error) {
       if (error instanceof GuidanceError) {
         const guidance = await error.guidance
+
         if (guidance) {
           console.log() // Add spacing before guidance
           logger.info(guidance)
