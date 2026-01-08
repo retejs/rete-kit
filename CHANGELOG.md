@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/retejs/rete-kit/compare/v1.16.0...v1.16.1) (2026-01-08)
+
+
+### Bug Fixes
+
+* **ai:** use dynamic import for markdown-to-ansi in older node.js ([0f1ea70](https://github.com/retejs/rete-kit/commit/0f1ea7042748478207eda0950a8ce0a5f9dcb09f))
+
 # [1.16.0](https://github.com/retejs/rete-kit/compare/v1.15.1...v1.16.0) (2026-01-08)
 
 
