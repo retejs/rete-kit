@@ -5,6 +5,26 @@ import { assetsAI } from '../consts'
 import { logger } from './logger'
 
 /**
+ * Type definition for markdown-to-ansi converter function.
+ * Takes markdown text and returns ANSI-formatted string.
+ */
+type MarkdownConverter = (text: string) => string
+
+/**
+ * Type definition for markdown-to-ansi factory function.
+ * Returns a converter function when called.
+ */
+type MarkdownToAnsiFactory = () => MarkdownConverter
+
+/**
+ * Type definition for the markdown-to-ansi module.
+ * Can export the factory as default or as the module itself.
+ */
+type MarkdownToAnsiModule = {
+  default?: MarkdownToAnsiFactory
+} & MarkdownToAnsiFactory
+
+/**
  * Loads and formats the guidance message from markdown file for terminal display.
  * Converts markdown formatting (bold, italic, code, etc.) to ANSI escape codes.
  *
@@ -18,12 +38,18 @@ async function getGuidance(): Promise<string> {
 
     /*
      * Dynamic import is used because markdown-to-ansi is an ES module.
-     * When compiled to CommonJS, static imports would be transformed to require(),
-     * which doesn't work for ES modules in Node.js 18 and below.
+     * When compiled to CommonJS, TypeScript transforms import() to require(),
+     * which doesn't work for ES modules in Node.js 16 and 18.
+     * Using Function constructor prevents TypeScript from transforming the import.
      */
-    const markdownToAnsiModule = await import('markdown-to-ansi')
-    const markdownToAnsiFactory = markdownToAnsiModule.default ?? markdownToAnsiModule
-    const converter = markdownToAnsiFactory()
+    // eslint-disable-next-line @typescript-eslint/no-implied-eval
+    const dynamicImport = new Function('specifier', 'return import(specifier)') as (
+      specifier: string
+    ) => Promise<MarkdownToAnsiModule>
+    const markdownToAnsiModule = await dynamicImport('markdown-to-ansi')
+    const markdownToAnsiFactory: MarkdownToAnsiFactory = markdownToAnsiModule.default ?? markdownToAnsiModule
+    // markdown-to-ansi exports a factory function that returns a converter function
+    const converter: MarkdownConverter = markdownToAnsiFactory()
     // Convert markdown to ANSI-formatted terminal text (supports bold, italic, code, etc.)
 
     return converter(guidanceTemplate).trim()
