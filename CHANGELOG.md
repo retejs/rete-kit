@@ -1,3 +1,10 @@
+## [1.16.2](https://github.com/retejs/rete-kit/compare/v1.16.1...v1.16.2) (2026-01-08)
+
+
+### Bug Fixes
+
+* **ai:** improve markdown-to-ansi dynamic import handling ([31ba7f9](https://github.com/retejs/rete-kit/commit/31ba7f96653ac02fcc13a3c2e038c0904802cc52))
+
 ## [1.16.1](https://github.com/retejs/rete-kit/compare/v1.16.0...v1.16.1) (2026-01-08)
 
 
