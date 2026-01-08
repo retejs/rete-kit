@@ -1,3 +1,26 @@
+# [1.16.0](https://github.com/retejs/rete-kit/compare/v1.15.1...v1.16.0) (2026-01-08)
+
+
+### Bug Fixes
+
+* **ai:** update command description for AI instructions to reflect broader applicability ([8a0df75](https://github.com/retejs/rete-kit/commit/8a0df758bd5cf780903e20ad7e29228bd7aba941))
+
+
+### Features
+
+* **ai:** add ai instructions for onboarding, boot, development, and plugin contexts ([9bbfe8e](https://github.com/retejs/rete-kit/commit/9bbfe8eda2cf27b8c0f4fba05bef4c8d21e45256))
+* **ai:** add AntigravityTool and update tool exports in index ([f5b97e1](https://github.com/retejs/rete-kit/commit/f5b97e1b280dae4e90cfd3b148f72a2ccca00c67))
+* **ai:** add ClaudeTool and ContinueTool, update tool imports in index ([b1d902f](https://github.com/retejs/rete-kit/commit/b1d902f43629c737d23807c12d285484f4d07bb9))
+* **ai:** add markdown guidance support and enhance interactive mode for tool selection ([34b9d92](https://github.com/retejs/rete-kit/commit/34b9d92e129ee4851f263a28723a7f5f8280c412))
+* **ai:** add new tools (AmazonQ, Codex, Windsurf) and enhance existing tool functionality ([29abe72](https://github.com/retejs/rete-kit/commit/29abe720ca958ceaef6d3556d4ea79ddf319a219))
+* **ai:** add rete branding to tool outputs ([1818380](https://github.com/retejs/rete-kit/commit/18183802db56b4339d16b7a9432d0cd44856d36f))
+* **ai:** implement MultiFileStrategy and SingleFileStrategy, update tool strategies in tools ([8d54bb7](https://github.com/retejs/rete-kit/commit/8d54bb7d2a3c7bd07733049cb39547ef5f3c35ad))
+* **ai:** implement non-interactive mode handling for tool and context options ([2467240](https://github.com/retejs/rete-kit/commit/246724071a58a775a477359b3c11757024ec6428))
+* **ai:** introduce comprehensive plugin documentation with architecture, workflow, and coverage ([7d4d739](https://github.com/retejs/rete-kit/commit/7d4d73944519f99a21847cca1c8af54c53ea5790))
+* **ai:** introduce path and content transformers for enhanced file processing in MultiFileStrategy ([da8fdc3](https://github.com/retejs/rete-kit/commit/da8fdc353ac3a052212994237be65d317e04ba8f))
+* **ai:** prefix instruction filenames with context ID ([a4d03eb](https://github.com/retejs/rete-kit/commit/a4d03eb194602e7ae6ee16219333ed53184972e5))
+* **ai:** update guidance documentation to clarify user and AI assistant instructions ([cf3613e](https://github.com/retejs/rete-kit/commit/cf3613e20b6d46fe7c1f2632dcbdc4737c16327a))
+
 ## [1.15.1](https://github.com/retejs/rete-kit/compare/v1.15.0...v1.15.1) (2025-09-02)
 
 
