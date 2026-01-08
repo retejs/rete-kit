@@ -1,5 +1,4 @@
 import { readFileSync } from 'fs'
-import markdownToAnsiFactory from 'markdown-to-ansi'
 import { join } from 'path'
 
 import { assetsAI } from '../consts'
@@ -11,13 +10,19 @@ import { logger } from './logger'
  *
  * @returns Formatted guidance text with ANSI codes, or empty string if file doesn't exist
  */
-function getGuidance(): string {
+async function getGuidance(): Promise<string> {
   const guidancePath = join(assetsAI, 'guidance.md')
 
   try {
     const guidanceTemplate = readFileSync(guidancePath, 'utf-8')
 
-    // markdown-to-ansi exports a factory function that returns a converter function
+    /*
+     * Dynamic import is used because markdown-to-ansi is an ES module.
+     * When compiled to CommonJS, static imports would be transformed to require(),
+     * which doesn't work for ES modules in Node.js 18 and below.
+     */
+    const markdownToAnsiModule = await import('markdown-to-ansi')
+    const markdownToAnsiFactory = markdownToAnsiModule.default ?? markdownToAnsiModule
     const converter = markdownToAnsiFactory()
     // Convert markdown to ANSI-formatted terminal text (supports bold, italic, code, etc.)
 
@@ -39,7 +44,7 @@ function getGuidance(): string {
  * Used for missing parameter errors to provide helpful guidance to users and AI assistants.
  */
 export class GuidanceError extends Error {
-  public readonly guidance: string
+  public readonly guidance: Promise<string>
 
   constructor(message: string) {
     super(message)
