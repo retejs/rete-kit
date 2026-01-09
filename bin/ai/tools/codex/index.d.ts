@@ -1,0 +1,6 @@
+import { InstructionStrategy } from '../../strategies';
+import { BaseTool } from '../base';
+export declare class CodexTool extends BaseTool {
+    constructor();
+    protected getStrategy(): InstructionStrategy | undefined;
+}

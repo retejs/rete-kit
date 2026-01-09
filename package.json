@@ -1,0 +1,54 @@
+{
+  "name": "rete-kit",
+  "version": "1.16.1",
+  "main": "bin/module.js",
+  "module": "bin/module.js",
+  "types": "bin/module.d.ts",
+  "bin": {
+    "rete-kit": "./bin/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc --watch -p tsconfig.build.json",
+    "lint": "rete lint",
+    "test": "rete test"
+  },
+  "author": "Vitaliy Stoliarov",
+  "license": "MIT",
+  "keywords": [
+    "tool",
+    "rete",
+    "Rete.js"
+  ],
+  "homepage": "https://retejs.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/retejs/rete-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/retejs/rete-kit/issues"
+  },
+  "dependencies": {
+    "case": "^1.6.3",
+    "chalk": "^4.1.2",
+    "commander": "^10.0.0",
+    "decomment": "^0.9.5",
+    "execa": "^5.1.1",
+    "fs-extra": "^11.1.1",
+    "inquirer": "^8.2.5",
+    "markdown-to-ansi": "^1.0.0",
+    "npm-package-arg": "^10.1.0",
+    "prettier": "^2.8.4",
+    "recursive-copy": "^2.0.14",
+    "replace-in-file": "^6.3.5",
+    "toposort": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.3",
+    "@types/node": "^18.13.0",
+    "@types/npm-package-arg": "^6.1.1",
+    "@types/toposort": "^2.0.3",
+    "globals": "^15.9.0",
+    "rete-cli": "~2.0.1"
+  }
+}

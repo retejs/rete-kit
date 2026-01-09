@@ -1,0 +1,299 @@
+import { ClassicPreset as Classic, type GetSchemes, NodeEditor } from 'rete'
+/* [stack-angular] import { type Injector } from '@angular/core' [/stack-angular] */
+import { type Area2D, /* [import-area-extensions] AreaExtensions, [/import-area-extensions] */ AreaPlugin } from 'rete-area-plugin'
+/* [!readonly] import { ConnectionPlugin, Presets as ConnectionPresets } from 'rete-connection-plugin' [/!readonly] */
+/* [react-render] import { ReactPlugin, type ReactArea2D, Presets as ReactPresets } from 'rete-react-plugin' [/react-render] */
+/* [react18] import { createRoot } from 'react-dom/client' [/react18] */
+/* [react19] import { createRoot } from 'react-dom/client' [/react19] */
+/* [vue-render] import { VuePlugin, type VueArea2D, Presets as VuePresets } from 'rete-vue-plugin/* [vue2] /vue2 [/vue2] */' [/vue-render] */
+/* [angular-render] import { AngularPlugin, type AngularArea2D, Presets as AngularPresets } from 'rete-angular-plugin/* [angular12] /12 [/angular12] *//* [angular13] /13 [/angular13] *//* [angular14] /14 [/angular14] *//* [angular15] /15 [/angular15] *//* [angular16] /16 [/angular16] *//* [angular17] /17 [/angular17] *//* [angular18] /18 [/angular18] *//* [angular19] /19 [/angular19] *//* [angular20] /20 [/angular20] *//* [angular21] /21 [/angular21] */' [/angular-render] */
+/* [svelte-render] import { SveltePlugin, type SvelteArea2D, Presets as SveltePresets } from 'rete-svelte-plugin/* [svelte5] /5 [/svelte5] */' [/svelte-render] */
+/* [lit-render] import { LitPlugin, type LitArea2D, Presets as LitPresets } from '@retejs/lit-plugin' [/lit-render] */
+/* [dataflow] import { DataflowEngine, type DataflowNode } from 'rete-engine' [/dataflow] */
+/* [arrange] import { AutoArrangePlugin, Presets as ArrangePresets } from 'rete-auto-arrange-plugin' [/arrange] */
+/* [readonly] import { ReadonlyPlugin } from 'rete-readonly-plugin' [/readonly] */
+/* [context-menu] import { ContextMenuPlugin, type ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
+/* [minimap] import { type MinimapExtra, MinimapPlugin } from 'rete-minimap-plugin'; [/minimap] */
+/* [reroute] import { ReroutePlugin, type RerouteExtra /* [selectable] , RerouteExtensions [/selectable] */ } from "rete-connection-reroute-plugin";[/reroute] */
+
+type Node =
+  | NumberNode
+  | AddNode
+type Conn =
+  | Connection<NumberNode, AddNode>
+  | Connection<AddNode, AddNode>
+  | Connection<AddNode, NumberNode>
+type Schemes = GetSchemes<Node, Conn>
+
+class Connection<A extends Node, B extends Node> extends Classic.Connection<A, B> { }
+
+class NumberNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */ {
+    /* [sizes]
+    width = 180
+    height = 120
+    [/sizes] */
+
+    constructor(initial: number, change?: (value: number) => void) {
+      super('Number')
+
+      this.addOutput('value', new Classic.Output(socket, 'Number'))
+      this.addControl('value', new Classic.InputControl('number', { initial, change }))
+    }
+    /* [dataflow]
+    data() {
+      const value = (this.controls['value'] as Classic.InputControl<'number'>).value
+
+      return {
+        value
+      }
+    }
+    [/dataflow] */
+  }
+
+class AddNode extends Classic.Node /* [dataflow] implements DataflowNode [/dataflow] */ {
+    /* [sizes]
+    width = 180
+    height = 195
+    [/sizes] */
+
+    constructor() {
+      super('Add')
+
+      this.addInput('a', new Classic.Input(socket, 'A'))
+      this.addInput('b', new Classic.Input(socket, 'B'))
+      this.addOutput('value', new Classic.Output(socket, 'Number'))
+      this.addControl('result', new Classic.InputControl('number', { initial: 0, readonly: true }))
+    }
+    /* [dataflow]
+    data(inputs: { a?: number[], b?: number[] }) {
+      const { a = [], b = [] } = inputs
+      const sum = (a[0] || 0) + (b[0] || 0)
+
+      ;(this.controls['result'] as Classic.InputControl<'number'>).setValue(sum)
+
+      return {
+        value: sum
+      }
+    }
+    [/dataflow] */
+  }
+
+type AreaExtra =
+  | Area2D<Schemes>
+/* [react-render] | ReactArea2D<Schemes> [/react-render] */
+/* [vue-render] | VueArea2D<Schemes> [/vue-render] */
+/* [angular-render] | AngularArea2D<Schemes> [/angular-render] */
+/* [svelte-render] | SvelteArea2D<Schemes> [/svelte-render] */
+/* [lit-render] | LitArea2D<Schemes> [/lit-render] */
+/* [context-menu] | ContextMenuExtra [/context-menu] */
+/* [minimap] | MinimapExtra [/minimap] */
+/* [reroute] | RerouteExtra [/reroute] */
+
+
+const socket = new Classic.Socket('socket')
+
+export async function createEditor(container: HTMLElement/* [stack-angular] , injector: Injector [/stack-angular] */) {
+  const editor = new NodeEditor<Schemes>()
+  const area = new AreaPlugin<Schemes, AreaExtra>(container)
+  /* [!readonly] const connection = new ConnectionPlugin<Schemes, AreaExtra>() [/!readonly] */
+  /* [react-render] const reactRender = new ReactPlugin<Schemes, AreaExtra>(/* [react18] { createRoot } [/react18] *//* [react19] { createRoot } [/react19] */)[/react-render] */
+  /* [vue-render] const vueRender = new VuePlugin<Schemes, AreaExtra>() [/vue-render] */
+  /* [angular-render] const angularRender = new AngularPlugin<Schemes, AreaExtra>({ injector }) [/angular-render] */
+  /* [svelte-render] const svelteRender = new SveltePlugin<Schemes, AreaExtra>() [/svelte-render] */
+  /* [lit-render] const litRender = new LitPlugin<Schemes, AreaExtra>() [/lit-render] */
+  /* [readonly] const readonly = new ReadonlyPlugin<Schemes>() [/readonly] */
+  /* [context-menu] const contextMenu = new ContextMenuPlugin<Schemes>({
+    items: ContextMenuPresets.classic.setup([
+      ['Number', () => new NumberNode(1/* [dataflow] , process [/dataflow] */)],
+    ['Add', () => new AddNode()]
+    ])
+})[/context-menu] */
+  /* [minimap] const minimap = new MinimapPlugin<Schemes>(); [/minimap] */
+  /* [reroute] const reroutePlugin = new ReroutePlugin<Schemes>(); [/reroute] */
+
+  /* [readonly] editor.use(readonly.root) [/readonly] */
+  editor.use(area)
+  /* [readonly] area.use(readonly.area) [/readonly] */
+  /* [react-render] area.use(reactRender) [/react-render] */
+  /* [vue-render] area.use(vueRender) [/vue-render] */
+  /* [angular-render] area.use(angularRender) [/angular-render] */
+  /* [svelte-render] area.use(svelteRender) [/svelte-render] */
+  /* [lit-render] area.use(litRender) [/lit-render] */
+  /* [!readonly] area.use(connection) [/!readonly] */
+  /* [context-menu] area.use(contextMenu) [/context-menu] */
+  /* [minimap] area.use(minimap) [/minimap] */
+  /* [reroute]
+  /* [react-render] reactRender.use(reroutePlugin) [/react-render] */
+  /* [vue-render] vueRender.use(reroutePlugin) [/vue-render] */
+  /* [angular-render] angularRender.use(reroutePlugin) [/angular-render] */
+  /* [svelte-render] svelteRender.use(reroutePlugin) [/svelte-render] */
+  /* [lit-render] litRender.use(reroutePlugin) [/lit-render] */
+  [/reroute] */
+
+  /* [!readonly] connection.addPreset(ConnectionPresets.classic.setup()) [/!readonly] */
+  /* [react-render]
+  reactRender.addPreset(ReactPresets.classic.setup())
+  /* [context-menu] reactRender.addPreset(ReactPresets.contextMenu.setup()) [/context-menu] */
+  /* [minimap] reactRender.addPreset(ReactPresets.minimap.setup()) [/minimap] */
+  /* [reroute] reactRender.addPreset(ReactPresets.reroute.setup({
+    contextMenu(id) {
+      reroutePlugin.remove(id);
+    },
+    translate(id, dx, dy) {
+      reroutePlugin.translate(id, dx, dy);
+    },
+    /* [selectable] pointerdown(id) {
+      reroutePlugin.unselect(id);
+      reroutePlugin.select(id);
+    } [/selectable] */
+  }));[/reroute] */
+  [/react-render] */
+
+  /* [vue-render]
+  vueRender.addPreset(VuePresets.classic.setup())
+  /* [context-menu] vueRender.addPreset(VuePresets.contextMenu.setup()) [/context-menu] */
+  /* [minimap] vueRender.addPreset(VuePresets.minimap.setup()) [/minimap] */
+  /* [reroute] vueRender.addPreset(VuePresets.reroute.setup({
+    contextMenu(id) {
+      reroutePlugin.remove(id);
+    },
+    translate(id, dx, dy) {
+      reroutePlugin.translate(id, dx, dy);
+    },
+    /* [selectable] pointerdown(id) {
+      reroutePlugin.unselect(id);
+      reroutePlugin.select(id);
+    } [/selectable] */
+  }));[/reroute] */
+  [/vue-render] */
+
+  /* [angular-render]
+  angularRender.addPreset(AngularPresets.classic.setup())
+  /* [context-menu] angularRender.addPreset(AngularPresets.contextMenu.setup()) [/context-menu] */
+  /* [minimap] angularRender.addPreset(AngularPresets.minimap.setup()) [/minimap] */
+  /* [reroute] angularRender.addPreset(AngularPresets.reroute.setup({
+    contextMenu(id) {
+      reroutePlugin.remove(id);
+    },
+    translate(id, dx, dy) {
+      reroutePlugin.translate(id, dx, dy);
+    },
+    /* [selectable] pointerdown(id) {
+      reroutePlugin.unselect(id);
+      reroutePlugin.select(id);
+    } [/selectable] */
+  }));[/reroute] */
+  [/angular-render] */
+
+
+  /* [svelte-render]
+  svelteRender.addPreset(SveltePresets.classic.setup())
+  /* [context-menu] svelteRender.addPreset(SveltePresets.contextMenu.setup()) [/context-menu] */
+  /* [minimap] svelteRender.addPreset(SveltePresets.minimap.setup()) [/minimap] */
+  /* [reroute] svelteRender.addPreset(SveltePresets.reroute.setup({
+    contextMenu(id) {
+      reroutePlugin.remove(id);
+    },
+    translate(id, dx, dy) {
+      reroutePlugin.translate(id, dx, dy);
+    },
+    /* [selectable] pointerdown(id) {
+      reroutePlugin.unselect(id);
+      reroutePlugin.select(id);
+    } [/selectable] */
+  }));[/reroute] */
+  [/svelte-render] */
+
+
+  /* [lit-render]
+  litRender.addPreset(LitPresets.classic.setup())
+  /* [context-menu] litRender.addPreset(LitPresets.contextMenu.setup()) [/context-menu] */
+  /* [minimap] litRender.addPreset(LitPresets.minimap.setup()) [/minimap] */
+  /* [reroute] litRender.addPreset(LitPresets.reroute.setup({
+    contextMenu(id) {
+      reroutePlugin.remove(id);
+    },
+    translate(id, dx, dy) {
+      reroutePlugin.translate(id, dx, dy);
+    },
+    /* [selectable] pointerdown(id) {
+      reroutePlugin.unselect(id);
+      reroutePlugin.select(id);
+    } [/selectable] */
+  }));[/reroute] */
+  [/lit-render] */
+  /* [dataflow] const dataflow = new DataflowEngine<Schemes>()
+
+  editor.use(dataflow)
+  [/dataflow] */
+
+  const a = new NumberNode(1/* [dataflow] , process [/dataflow] */)
+const b = new NumberNode(1/* [dataflow] , process [/dataflow] */)
+const add = new AddNode()
+
+await editor.addNode(a)
+await editor.addNode(b)
+await editor.addNode(add)
+
+await editor.addConnection(new Connection(a, 'value', add, 'a'))
+await editor.addConnection(new Connection(b, 'value', add, 'b'))
+
+/* [!arrange]
+await area.nodeViews.get(a.id)?.translate(100, 100)
+await area.nodeViews.get(b.id)?.translate(100, 300)
+await area.nodeViews.get(add.id)?.translate(400, 150)
+[/!arrange] */
+
+/* [arrange]
+const arrange = new AutoArrangePlugin<Schemes>()
+
+arrange.addPreset(ArrangePresets.classic.setup());
+
+area.use(arrange)
+
+await arrange.layout()
+[/arrange] */
+
+/* [zoom-at] AreaExtensions.zoomAt(area, editor.getNodes()) [/zoom-at] */
+
+/* [order-nodes] AreaExtensions.simpleNodesOrder(area) [/order-nodes] */
+
+/* [selectable]
+const selector = AreaExtensions.selector();
+const accumulating = AreaExtensions.accumulateOnCtrl();
+
+AreaExtensions.selectableNodes(area, selector, { accumulating });
+/* [reroute]
+RerouteExtensions.selectablePins(reroutePlugin, selector, accumulating);
+[/reroute] */
+[/selectable] */
+
+  /* [dataflow] async function process() {
+    dataflow.reset()
+
+    editor.getNodes().filter(node => node instanceof AddNode).forEach(async node => {
+      const sum = await dataflow.fetch(node.id)
+
+      console.log(node.id, 'produces', sum)
+
+      area.update('control', (node.controls['result'] as Classic.InputControl<'number'>).id)
+    });
+  }
+
+  editor.addPipe(context => {
+    if (context.type === 'connectioncreated' || context.type === 'connectionremoved') {
+      process()
+    }
+    return context
+  })
+
+  process()
+
+  [/dataflow] */
+
+  /* [readonly] readonly.enable() [/readonly] */
+
+  return {
+  destroy: () => area.destroy()
+}
+}
