@@ -14,10 +14,15 @@ import { RefDirective, ImpureKeyvaluePipe } from 'rete-angular-plugin/19';
 import { CommonModule } from '@angular/common';
 import { RefDirective, ImpureKeyvaluePipe } from 'rete-angular-plugin/20';
 [/angular20] */
+/* [angular21]
+import { CommonModule } from '@angular/common';
+import { RefDirective, ImpureKeyvaluePipe } from 'rete-angular-plugin/21';
+[/angular21] */
 
 @Component({
   /* [angular19] imports: [CommonModule, RefDirective, ImpureKeyvaluePipe], [/angular19] */
   /* [angular20] imports: [CommonModule, RefDirective, ImpureKeyvaluePipe], [/angular20] */
+  /* [angular21] imports: [CommonModule, RefDirective, ImpureKeyvaluePipe], [/angular21] */
   templateUrl: "./custom-node.component.html",
   styleUrls: ["./custom-node.component.sass"],
   host: {

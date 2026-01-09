@@ -26,7 +26,7 @@ jobs:
       fail-fast: false
       max-parallel: 3
       matrix:
-        version: [20,19,18,17,16,15,14,13,12]
+        version: [21,20,19,18,17,16,15,14,13,12]
     uses: ./.github/workflows/test-build.yml
     with:
       os: ${{ inputs.os }}
