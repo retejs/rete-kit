@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/retejs/rete-kit/compare/v1.16.2...v1.17.0) (2026-01-09)
+
+
+### Features
+
+* **angular:** add support for angular 21 ([9ba8d40](https://github.com/retejs/rete-kit/commit/9ba8d400741074cc11f09b6a62998d73770d6bfa))
+
 ## [1.16.2](https://github.com/retejs/rete-kit/compare/v1.16.1...v1.16.2) (2026-01-08)
 
 
