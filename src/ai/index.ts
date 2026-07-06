@@ -1,63 +1,34 @@
-import { BootContext, DevContext, OnboardContext, PluginContext } from './contexts'
-import { AIAssets } from './filesystem'
-import { GuidanceError } from './guidance'
+import { runCommit } from './commit'
+import { emitBundle } from './emit'
+import { AiError, MISSING_TOOL_FOR_COMMIT } from './errors'
 import { logger } from './logger'
-import { Repository } from './repository'
-import { AmazonQTool, AntigravityTool, ClaudeTool, CodexTool, ContinueTool, CursorTool, GithubTool, WindsurfTool } from './tools'
+import { runSetup } from './setup'
 
-const contexts = new Repository('context', [
-  new OnboardContext(),
-  new BootContext(),
-  new DevContext(),
-  new PluginContext()
-])
+export { AiError } from './errors'
+export { getToolIds } from './registry'
 
-const tools = new Repository('tool', [
-  new CursorTool(),
-  new GithubTool(),
-  new AmazonQTool(),
-  new WindsurfTool(),
-  new CodexTool(),
-  new ClaudeTool(),
-  new ContinueTool(),
-  new AntigravityTool()
-])
-
-export function getToolNames(): string[] {
-  return tools.getNames()
+export interface AiOptions {
+  tool?: string
+  commit?: boolean
 }
 
-function validateParameters(contextId: string | undefined, selectedTool: string | undefined, isInteractive: boolean): void {
-  if (!isInteractive) {
-    if (!contextId) {
-      throw new GuidanceError('No context specified')
-    }
-    if (!selectedTool) {
-      throw new GuidanceError('No tool specified')
-    }
-  }
-}
-
-export async function buildInstructions(selectedTool?: string, contextId?: string, force?: boolean, interactive = false) {
+export async function runAi(options: AiOptions): Promise<void> {
   logger.warn('This command is experimental. Use with caution.')
 
-  validateParameters(contextId, selectedTool, interactive)
+  const cwd = process.cwd()
 
-  const context = await contexts.select(contextId, interactive)
-  const tool = await tools.select(selectedTool, interactive)
-  const assets = new AIAssets(process.cwd(), interactive)
-
-  logger.info(`Building instructions using context: "${context.getName()}"`)
-
-  const instructionFiles = context.getInstructions()
-
-  if (instructionFiles.length === 0) {
-    logger.warn(`No instruction files found for context "${context.getName()}", skipping...`)
+  if (options.commit) {
+    if (!options.tool) {
+      throw new AiError(MISSING_TOOL_FOR_COMMIT)
+    }
+    runCommit(cwd, options.tool)
     return
   }
 
-  // Process instructions using the tool
-  await tool.apply(assets, instructionFiles, force)
+  if (options.tool) {
+    runSetup(cwd, options.tool)
+    return
+  }
 
-  logger.ready('Done.')
+  await emitBundle(cwd)
 }

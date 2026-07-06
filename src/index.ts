@@ -2,16 +2,12 @@
 
 import { createCommand, Option } from 'commander'
 
-import { buildInstructions, getToolNames } from './ai'
-import { getContextNames } from './ai/contexts'
-import { GuidanceError } from './ai/guidance'
-import { logger } from './ai/logger'
+import { AiError, getToolIds, runAi } from './ai'
 import { AppStack, appStacks, createApp } from './app'
 import { build } from './build'
 import { createPlugin } from './plugin'
 import { getReteDependenciesFor } from './scan'
 import { throwError } from './shared/throw'
-import { isTTY } from './shared/tty'
 import { updateCli } from './update-cli'
 
 const program = createCommand()
@@ -80,38 +76,16 @@ program
     await updateCli(process.cwd())
   })
 
-const toolOption = new Option('-t, --tool <tool>', 'Tool to generate instructions for').choices(getToolNames())
-const contextOption = new Option('-c, --context <context>', 'Context for instructions').choices(getContextNames())
-
 program
   .command('ai')
-  .description('Create AI instructions for code editors')
-  .option('-f, --force', 'Force overwrite existing files without confirmation')
-  .option('-i, --interactive', 'Enable interactive mode to specify parameters interactively (requires TTY)')
-  .addOption(toolOption)
-  .addOption(contextOption)
-  .action(async (options: { tool?: string, context?: string, force?: boolean, interactive?: boolean }) => {
-    // Check TTY once - interactive mode can only be enabled when TTY is available
-    const hasTTY = isTTY()
-
-    if (options.interactive && !hasTTY) {
-      console.error('\nError: --interactive option requires an interactive terminal (TTY).\n')
-      process.exit(1)
-    }
-
-    // Interactive mode is only enabled if --interactive flag is explicitly provided AND TTY is available
-    const interactive = options.interactive === true && hasTTY
-
+  .description('Emit Rete.js AI prompt bundle and print tool setup/commit prompts')
+  .addOption(new Option('-t, --tool <tool>', 'AI tool id (setup or commit step)').choices(getToolIds()))
+  .option('--commit', 'Print commit prompt for the given tool')
+  .action(async (options: { tool?: string, commit?: boolean }) => {
     try {
-      await buildInstructions(options.tool, options.context, options.force, interactive)
+      await runAi(options)
     } catch (error) {
-      if (error instanceof GuidanceError) {
-        const guidance = await error.guidance
-
-        if (guidance) {
-          console.log() // Add spacing before guidance
-          logger.info(guidance)
-        }
+      if (error instanceof AiError) {
         throwError(error.message)
       }
       throw error
