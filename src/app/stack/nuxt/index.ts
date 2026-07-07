@@ -10,18 +10,32 @@ import { templateAssets } from '../vue/helpers'
 
 export class NuxtBuilder implements AppBuilder {
   public name = 'Nuxt'
-  public versions = [3]
+  public versions = [3, 4]
   public foundation = 'vue' as const
 
-  public async create(name: string) {
-    await execa('npx', ['nuxi@3', 'init', name, '--template', 'v3', '--packageManager', 'npm', '--gitInit'], { stdio: 'inherit' })
+  public async create(name: string, version: number) {
+    const template = version === 4
+      ? 'v4'
+      : 'v3'
+
+    await execa('npx', [
+      'nuxi@3', 'init', name, '--template', template,
+      '--packageManager', 'npm', '--gitInit'
+    ], { stdio: 'inherit' })
   }
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  async putAssets<K extends string>(name: string, _version: number, template: TemplateBuilder<K>): Promise<void> {
-    const modules = join(assetsStack, 'nuxt', 'modules')
+  private getAppRoot(name: string, version: number) {
+    return version === 4
+      ? join(name, 'app')
+      : name
+  }
+
+  async putAssets<K extends string>(name: string, version: number, template: TemplateBuilder<K>): Promise<void> {
+    const modules = join(assetsStack, 'nuxt', version === 4
+      ? 'modules-v4'
+      : 'modules')
     const customization = join(assetsStack, 'vue', 'modules', 'vite', 'customization')
-    const src = join(name)
+    const src = this.getAppRoot(name, version)
 
     await fse.copy(assetsCommon, src, {
       recursive: true,
@@ -38,8 +52,9 @@ export class NuxtBuilder implements AppBuilder {
     await templateAssets(src, template)
   }
 
-  async putScript(name: string, path: string, code: string) {
-    const scriptPath = join(name, 'rete', path)
+  async putScript(name: string, path: string, code: string, version: number) {
+    const reteRoot = join(this.getAppRoot(name, version), 'rete')
+    const scriptPath = join(reteRoot, path)
 
     await fs.promises.mkdir(dirname(scriptPath), { recursive: true })
     await fs.promises.writeFile(scriptPath, code)

@@ -20,7 +20,7 @@ export class VueBuilder implements AppBuilder {
       : 'vue3')
 
     await execa('npx', [
-      '--package', `@vue/cli@`, 'vue', 'create', name,
+      '--package', `@vue/cli@5`, 'vue', 'create', name,
       '--preset', presetFolder,
       '-m', 'npm',
       '-r', 'https://registry.npmjs.org'

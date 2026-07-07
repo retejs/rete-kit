@@ -12,6 +12,17 @@ on:
       mac:
         description: MacOS runner ('-' to skip)
         default: macos-latest
+      kit-source:
+        description: 'Rete Kit version source (npm or github)'
+        type: choice
+        options:
+        - npm
+        - github
+        default: npm
+      kit-version:
+        description: 'Rete Kit version/reference'
+        default: latest
+        type: string
 
 
   schedule:
@@ -23,72 +34,99 @@ jobs:
     name: "Ubuntu: Angular"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-angular.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   win-angular:
     name: "Windows: Angular"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-angular
     uses: ./.github/workflows/test-build-angular.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   mac-angular:
     name: "MacOS: Angular"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-angular
     uses: ./.github/workflows/test-build-angular.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
 # React
   linux-react:
     name: "Ubuntu: React"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-react.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   win-react:
     name: "Windows: React"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-react
     uses: ./.github/workflows/test-build-react.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   mac-react:
     name: "MacOS: React"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-react
     uses: ./.github/workflows/test-build-react.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
 # Vue
   linux-vue:
     name: "Ubuntu: Vue"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-vue.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   win-vue:
     name: "Windows: Vue"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-vue
     uses: ./.github/workflows/test-build-vue.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   mac-vue:
     name: "MacOS: Vue"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-vue
     uses: ./.github/workflows/test-build-vue.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
 # Svelte
 
@@ -96,165 +134,228 @@ jobs:
     name: "Ubuntu: Svelte"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-svelte.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   win-svelte:
     name: "Windows: Svelte"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-svelte
     uses: ./.github/workflows/test-build-svelte.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   mac-svelte:
     name: "MacOS: Svelte"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-svelte
     uses: ./.github/workflows/test-build-svelte.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
 # Vite
   linux-vite:
     name: "Ubuntu: Vite"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   win-vite:
     name: "Windows: Vite"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-vite
     uses: ./.github/workflows/test-build-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   mac-vite:
     name: "MacOS: Vite"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-vite
     uses: ./.github/workflows/test-build-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
 # React Vite
   linux-react-vite:
     name: "Ubuntu: React Vite"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-react-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   win-react-vite:
     name: "Windows: React Vite"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-react-vite
     uses: ./.github/workflows/test-build-react-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   mac-react-vite:
     name: "MacOS: React Vite"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-react-vite
     uses: ./.github/workflows/test-build-react-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
 # Vue Vite
   linux-vue-vite:
     name: "Ubuntu: Vue Vite"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-vue-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   win-vue-vite:
     name: "Windows: Vue Vite"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-vue-vite
     uses: ./.github/workflows/test-build-vue-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   mac-vue-vite:
     name: "MacOS: Vue Vite"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-vue-vite
     uses: ./.github/workflows/test-build-vue-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
 # Next
   linux-next:
     name: "Ubuntu: Next"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-next.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   win-next:
     name: "Windows: Next"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-next
     uses: ./.github/workflows/test-build-next.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   mac-next:
     name: "MacOS: Next"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-next
     uses: ./.github/workflows/test-build-next.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
 # Nuxt
   linux-nuxt:
     name: "Ubuntu: Nuxt"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-nuxt.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   win-nuxt:
     name: "Windows: Nuxt"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-nuxt
     uses: ./.github/workflows/test-build-nuxt.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   mac-nuxt:
     name: "MacOS: Nuxt"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-nuxt
     uses: ./.github/workflows/test-build-nuxt.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
 # Lit
   linux-lit:
     name: "Ubuntu: Lit"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-lit-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   win-lit:
     name: "Windows: Lit"
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-lit
     uses: ./.github/workflows/test-build-lit-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}
 
   mac-lit:
     name: "MacOS: Lit"
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-lit
     uses: ./.github/workflows/test-build-lit-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
+      kit-source: ${{ inputs.kit-source || 'npm' }}
+      kit-version: ${{ inputs.kit-version || 'latest' }}

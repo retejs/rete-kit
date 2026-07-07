@@ -71,8 +71,8 @@ export async function createApp({ name, stack, version, features, depsAlias, for
     new Features.React(builder.foundation === 'react'
       ? selectedVersion
       : 18, selectedStack, next),
-    new Features.Vue(builder.foundation === 'vue'
-      ? selectedVersion as 2
+    new Features.Vue(builder.foundation === 'vue' && !(builder instanceof NuxtBuilder)
+      ? selectedVersion as 2 | 3
       : 3, next),
     new Features.Svelte(builder.foundation === 'svelte'
       ? selectedVersion as SvelteVersion
@@ -127,13 +127,13 @@ export async function createApp({ name, stack, version, features, depsAlias, for
     try {
       const code = await templateBuilder.build(template)
 
-      await builder.putScript(appName, `${templateName}.ts`, code)
+      await builder.putScript(appName, `${templateName}.ts`, code, selectedVersion)
     } catch (e) {
       console.error(e)
       throwError(`failed to build template "${templateName}"`)
     }
   }
-  await builder.putScript(appName, `index.ts`, await templateBuilder.getEntryScript())
+  await builder.putScript(appName, `index.ts`, await templateBuilder.getEntryScript(), selectedVersion)
 
   await install(appName, Features.getDependencies(activeFeatures), depsAlias, forceInstall)
 }
