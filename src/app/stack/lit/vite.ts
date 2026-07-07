@@ -13,7 +13,7 @@ export class LitViteBuilder implements AppBuilder {
 
   public async create(name: string, version: number) {
     await execa('npm', [
-      'create', `vite@latest`, name, '--', '--template', 'vanilla-ts', '-y'
+      'create', 'vite@7', name, '--', '--template', 'vanilla-ts', '-y'
     ], { stdio: 'inherit' })
     await execa('npm', [
       'i',
