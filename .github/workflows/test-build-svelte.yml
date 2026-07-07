@@ -8,6 +8,14 @@ on:
         description: 'OS'
         required: true
         type: string
+      kit-source:
+        description: 'Rete Kit version source (npm or github)'
+        type: string
+        default: 'npm'
+      kit-version:
+        description: 'Rete Kit version/reference'
+        type: string
+        default: 'latest'
   workflow_dispatch:
     inputs:
       os:
@@ -18,6 +26,17 @@ on:
         - ubuntu-latest
         - windows-latest
         - macos-latest
+      kit-source:
+        description: 'Rete Kit version source (npm or github)'
+        type: choice
+        options:
+        - npm
+        - github
+        default: 'npm'
+      kit-version:
+        description: 'Rete Kit version/reference'
+        type: string
+        default: 'latest'
 
 jobs:
   svelte:
@@ -33,4 +52,6 @@ jobs:
       stack: svelte
       version: ${{ matrix.version }}
       node: 18
+      kit-source: ${{ inputs.kit-source }}
+      kit-version: ${{ inputs.kit-version }}
       features: "Svelte render,${{ vars.FEATURES }}"

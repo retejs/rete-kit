@@ -8,6 +8,14 @@ on:
         description: 'OS'
         required: true
         type: string
+      kit-source:
+        description: 'Rete Kit version source (npm or github)'
+        type: string
+        default: 'npm'
+      kit-version:
+        description: 'Rete Kit version/reference'
+        type: string
+        default: 'latest'
   workflow_dispatch:
     inputs:
       os:
@@ -18,6 +26,17 @@ on:
         - ubuntu-latest
         - windows-latest
         - macos-latest
+      kit-source:
+        description: 'Rete Kit version source (npm or github)'
+        type: choice
+        options:
+        - npm
+        - github
+        default: 'npm'
+      kit-version:
+        description: 'Rete Kit version/reference'
+        type: string
+        default: 'latest'
 
 jobs:
   nuxt:
@@ -33,5 +52,7 @@ jobs:
       stack: nuxt
       version: ${{ matrix.version }}
       node: 20
+      kit-source: ${{ inputs.kit-source }}
+      kit-version: ${{ inputs.kit-version }}
       features: "Vue render,${{ vars.FEATURES }}"
           
