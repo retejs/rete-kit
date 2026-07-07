@@ -1,3 +1,11 @@
+## [1.17.1](https://github.com/retejs/rete-kit/compare/v1.17.0...v1.17.1) (2026-07-07)
+
+
+### Bug Fixes
+
+* **app:** normalize CRLF in template builder on Windows ([bd9a7d1](https://github.com/retejs/rete-kit/commit/bd9a7d1ff666bf7b1330075b65d51a1207a1b34a))
+* **app:** pin scaffold tools for regression build stability ([4fc134e](https://github.com/retejs/rete-kit/commit/4fc134ea8e5fa55fe503b032476a88070e9e4200))
+
 # [1.17.0](https://github.com/retejs/rete-kit/compare/v1.16.2...v1.17.0) (2026-01-09)
 
 
