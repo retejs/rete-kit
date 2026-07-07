@@ -47,6 +47,7 @@ jobs:
       matrix:
         version: [18, 19]
     uses: ./.github/workflows/test-build.yml
+    secrets: inherit
     with:
       os: ${{ inputs.os }}
       stack: vite

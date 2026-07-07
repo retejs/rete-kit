@@ -34,6 +34,7 @@ jobs:
     name: "Ubuntu: Angular"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-angular.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -44,6 +45,7 @@ jobs:
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-angular
     uses: ./.github/workflows/test-build-angular.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -54,6 +56,7 @@ jobs:
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-angular
     uses: ./.github/workflows/test-build-angular.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -64,6 +67,7 @@ jobs:
     name: "Ubuntu: React"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-react.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -74,6 +78,7 @@ jobs:
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-react
     uses: ./.github/workflows/test-build-react.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -84,6 +89,7 @@ jobs:
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-react
     uses: ./.github/workflows/test-build-react.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -94,6 +100,7 @@ jobs:
     name: "Ubuntu: Vue"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-vue.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -104,6 +111,7 @@ jobs:
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-vue
     uses: ./.github/workflows/test-build-vue.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -114,6 +122,7 @@ jobs:
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-vue
     uses: ./.github/workflows/test-build-vue.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -125,6 +134,7 @@ jobs:
     name: "Ubuntu: Svelte"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-svelte.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -135,6 +145,7 @@ jobs:
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-svelte
     uses: ./.github/workflows/test-build-svelte.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -145,6 +156,7 @@ jobs:
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-svelte
     uses: ./.github/workflows/test-build-svelte.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -155,6 +167,7 @@ jobs:
     name: "Ubuntu: Vite"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -165,6 +178,7 @@ jobs:
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-vite
     uses: ./.github/workflows/test-build-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -175,6 +189,7 @@ jobs:
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-vite
     uses: ./.github/workflows/test-build-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -185,6 +200,7 @@ jobs:
     name: "Ubuntu: React Vite"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-react-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -195,6 +211,7 @@ jobs:
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-react-vite
     uses: ./.github/workflows/test-build-react-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -205,6 +222,7 @@ jobs:
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-react-vite
     uses: ./.github/workflows/test-build-react-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -215,6 +233,7 @@ jobs:
     name: "Ubuntu: Vue Vite"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-vue-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -225,6 +244,7 @@ jobs:
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-vue-vite
     uses: ./.github/workflows/test-build-vue-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -235,6 +255,7 @@ jobs:
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-vue-vite
     uses: ./.github/workflows/test-build-vue-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -245,6 +266,7 @@ jobs:
     name: "Ubuntu: Next"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-next.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -255,6 +277,7 @@ jobs:
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-next
     uses: ./.github/workflows/test-build-next.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -265,6 +288,7 @@ jobs:
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-next
     uses: ./.github/workflows/test-build-next.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -275,6 +299,7 @@ jobs:
     name: "Ubuntu: Nuxt"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-nuxt.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -285,6 +310,7 @@ jobs:
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-nuxt
     uses: ./.github/workflows/test-build-nuxt.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -295,6 +321,7 @@ jobs:
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-nuxt
     uses: ./.github/workflows/test-build-nuxt.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -305,6 +332,7 @@ jobs:
     name: "Ubuntu: Lit"
     if: ${{ always() && inputs.linux != '-' }}
     uses: ./.github/workflows/test-build-lit-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.linux }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -315,6 +343,7 @@ jobs:
     if: ${{ always() && inputs.win != '-' }}
     needs: linux-lit
     uses: ./.github/workflows/test-build-lit-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.win }}
       kit-source: ${{ inputs.kit-source || 'npm' }}
@@ -325,6 +354,7 @@ jobs:
     if: ${{ always() && inputs.mac != '-' }}
     needs: win-lit
     uses: ./.github/workflows/test-build-lit-vite.yml
+    secrets: inherit
     with:
       os: ${{ inputs.mac }}
       kit-source: ${{ inputs.kit-source || 'npm' }}

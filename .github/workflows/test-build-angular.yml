@@ -47,6 +47,7 @@ jobs:
       matrix:
         version: [21,20,19,18,17,16,15,14,13,12]
     uses: ./.github/workflows/test-build.yml
+    secrets: inherit
     with:
       os: ${{ inputs.os }}
       stack: angular

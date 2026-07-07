@@ -48,6 +48,7 @@ jobs:
       matrix:
         version: [18,17,16]
     uses: ./.github/workflows/test-build.yml
+    secrets: inherit
     with:
       os: ${{ inputs.os }}
       stack: react
