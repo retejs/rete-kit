@@ -17,8 +17,8 @@ import {
   workspaceScriptsDir
 } from './paths'
 
-const EMIT_READY_MESSAGE =
-  'Staging at `.rete/ai/` (skills, agents, AGENTS.md) and `.rete/scripts/`.'
+const EMIT_READY_MESSAGE
+  = 'Staging at `.rete/ai/` (skills, agents, AGENTS.md) and `.rete/scripts/`.'
 
 const RETE_RECREATE_WARNING = [
   'Recreating `.rete/` from rete-kit.',
