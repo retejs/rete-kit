@@ -1,4 +1,4 @@
-import { afterAll, describe, expect, it, jest } from '@jest/globals'
+import { afterAll, beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs'
 import { tmpdir } from 'os'
 import { join } from 'path'
@@ -60,20 +60,44 @@ describe('ai command', () => {
     expect(marker).toContain('rete-kit')
   })
 
-  it('re-emits by recreating .rete', async () => {
-    const skillPath = join(cwd, '.rete/ai/skills/rete-setup/SKILL.md')
-    const warn = jest.spyOn(logger, 'warn').mockImplementation(silenceConsoleLog)
+  describe('with emitted bundle', () => {
+    beforeEach(async () => {
+      await emitBundle(cwd)
+    })
 
-    writeFileSync(skillPath, 'stale local edit')
+    it('re-emits by recreating .rete', async () => {
+      const skillPath = join(cwd, '.rete/ai/skills/rete-setup/SKILL.md')
+      const warn = jest.spyOn(logger, 'warn').mockImplementation(silenceConsoleLog)
 
-    await emitBundle(cwd)
+      writeFileSync(skillPath, 'stale local edit')
 
-    const content = readFileSync(skillPath, 'utf-8')
+      await emitBundle(cwd)
 
-    expect(warn).toHaveBeenCalledWith(expect.stringContaining('Recreating `.rete/`'))
-    expect(content).toContain('gh-mirror')
-    expect(content).not.toBe('stale local edit')
-    warn.mockRestore()
+      const content = readFileSync(skillPath, 'utf-8')
+
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('Recreating `.rete/`'))
+      expect(content).toContain('gh-mirror')
+      expect(content).not.toBe('stale local edit')
+      warn.mockRestore()
+    })
+
+    it('prints setup prompt when bundle exists', () => {
+      const log = jest.spyOn(console, 'log').mockImplementation(silenceConsoleLog)
+
+      runSetup(cwd, 'cursor')
+
+      expect(log.mock.calls.some(call => String(call[0]).includes('Cursor setup'))).toBe(true)
+      log.mockRestore()
+    })
+
+    it('prints commit prompt when bundle exists', () => {
+      const log = jest.spyOn(console, 'log').mockImplementation(silenceConsoleLog)
+
+      runCommit(cwd, 'cursor')
+
+      expect(log.mock.calls.some(call => String(call[0]).includes('Cursor commit'))).toBe(true)
+      log.mockRestore()
+    })
   })
 
   it('preserves .rete/scripts/.env on re-emit', async () => {
@@ -106,22 +130,21 @@ describe('ai command', () => {
     }
   })
 
-  it('prints setup prompt when bundle exists', () => {
-    const log = jest.spyOn(console, 'log').mockImplementation(silenceConsoleLog)
+  it('adds .rete/ to empty .gitignore without a leading blank line', async () => {
+    const project = mkdtempSync(join(tmpdir(), 'rete-kit-ai-gitignore-empty-'))
+    const gitignorePath = join(project, '.gitignore')
 
-    runSetup(cwd, 'cursor')
+    writeFileSync(gitignorePath, '')
 
-    expect(log.mock.calls.some(call => String(call[0]).includes('Cursor setup'))).toBe(true)
-    log.mockRestore()
-  })
+    try {
+      await emitBundle(project)
 
-  it('prints commit prompt when bundle exists', () => {
-    const log = jest.spyOn(console, 'log').mockImplementation(silenceConsoleLog)
+      const gitignore = readFileSync(gitignorePath, 'utf-8')
 
-    runCommit(cwd, 'cursor')
-
-    expect(log.mock.calls.some(call => String(call[0]).includes('Cursor commit'))).toBe(true)
-    log.mockRestore()
+      expect(gitignore).toBe('# rete-kit ai local tooling\n.rete/\n')
+    } finally {
+      rmSync(project, { recursive: true, force: true })
+    }
   })
 
   it('setup fails without bundle', () => {

@@ -18,6 +18,18 @@ function gitignoreAlreadyHasRete(content: string): boolean {
   })
 }
 
+function buildGitignoreBlock(content: string): string {
+  if (content.length === 0) {
+    return `${GITIGNORE_COMMENT}\n${GITIGNORE_ENTRY}\n`
+  }
+
+  const separator = content.endsWith('\n')
+    ? ''
+    : '\n'
+
+  return `${separator}\n${GITIGNORE_COMMENT}\n${GITIGNORE_ENTRY}\n`
+}
+
 export function ensureReteInGitignore(cwd: string): boolean {
   const gitignorePath = join(cwd, '.gitignore')
 
@@ -31,11 +43,7 @@ export function ensureReteInGitignore(cwd: string): boolean {
     return false
   }
 
-  const separator
-    = content.length === 0 || content.endsWith('\n')
-      ? ''
-      : '\n'
-  const block = `${separator}\n${GITIGNORE_COMMENT}\n${GITIGNORE_ENTRY}\n`
+  const block = buildGitignoreBlock(content)
 
   writeFileSync(gitignorePath, content + block, 'utf-8')
 

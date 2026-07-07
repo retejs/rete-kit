@@ -2,7 +2,7 @@
 
 import { createCommand, Option } from 'commander'
 
-import { AiError, getToolIds, runAi } from './ai'
+import { AiError, runAi } from './ai'
 import { AppStack, appStacks, createApp } from './app'
 import { build } from './build'
 import { createPlugin } from './plugin'
@@ -79,7 +79,7 @@ program
 program
   .command('ai')
   .description('Emit Rete.js AI prompt bundle and print tool setup/commit prompts')
-  .addOption(new Option('-t, --tool <tool>', 'AI tool id (setup or commit step)').choices(getToolIds()))
+  .addOption(new Option('-t, --tool <tool>', 'AI tool id (setup or commit step)'))
   .option('--commit', 'Print commit prompt for the given tool')
   .action(async (options: { tool?: string, commit?: boolean }) => {
     try {
