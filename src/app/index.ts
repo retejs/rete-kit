@@ -71,8 +71,8 @@ export async function createApp({ name, stack, version, features, depsAlias, for
     new Features.React(builder.foundation === 'react'
       ? selectedVersion
       : 18, selectedStack, next),
-    new Features.Vue(builder.foundation === 'vue'
-      ? selectedVersion as 2
+    new Features.Vue(builder instanceof VueBuilder
+      ? selectedVersion as 2 | 3
       : 3, next),
     new Features.Svelte(builder.foundation === 'svelte'
       ? selectedVersion as SvelteVersion
