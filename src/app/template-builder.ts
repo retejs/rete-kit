@@ -16,12 +16,16 @@ export type DefaultTemplateKey = 'zoom-at' | 'react-render' | `react${number}` |
   | 'context-menu' | 'import-area-extensions' | 'minimap' | 'reroute' | `stack-${string}`
 
 export class TemplateBuilder<Key extends string> {
-  blockCommentRegex = /\/\* \[(!?[\w-]+)\][\n ]+(.*?)?[\n ]?\[\/\1\] \*\//gs
+  blockCommentRegex = /\/\* \[(!?[\w-]+)\][\r\n ]+(.*?)?[\r\n ]?\[\/\1\] \*\//gs
 
   constructor(private keys: Key[]) { }
 
+  private normalizeLineEndings(code: string) {
+    return code.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+  }
+
   async load(name: string) {
-    return fs.promises.readFile(join(templatesPath, name), { encoding: 'utf-8' })
+    return this.normalizeLineEndings(await fs.promises.readFile(join(templatesPath, name), { encoding: 'utf-8' }))
   }
 
   async getTemplates() {
@@ -38,7 +42,7 @@ export class TemplateBuilder<Key extends string> {
 
   build(template: string, format = true) {
     const keep = (key: Key) => this.keys.includes(key)
-    const code = this.replace(template, keep)
+    const code = this.replace(this.normalizeLineEndings(template), keep)
 
     return format
       ? prettier.format(code, { singleQuote: true, parser: 'typescript' })
