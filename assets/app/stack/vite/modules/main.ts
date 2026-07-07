@@ -3,12 +3,12 @@ import './customization/background.css';
 import './style.css'
 import './rete.css'
 
-import viteLogo from '/vite.svg'
+import viteLogo from './assets/vite.svg'
 import React from 'react'
 
 import reteLogo from './assets/rete.svg'
 import { createEditor } from './rete'
-import typescriptLogo from './typescript.svg'
+import typescriptLogo from './assets/typescript.svg'
 
 window.React = React
 

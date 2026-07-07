@@ -9,12 +9,12 @@ import { assetsCommon, assetsStack } from '../../consts'
 
 export class ViteBuilder implements AppBuilder {
   public name = 'Vite'
-  public versions = [16, 17, 18]
+  public versions = [16, 17, 18, 19]
   public foundation = 'react' as const
 
   public async create(name: string) {
     await execa('npm', [
-      'create', 'vite@7', name, '--', '--template', 'vanilla-ts', '-y'
+      'create', 'vite@9', name, '--', '--template', 'vanilla-ts', '-y'
     ], { stdio: 'inherit' })
     await execa('npm', ['i'], { cwd: join(process.cwd(), name), stdio: 'inherit' })
 
