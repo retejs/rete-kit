@@ -26,11 +26,11 @@ jobs:
       fail-fast: false
       max-parallel: 3
       matrix:
-        version: [19]
+        version: [18, 19]
     uses: ./.github/workflows/test-build.yml
     with:
       os: ${{ inputs.os }}
       stack: next
       version: ${{ matrix.version }}
-      node: 20
+      node: ${{ matrix.version == 19 && 20 || 18 }}
       features: "React render,${{ vars.FEATURES }}"

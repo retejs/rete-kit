@@ -8,17 +8,32 @@ import { assetsCommon, assetsStack } from '../../consts'
 
 export class NextBuilder implements AppBuilder {
   public name = 'Next.js'
-  public versions = [19]
+  public versions = [18, 19]
   public foundation = 'react' as const
 
   public async create(name: string, version: number) {
-    if (version !== 19) throw new Error('Unsupported version')
+    if (version === 18) {
+      await execa('npx', [
+        'create-next-app@14', name,
+        '--ts', '--src-dir', '--no-eslint', '--no-tailwind', '--app', '--import-alias', '@/*'
+      ], { stdio: 'inherit' })
 
-    await execa('npx', [
-      'create-next-app@16', name,
-      '--ts', '--src-dir', '--no-linter', '--no-agents-md', '--use-npm', '--yes',
-      '--app', '--import-alias', '@/*', '--no-tailwind'
-    ], { stdio: 'inherit' })
+      const eslintConfigName = '.eslintrc.json'
+
+      await fse.copy(join(assetsStack, 'next', eslintConfigName), join(name, eslintConfigName), { overwrite: true })
+      return
+    }
+
+    if (version === 19) {
+      await execa('npx', [
+        'create-next-app@16', name,
+        '--ts', '--src-dir', '--no-linter', '--no-agents-md', '--use-npm', '--yes',
+        '--app', '--import-alias', '@/*', '--no-tailwind'
+      ], { stdio: 'inherit' })
+      return
+    }
+
+    throw new Error('Unsupported version')
   }
 
   async putAssets(name: string) {
