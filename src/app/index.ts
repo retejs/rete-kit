@@ -127,13 +127,13 @@ export async function createApp({ name, stack, version, features, depsAlias, for
     try {
       const code = await templateBuilder.build(template)
 
-      await builder.putScript(appName, `${templateName}.ts`, code)
+      await builder.putScript(appName, `${templateName}.ts`, code, selectedVersion)
     } catch (e) {
       console.error(e)
       throwError(`failed to build template "${templateName}"`)
     }
   }
-  await builder.putScript(appName, `index.ts`, await templateBuilder.getEntryScript())
+  await builder.putScript(appName, `index.ts`, await templateBuilder.getEntryScript(), selectedVersion)
 
   await install(appName, Features.getDependencies(activeFeatures), depsAlias, forceInstall)
 }

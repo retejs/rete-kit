@@ -12,10 +12,11 @@ export class NuxtBuilder implements AppBuilder {
   public name = 'Nuxt'
   public versions = [3, 4]
   public foundation = 'vue' as const
-  private appVersion = 3
 
   public async create(name: string, version: number) {
-    const template = version === 4 ? 'v4' : 'v3'
+    const template = version === 4
+      ? 'v4'
+      : 'v3'
 
     await execa('npx', [
       'nuxi@3', 'init', name, '--template', template,
@@ -24,13 +25,15 @@ export class NuxtBuilder implements AppBuilder {
   }
 
   private getAppRoot(name: string, version: number) {
-    return version === 4 ? join(name, 'app') : name
+    return version === 4
+      ? join(name, 'app')
+      : name
   }
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   async putAssets<K extends string>(name: string, version: number, template: TemplateBuilder<K>): Promise<void> {
-    this.appVersion = version
-    const modules = join(assetsStack, 'nuxt', version === 4 ? 'modules-v4' : 'modules')
+    const modules = join(assetsStack, 'nuxt', version === 4
+      ? 'modules-v4'
+      : 'modules')
     const customization = join(assetsStack, 'vue', 'modules', 'vite', 'customization')
     const src = this.getAppRoot(name, version)
 
@@ -49,8 +52,10 @@ export class NuxtBuilder implements AppBuilder {
     await templateAssets(src, template)
   }
 
-  async putScript(name: string, path: string, code: string) {
-    const reteRoot = this.appVersion === 4 ? join(name, 'app', 'rete') : join(name, 'rete')
+  async putScript(name: string, path: string, code: string, version: number) {
+    const reteRoot = version === 4
+      ? join(name, 'app', 'rete')
+      : join(name, 'rete')
     const scriptPath = join(reteRoot, path)
 
     await fs.promises.mkdir(dirname(scriptPath), { recursive: true })
