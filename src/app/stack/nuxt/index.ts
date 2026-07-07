@@ -53,9 +53,7 @@ export class NuxtBuilder implements AppBuilder {
   }
 
   async putScript(name: string, path: string, code: string, version: number) {
-    const reteRoot = version === 4
-      ? join(name, 'app', 'rete')
-      : join(name, 'rete')
+    const reteRoot = join(this.getAppRoot(name, version), 'rete')
     const scriptPath = join(reteRoot, path)
 
     await fs.promises.mkdir(dirname(scriptPath), { recursive: true })
