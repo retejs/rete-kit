@@ -1,3 +1,20 @@
+# [1.18.0](https://github.com/retejs/rete-kit/compare/v1.17.1...v1.18.0) (2026-07-07)
+
+
+### Bug Fixes
+
+* **app:** resolve vue feature version for vue-vite stacks ([237e2b5](https://github.com/retejs/rete-kit/commit/237e2b5e42b5ee416642f1520e3521e56f706d41))
+* **ci:** inherit secrets for github kit-source checkout ([b6f3ed3](https://github.com/retejs/rete-kit/commit/b6f3ed35e0f4fdc4d791bfd75409876b494016b4))
+* **next:** support react 18 and 19 scaffolds ([007f44a](https://github.com/retejs/rete-kit/commit/007f44a5e70dd2d558fd8adea42c17699e5c67be))
+* **next:** upgrade to create-next-app v16 ([1f5c627](https://github.com/retejs/rete-kit/commit/1f5c627c073a0095c5c5c2a21dce83cf9014f3c7))
+* **vite:** upgrade create-vite scaffold to v9 ([c1e67dd](https://github.com/retejs/rete-kit/commit/c1e67ddc08725ba1c5ef06ff790d7f518183223e))
+* **vue:** pin @vue/cli to v5 for legacy scaffold ([1910fe0](https://github.com/retejs/rete-kit/commit/1910fe0ae37a1ee6e75699932e97728e9cefea71))
+
+
+### Features
+
+* **nuxt:** add version 4 scaffold support ([95dfc22](https://github.com/retejs/rete-kit/commit/95dfc224a7cf251eb1fbc630a97616992df8661d))
+
 ## [1.17.1](https://github.com/retejs/rete-kit/compare/v1.17.0...v1.17.1) (2026-07-07)
 
 
