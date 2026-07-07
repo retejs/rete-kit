@@ -19,7 +19,12 @@ export class VueBuilder implements AppBuilder {
       ? 'vue2'
       : 'vue3')
 
-    await execa('npx', ['--package', `@vue/cli@`, 'vue', 'create', name, '--preset', presetFolder], { stdio: 'inherit' })
+    await execa('npx', [
+      '--package', `@vue/cli@`, 'vue', 'create', name,
+      '--preset', presetFolder,
+      '-m', 'npm',
+      '-r', 'https://registry.npmjs.org'
+    ], { stdio: 'inherit' })
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention

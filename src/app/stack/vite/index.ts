@@ -14,7 +14,7 @@ export class ViteBuilder implements AppBuilder {
 
   public async create(name: string) {
     await execa('npm', [
-      'create', `vite@latest`, name, '--', '--template', 'vanilla-ts', '-y'
+      'create', 'vite@7', name, '--', '--template', 'vanilla-ts', '-y'
     ], { stdio: 'inherit' })
     await execa('npm', ['i'], { cwd: join(process.cwd(), name), stdio: 'inherit' })
 
