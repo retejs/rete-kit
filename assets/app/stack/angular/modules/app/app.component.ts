@@ -15,6 +15,7 @@ import { createEditor } from './rete'
     /* [angular19] './app.component.html', [/angular19] */
     /* [angular20] './app.html', [/angular20] */
     /* [angular21] './app.html', [/angular21] */
+    /* [angular22] './app.html', [/angular22] */
   styleUrls: [
     /* [angular12] './app.component.css', [/angular12] */
     /* [angular13] './app.component.css', [/angular13] */
@@ -26,10 +27,11 @@ import { createEditor } from './rete'
     /* [angular19] './app.component.css', [/angular19] */
     /* [angular20] './app.css', [/angular20] */
     /* [angular21] './app.css', [/angular21] */
+    /* [angular22] './app.css', [/angular22] */
     './common.css'
   ]
 })
-export class /* [angular12] AppComponent [/angular12] *//* [angular13] AppComponent [/angular13] *//* [angular14] AppComponent [/angular14] *//* [angular15] AppComponent [/angular15] *//* [angular16] AppComponent [/angular16] *//* [angular17] AppComponent [/angular17] *//* [angular18] AppComponent [/angular18] *//* [angular19] AppComponent [/angular19] *//* [angular20] App [/angular20] *//* [angular21] App [/angular21] */ implements AfterViewInit {
+export class /* [angular12] AppComponent [/angular12] *//* [angular13] AppComponent [/angular13] *//* [angular14] AppComponent [/angular14] *//* [angular15] AppComponent [/angular15] *//* [angular16] AppComponent [/angular16] *//* [angular17] AppComponent [/angular17] *//* [angular18] AppComponent [/angular18] *//* [angular19] AppComponent [/angular19] *//* [angular20] App [/angular20] *//* [angular21] App [/angular21] *//* [angular22] App [/angular22] */ implements AfterViewInit {
   title = 'angular'
   @ViewChild('rete') container!: ElementRef<HTMLElement>
 

@@ -18,11 +18,16 @@ import { RefDirective, ImpureKeyvaluePipe } from 'rete-angular-plugin/20';
 import { CommonModule } from '@angular/common';
 import { RefDirective, ImpureKeyvaluePipe } from 'rete-angular-plugin/21';
 [/angular21] */
+/* [angular22]
+import { CommonModule } from '@angular/common';
+import { RefDirective, ImpureKeyvaluePipe } from 'rete-angular-plugin/22';
+[/angular22] */
 
 @Component({
   /* [angular19] imports: [CommonModule, RefDirective, ImpureKeyvaluePipe], [/angular19] */
   /* [angular20] imports: [CommonModule, RefDirective, ImpureKeyvaluePipe], [/angular20] */
   /* [angular21] imports: [CommonModule, RefDirective, ImpureKeyvaluePipe], [/angular21] */
+  /* [angular22] imports: [CommonModule, RefDirective, ImpureKeyvaluePipe], [/angular22] */
   templateUrl: "./custom-node.component.html",
   styleUrls: ["./custom-node.component.sass"],
   host: {
