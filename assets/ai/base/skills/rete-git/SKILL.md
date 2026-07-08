@@ -80,9 +80,9 @@ Commits **must** follow [Conventional Commits](https://www.conventionalcommits.o
 
 | Type | When |
 |------|------|
-| `feat` | New user-facing feature |
-| `fix` | Bug fix |
-| `docs` | Documentation only |
+| `feat` | Any user-facing change: new features, behavior changes, or interface/API changes |
+| `fix` | Internal-only corrections that do not change public interfaces/API or user-facing behavior |
+| `docs` | Documentation-only changes in non-docs repositories; in documentation website repositories, use `feat(docs)` |
 | `test` | Adding or fixing tests |
 | `refactor` | Code change that neither fixes a bug nor adds a feature |
 | `perf` | Performance improvement |
