@@ -40,12 +40,53 @@ For app-level checks, use the generated project or `npx rete-qa test` as appropr
 
 From any directory (no `rete-qa` repo clone required):
 
+Standard flow (no `--deps-alias needed`)
+Use this when you can run E2E against already published npm packages (no local/unpublished tarballs to substitute).
 ```bash
+npx rete-qa init
 npx rete-qa test
-# optional: --deps-alias dependencies.json
 ```
 
-Test against the stack relevant to the change (e.g. angular stack for `angular-plugin` fixes) — not full matrix unless explicitly requested.
+Test against the stack relevant to the change (e.g. Vue stack for `area-plugin` fixes) — not full matrix unless explicitly requested.
+
+Workflow with `--deps-alias` (local plugin tarballs):
+Use this when `rete-qa` must test against unpublished/local plugin code.
+
+1. **Build plugins**
+   In each plugin repo:
+   ```bash
+   rete build -c rete.config.ts
+   # or: npm run build
+   ```
+
+2. **Pack from `dist/` (important)**
+   Run `npm pack` from the folder that contains published entrypoints (`package.json`, `*.esm.js`, `*.common.js`, `_types/`, etc.). In most repos this is `dist/`:
+   ```bash
+   cd repositories/<plugin-name>/dist
+   npm pack
+   # produces <plugin-name>-<version>.tgz
+   ```
+
+3. **Create `dependencies.json`**
+   Create a JSON file next to where you run `rete-qa`:
+   ```json
+   {
+     "rete-area-plugin": "./repositories/area-plugin/dist/rete-area-plugin-2.3.0.tgz",
+     "rete-area-3d-plugin": "./repositories/area-3d-plugin/dist/rete-area-3d-plugin-2.0.4.tgz"
+   }
+   ```
+
+4. **Initialize (or re-initialize) generated projects**
+   ```bash
+   npx rete-qa init -s vue -sv 3 --deps-alias dependencies.json
+   ```
+
+5. **Run tests**
+   ```bash
+   npx rete-qa test -s vue -sv 3 --deps-alias dependencies.json
+   ```
+
+If `rete-qa test` fails with `index.html not found`, it usually means `init` didn’t finish successfully for the requested stack/version—check the `init` logs first.
 
 ## Remote regression (GHA)
 
