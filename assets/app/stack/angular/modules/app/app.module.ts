@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 /* [angular19] import { AppComponent } from './app.component'; [/angular19] */
 /* [angular20] import { App } from './app'; [/angular20] */
 /* [angular21] import { App } from './app'; [/angular21] */
+/* [angular22] import { App } from './app'; [/angular22] */
 /* [angular12]
 import { CustomSocketComponent } from "./customization/custom-socket/custom-socket.component"
 import { CustomNodeComponent } from "./customization/custom-node/custom-node.component"
@@ -61,6 +62,7 @@ import { CustomConnectionComponent } from "./customization/custom-connection/cus
 /* [angular19] import { ReteModule } from 'rete-angular-plugin/19'; [/angular19] */
 /* [angular20] import { ReteModule } from 'rete-angular-plugin/20'; [/angular20] */
 /* [angular21] import { ReteModule } from 'rete-angular-plugin/21'; [/angular21] */
+/* [angular22] import { ReteModule } from 'rete-angular-plugin/22'; [/angular22] */
 
 @NgModule({
   declarations: [
@@ -129,6 +131,7 @@ import { CustomConnectionComponent } from "./customization/custom-connection/cus
     /* [angular19] AppComponent [/angular19] */
     /* [angular20] App [/angular20] */
     /* [angular21] App [/angular21] */
+    /* [angular22] App [/angular22] */
   ]
 })
 export class AppModule { }
