@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/retejs/rete-kit/compare/v1.18.0...v1.19.0) (2026-07-09)
+
+
+### Features
+
+* **angular:** add support for angular 22 ([eb0fbee](https://github.com/retejs/rete-kit/commit/eb0fbee5f19bdf1d64933922e8b56a1b650996b0))
+
 # [1.18.0](https://github.com/retejs/rete-kit/compare/v1.17.1...v1.18.0) (2026-07-07)
 
 
