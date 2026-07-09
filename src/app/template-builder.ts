@@ -13,7 +13,8 @@ export type DefaultTemplateKey = 'zoom-at' | 'react-render' | `react${number}` |
   | `vue${2 | 3}` | 'angular-render' | `angular${AngularVersion}`
   | 'svelte-render' | `svelte${SvelteVersion}` | 'lit-render' | `lit${3}`
   | 'dataflow' | 'arrange' | 'sizes' | 'readonly' | 'order-nodes' | 'selectable'
-  | 'context-menu' | 'import-area-extensions' | 'minimap' | 'reroute' | `stack-${string}`
+  | 'context-menu' | 'import-area-extensions' | 'minimap' | 'reroute' | 'history' | 'comments'
+  | `stack-${string}`
 
 export class TemplateBuilder<Key extends string> {
   blockCommentRegex = /\/\* \[(!?[\w-]+)\][\r\n ]+(.*?)?[\r\n ]?\[\/\1\] \*\//gs

@@ -14,6 +14,14 @@ import { type Area2D, /* [import-area-extensions] AreaExtensions, [/import-area-
 /* [readonly] import { ReadonlyPlugin } from 'rete-readonly-plugin' [/readonly] */
 /* [context-menu] import { ContextMenuPlugin, type ContextMenuExtra, Presets as ContextMenuPresets } from 'rete-context-menu-plugin' [/context-menu] */
 /* [minimap] import { type MinimapExtra, MinimapPlugin } from 'rete-minimap-plugin'; [/minimap] */
+/* [comments] import { CommentPlugin /* [selectable] , CommentExtensions [/selectable] */ } from 'rete-comment-plugin' [/comments] */
+/* [history] import {
+  /* [comments] type CommentHistoryActions, [/comments] */
+  type HistoryActions,
+  HistoryExtensions,
+  HistoryPlugin,
+  Presets as HistoryPresets
+} from 'rete-history-plugin' [/history] */
 /* [reroute] import { ReroutePlugin, type RerouteExtra /* [selectable] , RerouteExtensions [/selectable] */ } from "rete-connection-reroute-plugin";[/reroute] */
 
 type Node =
@@ -109,6 +117,8 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
     ])
 })[/context-menu] */
   /* [minimap] const minimap = new MinimapPlugin<Schemes>(); [/minimap] */
+  /* [comments] const comment = new CommentPlugin<Schemes, AreaExtra>() [/comments] */
+  /* [history] const history = new HistoryPlugin<Schemes, /* [comments] HistoryActions<Schemes> | CommentHistoryActions [/comments] *//* [!comments] HistoryActions<Schemes> [/!comments] */>() [/history] */
   /* [reroute] const reroutePlugin = new ReroutePlugin<Schemes>(); [/reroute] */
 
   /* [readonly] editor.use(readonly.root) [/readonly] */
@@ -122,6 +132,8 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
   /* [!readonly] area.use(connection) [/!readonly] */
   /* [context-menu] area.use(contextMenu) [/context-menu] */
   /* [minimap] area.use(minimap) [/minimap] */
+  /* [comments] area.use(comment) [/comments] */
+  /* [history] area.use(history) [/history] */
   /* [reroute]
   /* [react-render] reactRender.use(reroutePlugin) [/react-render] */
   /* [vue-render] vueRender.use(reroutePlugin) [/vue-render] */
@@ -222,6 +234,11 @@ export async function createEditor(container: HTMLElement/* [stack-angular] , in
     } [/selectable] */
   }));[/reroute] */
   [/lit-render] */
+  /* [history]
+  history.addPreset(HistoryPresets.classic.setup())
+  /* [comments] history.addPreset(HistoryPresets.comments.setup({ comment })) [/comments] */
+  HistoryExtensions.keyboard(history)
+  [/history] */
   /* [dataflow] const dataflow = new DataflowEngine<Schemes>()
 
   editor.use(dataflow)
@@ -242,6 +259,12 @@ await editor.addConnection(new Connection(b, 'value', add, 'b'))
 await area.nodeViews.get(a.id)?.translate(100, 100)
 await area.nodeViews.get(b.id)?.translate(100, 300)
 await area.nodeViews.get(add.id)?.translate(400, 150)
+/* [comments]
+const addPos = area.nodeViews.get(add.id)!.position
+
+comment.addFrame('Frame comment — drag nodes in/out', [a.id, b.id])
+comment.addInline(/* [history] 'Inline comment — try Ctrl+Z after edit/delete' [/history] *//* [!history] 'Inline comment' [/!history] */, [addPos.x + 30, addPos.y - 30], add.id)
+[/comments] */
 [/!arrange] */
 
 /* [arrange]
@@ -252,6 +275,12 @@ arrange.addPreset(ArrangePresets.classic.setup());
 area.use(arrange)
 
 await arrange.layout()
+/* [comments]
+const addPos = area.nodeViews.get(add.id)!.position
+
+comment.addFrame('Frame comment — drag nodes in/out', [a.id, b.id])
+comment.addInline(/* [history] 'Inline comment — try Ctrl+Z after edit/delete' [/history] *//* [!history] 'Inline comment' [/!history] */, [addPos.x - 60, addPos.y - 62], add.id)
+[/comments] */
 [/arrange] */
 
 /* [zoom-at] AreaExtensions.zoomAt(area, editor.getNodes()) [/zoom-at] */
@@ -263,6 +292,7 @@ const selector = AreaExtensions.selector();
 const accumulating = AreaExtensions.accumulateOnCtrl();
 
 AreaExtensions.selectableNodes(area, selector, { accumulating });
+/* [comments] CommentExtensions.selectable(comment, selector, accumulating) [/comments] */
 /* [reroute]
 RerouteExtensions.selectablePins(reroutePlugin, selector, accumulating);
 [/reroute] */

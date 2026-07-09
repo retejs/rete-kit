@@ -194,6 +194,26 @@ export class Selectable implements Feature {
   templateKeys: DefaultTemplateKey[] = ['import-area-extensions', 'selectable']
 }
 
+export class History implements Feature {
+  name = 'History'
+  templateKeys: DefaultTemplateKey[] = ['history']
+  requiredDependencies: string[] = []
+
+  constructor(next: boolean) {
+    this.requiredDependencies.push(ver('rete-history-plugin', next))
+  }
+}
+
+export class Comments implements Feature {
+  name = 'Comments'
+  templateKeys: DefaultTemplateKey[] = ['comments', 'sizes']
+  requiredDependencies: string[] = []
+
+  constructor(next: boolean) {
+    this.requiredDependencies.push(ver('rete-comment-plugin', next))
+  }
+}
+
 export class Area3D implements Feature {
   name = '3D'
   mandatory = true
