@@ -263,7 +263,7 @@ await area.nodeViews.get(add.id)?.translate(400, 150)
 const addPos = area.nodeViews.get(add.id)!.position
 
 comment.addFrame('Frame comment — drag nodes in/out', [a.id, b.id])
-comment.addInline(/* [history] 'Inline comment — try Ctrl+Z after edit/delete' [/history] *//* [!history] 'Inline comment' [/!history] */, [addPos.x + 30, addPos.y - 30], add.id)
+comment.addInline(/* [history] 'Inline comment — try Ctrl+Z after edit/delete' [/history] *//* [!history] 'Inline comment' [/!history] */, [addPos.x + 40, addPos.y - 30], add.id)
 [/comments] */
 [/!arrange] */
 
@@ -279,7 +279,7 @@ await arrange.layout()
 const addPos = area.nodeViews.get(add.id)!.position
 
 comment.addFrame('Frame comment — drag nodes in/out', [a.id, b.id])
-comment.addInline(/* [history] 'Inline comment — try Ctrl+Z after edit/delete' [/history] *//* [!history] 'Inline comment' [/!history] */, [addPos.x - 60, addPos.y - 62], add.id)
+comment.addInline(/* [history] 'Inline comment — try Ctrl+Z after edit/delete' [/history] *//* [!history] 'Inline comment' [/!history] */, [addPos.x + 40, addPos.y - 30], add.id)
 [/comments] */
 [/arrange] */
 
