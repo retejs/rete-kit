@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/retejs/rete-kit/compare/v1.19.0...v1.20.0) (2026-07-10)
+
+
+### Features
+
+* **app:** support extra templates via features object ([b9c0378](https://github.com/retejs/rete-kit/commit/b9c037802a55c78e5ed433ab3df7976047e91d1d))
+
 # [1.19.0](https://github.com/retejs/rete-kit/compare/v1.18.0...v1.19.0) (2026-07-09)
 
 
