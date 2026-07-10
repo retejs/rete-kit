@@ -90,6 +90,8 @@ export async function createApp({ name, stack, version, features, depsAlias, for
     new Features.ContextMenu(next),
     new Features.Minimap(next),
     new Features.Reroute(next),
+    new Features.Comments(next),
+    new Features.History(next),
     new Features.Scopes(next)
   ]
   const mandatoryFeatures = featuresList.filter(feature => feature.mandatory)
