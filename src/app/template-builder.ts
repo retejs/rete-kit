@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import Case from 'case'
 import fs from 'fs'
 import { join } from 'path'
 import prettier from 'prettier'
@@ -16,6 +17,10 @@ export type DefaultTemplateKey = 'zoom-at' | 'react-render' | `react${number}` |
   | 'context-menu' | 'import-area-extensions' | 'minimap' | 'reroute' | 'history' | 'comments'
   | `stack-${string}`
 
+function toCreateEditorName(id: string) {
+  return `create${Case.pascal(id)}Editor`
+}
+
 export class TemplateBuilder<Key extends string> {
   blockCommentRegex = /\/\* \[(!?[\w-]+)\][\r\n ]+(.*?)?[\r\n ]?\[\/\1\] \*\//gs
 
@@ -29,7 +34,7 @@ export class TemplateBuilder<Key extends string> {
     return this.normalizeLineEndings(await fs.promises.readFile(join(templatesPath, name), { encoding: 'utf-8' }))
   }
 
-  async getTemplates() {
+  static getTemplates() {
     return fs.promises.readdir(templatesPath)
   }
 
@@ -50,7 +55,17 @@ export class TemplateBuilder<Key extends string> {
       : code
   }
 
-  async getEntryScript() {
-    return fs.promises.readFile(entryScriptPath, { encoding: 'utf-8' })
+  async getEntryScript(templateIds: string[] = []) {
+    const template = this.normalizeLineEndings(await fs.promises.readFile(entryScriptPath, { encoding: 'utf-8' }))
+    const imports = templateIds
+      .map(id => `import { createEditor as ${toCreateEditorName(id)} } from './${id}'`)
+      .join('\n')
+    const factoryEntries = templateIds
+      .map(id => `  ,'${id}': ${toCreateEditorName(id)}`)
+      .join('\n')
+
+    return template
+      .replace('/* {{virtual-imports}} */', imports)
+      .replace('/* {{virtual-factory}} */', factoryEntries)
   }
 }
