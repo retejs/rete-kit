@@ -1,3 +1,16 @@
+# [1.21.0](https://github.com/retejs/rete-kit/compare/v1.20.0...v1.21.0) (2026-07-10)
+
+
+### Bug Fixes
+
+* **app:** adjust inline comment demo position ([e747ce4](https://github.com/retejs/rete-kit/commit/e747ce4d62186ab4168d303d851822dbda98b42a))
+* avoid shadowed template bindings in unit tests ([88bc7cf](https://github.com/retejs/rete-kit/commit/88bc7cf7a893f865d8e84e5fc1dad994a25a91dd))
+
+
+### Features
+
+* **app:** add History and Comments features with template integration ([6bdcacb](https://github.com/retejs/rete-kit/commit/6bdcacb726e8360e9e2d0ca5ebd3dd15a2e6dcc8))
+
 # [1.20.0](https://github.com/retejs/rete-kit/compare/v1.19.0...v1.20.0) (2026-07-10)
 
 
