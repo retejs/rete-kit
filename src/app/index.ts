@@ -29,12 +29,13 @@ export const builders = {
 export type AppStack = keyof typeof builders
 export const appStacks = Object.keys(builders) as AppStack[]
 export { Features }
+export type { FeaturesInput } from './features'
 
 type Options = {
   name?: string
   stack?: AppStack
   version?: number
-  features?: string[]
+  features?: Features.FeaturesInput
   depsAlias?: string
   depsLabel?: string
   next?: boolean
@@ -93,47 +94,48 @@ export async function createApp({ name, stack, version, features, depsAlias, for
   ]
   const mandatoryFeatures = featuresList.filter(feature => feature.mandatory)
   const optionalFeatures = featuresList.filter(feature => !feature.mandatory)
-  const selectedFeatures = features?.length
-    ? features.map(featureName => {
-      const feature = optionalFeatures.find(f => f.name.toLocaleLowerCase() === featureName.toLocaleLowerCase())
-
-      if (!feature) throw throwError(`feature ${featureName} not found`)
-
-      return feature
-    })
-    : await select('Select features', optionalFeatures.map(feature => ({
-      name: feature.name,
-      value: feature
-    })), true)
-
-  const { issue } = Features.validateFeatures(selectedFeatures, { stack: selectedStack })
-
-  if (issue) throwError(issue)
+  const sources = await TemplateBuilder.getTemplates()
+  const jobs = Features.resolveJobs(
+    sources,
+    optionalFeatures,
+    selectedStack,
+    features
+      ? { features }
+      : {
+        selected: await select('Select features', optionalFeatures.map(feature => ({
+          name: feature.name,
+          value: feature
+        })), true)
+      }
+  )
 
   const { exists } = await Patch.ensure(appName, selectedStack, selectedVersion)
 
   if (!exists) await builder.create(appName, selectedVersion)
   await Patch.commit(appName, selectedStack, selectedVersion)
 
-  const activeFeatures = [...mandatoryFeatures, ...selectedFeatures]
-  const activeFeaturesKeys = activeFeatures.map(({ templateKeys }) => templateKeys || []).flat()
-  const templateBuilder = new TemplateBuilder<DefaultTemplateKey>(activeFeaturesKeys)
+  const activeFeatures = [...mandatoryFeatures, ...jobs.flatMap(job => job.features)]
+  const templateBuilder = new TemplateBuilder<DefaultTemplateKey>(Features.featureKeys(activeFeatures))
+  const extras = jobs.filter(job => job.name !== job.from).map(job => job.name)
 
   await builder.putAssets(appName, selectedVersion, templateBuilder)
 
-  for (const templateName of await templateBuilder.getTemplates()) {
-    const template = await templateBuilder.load(templateName)
+  for (const job of jobs) {
+    const currentBuilder = new TemplateBuilder<DefaultTemplateKey>(Features.featureKeys([
+      ...mandatoryFeatures,
+      ...job.features
+    ]))
 
     try {
-      const code = await templateBuilder.build(template)
+      const code = await currentBuilder.build(await currentBuilder.load(job.from))
 
-      await builder.putScript(appName, `${templateName}.ts`, code, selectedVersion)
+      await builder.putScript(appName, `${job.name}.ts`, code, selectedVersion)
     } catch (e) {
       console.error(e)
-      throwError(`failed to build template "${templateName}"`)
+      throwError(`failed to build template "${job.name}"`)
     }
   }
-  await builder.putScript(appName, `index.ts`, await templateBuilder.getEntryScript(), selectedVersion)
+  await builder.putScript(appName, `index.ts`, await templateBuilder.getEntryScript(extras), selectedVersion)
 
   await install(appName, Features.getDependencies(activeFeatures), depsAlias, forceInstall)
 }

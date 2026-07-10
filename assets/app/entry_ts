@@ -4,6 +4,7 @@ import { createEditor as createPerfEditor } from './perf'
 import { createEditor as createCustomEditor } from './customization'
 import { createEditor as create3DEditor } from './3d'
 import { createEditor as createScopesEditor } from './scopes'
+/* {{virtual-imports}} */
 import { isHeadless } from '../headless'
 
 const factory = {
@@ -12,6 +13,7 @@ const factory = {
   'customization': createCustomEditor,
   '3d': create3DEditor,
   'scopes': createScopesEditor
+  /* {{virtual-factory}} */
 }
 
 const query = typeof location !== 'undefined' && new URLSearchParams(location.search)

@@ -1,3 +1,4 @@
+import { throwError } from '../shared/throw'
 import { AppStack } from '.'
 import { AngularVersion } from './stack/angular'
 import { SvelteVersion } from './stack/svelte'
@@ -245,6 +246,114 @@ export function validateFeatures(features: Feature[], options: { stack: AppStack
   }
 }
 
+export function findFeature(name: string, pool: Feature[]) {
+  return pool.find(f => f.name.toLocaleLowerCase() === name.toLocaleLowerCase())
+}
+
+export function resolveFeatures(names: string[], pool: Feature[]) {
+  return names.map(name => {
+    const feature = findFeature(name, pool)
+
+    if (!feature) throwError(`feature ${name} not found`)
+
+    return feature
+  })
+}
+
+export function featureKeys(features: Feature[]) {
+  return features.map(({ templateKeys }) => templateKeys ?? []).flat()
+}
+
 export function getDependencies(features: Feature[]) {
-  return features.map(feature => feature.requiredDependencies || []).flat()
+  const unique = features.filter((feature, index, list) => {
+    return list.findIndex(item => item.name === feature.name) === index
+  })
+
+  return unique.map(feature => feature.requiredDependencies ?? []).flat()
+}
+
+/** `string[]` — shared features. Object — one base `string[]` + optional extras `{ from, features }`. */
+export type FeaturesInput = string[] | Record<string, string[] | { from: string, features: string[] }>
+
+export type TemplateJob = {
+  name: string
+  from: string
+  features: Feature[]
+}
+
+function parseFeaturesObject(
+  features: Exclude<FeaturesInput, string[]>,
+  sources: string[]
+) {
+  let base: string[] | null = null
+  const extras: { name: string, from: string, features: string[] }[] = []
+
+  for (const [name, value] of Object.entries(features)) {
+    if (Array.isArray(value)) {
+      if (base) throwError('features object can contain only one base features array')
+      base = value
+    } else {
+      if (sources.includes(name)) throwError(`template "${name}" already exists`)
+      if (!sources.includes(value.from)) throwError(`template "${name}" from unknown "${value.from}"`)
+      extras.push({ name, from: value.from, features: value.features })
+    }
+  }
+
+  if (!base) throwError('features object must contain a base features array')
+
+  return { base, extras }
+}
+
+function resolveValidated(
+  names: string[],
+  optionalFeatures: Feature[],
+  stack: AppStack,
+  label?: string
+) {
+  const resolved = resolveFeatures(names, optionalFeatures)
+  const { issue } = validateFeatures(resolved, { stack })
+
+  if (issue) {
+    throwError(label
+      ? `template "${label}": ${issue}`
+      : issue)
+  }
+
+  return resolved
+}
+
+/** Build template jobs with resolved features. */
+export function resolveJobs(
+  sources: string[],
+  optionalFeatures: Feature[],
+  stack: AppStack,
+  input: { features: FeaturesInput } | { selected: Feature[] }
+): TemplateJob[] {
+  if ('selected' in input) {
+    const { issue } = validateFeatures(input.selected, { stack })
+
+    if (issue) throwError(issue)
+
+    return sources.map(name => ({ name, from: name, features: input.selected }))
+  }
+
+  const { features } = input
+
+  if (Array.isArray(features)) {
+    const resolved = resolveValidated(features, optionalFeatures, stack)
+
+    return sources.map(name => ({ name, from: name, features: resolved }))
+  }
+
+  const { base, extras } = parseFeaturesObject(features, sources)
+  const shared = resolveValidated(base, optionalFeatures, stack)
+
+  return [
+    ...sources.map(name => ({ name, from: name, features: shared })),
+    ...extras.map(extra => ({
+      name: extra.name,
+      from: extra.from,
+      features: resolveValidated(extra.features, optionalFeatures, stack, extra.name)
+    }))
+  ]
 }
