@@ -3,16 +3,16 @@ import { describe, expect, it } from '@jest/globals'
 import { TemplateBuilder } from '../src/app/template-builder'
 
 describe('Template builder', () => {
-  const template = new TemplateBuilder(['add', 'line'])
+  const basicBuilder = new TemplateBuilder(['add', 'line'])
 
   it('single line', async () => {
-    const code = await template.build(`import { /* [add] A, [/add] */ B, /* [skip] C [/skip] */} from 'pkg';`)
+    const code = await basicBuilder.build(`import { /* [add] A, [/add] */ B, /* [skip] C [/skip] */} from 'pkg';`)
 
     expect(code).toEqual(`import { A, B } from 'pkg';\n`)
   })
 
   it('multiline', async () => {
-    const code = await template.build(`
+    const code = await basicBuilder.build(`
       import { A } from 'pkg';
 
       /* [skip] const a = new A() [/skip] */
@@ -32,8 +32,8 @@ const b = new A();\n`)
       'import-area-extensions',
       'selectable'
     ])
-    const template = await builder.load('default')
-    const code = await builder.build(template, false)
+    const source = await builder.load('default')
+    const code = await builder.build(source, false)
 
     expect(code).toContain('HistoryPresets.comments.setup({ comment })')
     expect(code).toContain('CommentExtensions.selectable(comment, selector, accumulating)')
@@ -43,8 +43,8 @@ const b = new A();\n`)
 
   it('uses classic history actions without comments', async () => {
     const builder = new TemplateBuilder(['history'])
-    const template = await builder.load('default')
-    const code = await builder.build(template, false)
+    const source = await builder.load('default')
+    const code = await builder.build(source, false)
 
     expect(code).toContain('HistoryActions<Schemes>')
     expect(code).not.toContain('CommentHistoryActions')
@@ -55,8 +55,8 @@ const b = new A();\n`)
 
   it('builds comments without history', async () => {
     const builder = new TemplateBuilder(['comments', 'sizes', 'import-area-extensions', 'selectable'])
-    const template = await builder.load('default')
-    const code = await builder.build(template, false)
+    const source = await builder.load('default')
+    const code = await builder.build(source, false)
 
     expect(code).toContain('CommentPlugin')
     expect(code).toContain('comment.addFrame')
@@ -70,8 +70,8 @@ const b = new A();\n`)
 
   it('keeps comment selectable without history preset integration', async () => {
     const builder = new TemplateBuilder(['comments', 'selectable', 'import-area-extensions', 'sizes'])
-    const template = await builder.load('default')
-    const code = await builder.build(template, false)
+    const source = await builder.load('default')
+    const code = await builder.build(source, false)
 
     expect(code).toContain('CommentExtensions.selectable(comment, selector, accumulating)')
     expect(code).not.toContain('HistoryPresets.comments.setup')
